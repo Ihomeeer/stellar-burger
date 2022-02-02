@@ -1,0 +1,5 @@
+.section {
+  width: 600px;
+  min-height: fit-content;
+  border: 3px solid red;
+}

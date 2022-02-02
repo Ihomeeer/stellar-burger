@@ -13,13 +13,13 @@ function AppHeader () {
             <li className={`${appHeaderStyles.listElement}`}>
               <NavLink to="/" className={`${appHeaderStyles.navLink} pt-4 pb-4 pr-5 pl-5`}>
                 <BurgerIcon type="primary" />
-                <p className={`${appHeaderStyles.navTitle}`}>Конструктор</p>
+                <p className="text text_type_main-default">Конструктор</p>
               </NavLink>
             </li>
             <li className={`${appHeaderStyles.listElement}`}>
             <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
               <ListIcon type="secondary" />
-              <p className={`${appHeaderStyles.navTitle}`}>Лента заказов</p>
+              <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
             </NavLink>
             </li>
           </div>
@@ -31,7 +31,7 @@ function AppHeader () {
           <li className={appHeaderStyles.listElement}>
           <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
             <ProfileIcon type="secondary" />
-            <p className={`${appHeaderStyles.navTitle}`}>Личный кабинет</p>
+            <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
           </NavLink>
           </li>
 
@@ -41,4 +41,5 @@ function AppHeader () {
     </header>
   )
 }
+
 export default AppHeader;
