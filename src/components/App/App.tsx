@@ -1,5 +1,6 @@
 import React from 'react';
 import appStyles from './App.module.css';
+import AppHeader from '../AppHeader/AppHeader';
 
 function App() {
 const click = () => {
@@ -8,7 +9,7 @@ const click = () => {
 
   return (
     <div className={appStyles.App}>
-      
+      <AppHeader />
     </div>
   );
 }
