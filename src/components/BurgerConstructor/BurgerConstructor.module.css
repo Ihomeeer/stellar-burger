@@ -1,0 +1,36 @@
+.section {
+  width: 600px;
+  height: 912px;
+  border: 3px solid rgb(78, 78, 168);
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgb(53, 53, 216);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  row-gap: 16px;
+}
+
+.lowerPanel {
+  width: fit-content;
+  margin-left: auto;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
+.lowerPanel svg {
+  width: 33px;
+  height: 33px;
+  margin-right: 40px;
+}
+
+li svg {
+  margin-right: 8px;
+}

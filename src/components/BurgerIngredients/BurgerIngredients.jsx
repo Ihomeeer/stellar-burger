@@ -37,9 +37,11 @@ function BurgerIngredients () {
                 return item.type === "bun"
               }).map(function(item) {
                 return (
-                  <IngredientsItem
+                  <li key={item._id}>
+                    <IngredientsItem
                     item={item}
-                    key={item._id} />
+                    />
+                  </li>
                 )
               })
             }
