@@ -4,9 +4,6 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 
 function App() {
-const click = () => {
-  console.log('click')
-}
 
   return (
     <div className={appStyles.App}>

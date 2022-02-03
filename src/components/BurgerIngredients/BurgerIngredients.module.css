@@ -1,5 +1,64 @@
 .section {
   width: 600px;
+  height: 912px;
+}
+
+.text {
+  margin: 0;
+}
+
+.tabsContainer {
+  width: 100%;
+  padding: 0;
   min-height: fit-content;
-  border: 3px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.tabsContainer div {
+  flex-grow: 1;
+}
+
+
+.header {
+  text-align: left;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  column-gap: 24px;
+  row-gap: 32px;
+}
+
+.itemsContainer {
+  height: 712px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+/* кастомизация скролла */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2F2F37;
+  margin-bottom: 52px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9a9ac7;
 }

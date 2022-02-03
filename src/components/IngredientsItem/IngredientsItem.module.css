@@ -1,0 +1,26 @@
+.cardContainer {
+  width: 272px;
+  height: 209px;
+  position: relative;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.cardImage {
+  width: 240px;
+  height: 120px;
+}
+
+.priceContainer {
+  margin: 0 auto;
+  width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
