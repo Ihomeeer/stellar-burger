@@ -2,7 +2,7 @@ import React from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import ingredients from '../../utils/data'
+import { ingredients } from '../../utils/data'
 
 
 function BurgerIngredients () {
@@ -28,7 +28,7 @@ function BurgerIngredients () {
         </Tab>
       </div>
 
-      <div className={styles.itemsContainer}>
+      <div className={`${styles.itemsContainer} ${styles.scrollIngredients}`}>
         <div>
           <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Булки</h3>
           <ul className={`${styles.list}`}>

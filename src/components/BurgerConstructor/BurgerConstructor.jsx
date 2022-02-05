@@ -1,37 +1,47 @@
 import React from "react";
 import styles from './BurgerConstructor.module.css';
-import { Button, CurrencyIcon, ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredients from '../../utils/data';
+import { Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
+import { ingredients, dummy} from '../../utils/data';
 
 function BurgerConstructor () {
+
+  function totalPrice(array) {
+    let sum = 0;
+    for(let i = 0; i < array.length; i++) {
+        sum += array[i].price;
+        }
+        return sum;
+    }
+
   return(
     <section className={`${styles.section} ml-10 pt-25`}>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <ConstructorElement
-        type="top"
+      <BurgerConstructorItem
+        item={ingredients[0]}
+        isTop={true}
+        isBottom={false}
         isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail={1}
       />
-      <ConstructorElement
-        text="Краторная булка N-200i (верх)"
-        price={50}
-        thumbnail={1}
-      />
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail={1}
-      />
-    </div>
 
+      <ul className={styles.list}>
+        {dummy.map((item, index) => {
+          return (
+            <li key={index} className={styles.listItem}>
+              <BurgerConstructorItem item={item} />
+            </li>
+          )
+        })}
+      </ul>
+
+      <BurgerConstructorItem
+        item={ingredients[0]}
+        isTop={false}
+        isBottom={true}
+        isLocked={true}
+      />
 
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
-        <p className="text text_type_main-large mr-2">444</p>
+        <p className="text text_type_main-large mr-2">{totalPrice(dummy)}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="medium">
           Оформить заказ

@@ -15,7 +15,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
 }
 
 .tabsContainer div {
@@ -46,19 +45,19 @@
 
 /* кастомизация скролла */
 
-::-webkit-scrollbar {
+.scrollIngredients::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
+.scrollIngredients::-webkit-scrollbar-track {
   background: #2F2F37;
   margin-bottom: 52px;
 }
 
-::-webkit-scrollbar-thumb {
+.scrollIngredients::-webkit-scrollbar-thumb {
   background: #8585AD;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.scrollIngredients::-webkit-scrollbar-thumb:hover {
   background: #9a9ac7;
 }

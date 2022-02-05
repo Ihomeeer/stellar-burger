@@ -1,18 +1,20 @@
 .section {
   width: 600px;
   height: 912px;
-  border: 3px solid rgb(78, 78, 168);
 }
 
 .list {
+  width: fit-content;
+  height: 560px;
+  margin: 16px auto;
   list-style-type: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid rgb(53, 53, 216);
+  padding: 0 8px 0 0;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   row-gap: 16px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .lowerPanel {
@@ -31,6 +33,24 @@
   margin-right: 40px;
 }
 
-li svg {
-  margin-right: 8px;
+.listItem {
+  width: fit-content;
+}
+
+/* кастомизация скролла */
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: #9a9ac7;
 }
