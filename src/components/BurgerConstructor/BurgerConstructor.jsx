@@ -1,10 +1,10 @@
 import React from "react";
+import { ingredientsPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
-import { ingredients, dummy} from '../../utils/data';
 
-function BurgerConstructor () {
+function BurgerConstructor ({ ingredients, dummy }) {
 
   function totalPrice(array) {
     let sum = 0;
@@ -49,6 +49,11 @@ function BurgerConstructor () {
       </div>
     </section>
   )
+}
+
+BurgerConstructor.propTypes = {
+  ingredients: ingredientsPropTypes,
+  dummy: ingredientsPropTypes
 }
 
 export default BurgerConstructor;

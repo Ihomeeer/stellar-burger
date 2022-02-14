@@ -1,11 +1,11 @@
 import React from "react";
+import { ingredientsPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import { ingredients } from '../../utils/data'
 
 
-function BurgerIngredients () {
+function BurgerIngredients ({ ingredients }) {
 
   const [current, setCurrent] = React.useState('one')
 
@@ -85,5 +85,9 @@ function BurgerIngredients () {
     </section>
   )
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: ingredientsPropTypes
+};
 
 export default BurgerIngredients;

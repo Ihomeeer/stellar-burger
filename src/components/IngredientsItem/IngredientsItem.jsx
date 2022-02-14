@@ -1,5 +1,6 @@
-import styles from './IngredientsItem.module.css';
 import React from "react";
+import { itemPropTypes } from "../../utils/PropTypes";
+import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function IngredientsItem ({ item }) {
@@ -18,5 +19,8 @@ function IngredientsItem ({ item }) {
   )
 }
 
+IngredientsItem.propTypes = {
+  item: itemPropTypes
+}
 
 export default IngredientsItem;

@@ -1,5 +1,7 @@
 
 import React from "react";
+import PropTypes from 'prop-types';
+import { itemPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -16,6 +18,13 @@ function BurgerConstructorItem ({ item, isTop, isBottom, isLocked}) {
       />
     </div>
   )
+}
+
+BurgerConstructorItem.propTypes = {
+  item: itemPropTypes,
+  isTop: PropTypes.bool,
+  isBottom: PropTypes.bool,
+  isLoading: PropTypes.bool
 }
 
 export default BurgerConstructorItem;
