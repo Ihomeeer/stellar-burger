@@ -4,7 +4,7 @@ import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 
-function BurgerConstructor ({ ingredients, dummy }) {
+function BurgerConstructor ({ ingredients, bun }) {
 
   function totalPrice(array) {
     let sum = 0;
@@ -16,15 +16,15 @@ function BurgerConstructor ({ ingredients, dummy }) {
 
   return(
     <section className={`${styles.section} ml-10 pt-25`}>
-      <BurgerConstructorItem
+
+      {/* <BurgerConstructorItem
         item={ingredients[0]}
-        isTop={true}
-        isBottom={false}
-        isLocked={true}
-      />
+        isTop
+        isLocked
+      /> */}
 
       <ul className={styles.list}>
-        {dummy.map((item, index) => {
+        {ingredients.map((item, index) => {
           return (
             <li key={index} className={styles.listItem}>
               <BurgerConstructorItem item={item} />
@@ -33,15 +33,14 @@ function BurgerConstructor ({ ingredients, dummy }) {
         })}
       </ul>
 
-      <BurgerConstructorItem
-        item={ingredients[0]}
-        isTop={false}
-        isBottom={true}
-        isLocked={true}
-      />
+      {/* <BurgerConstructorItem
+        item={bun}
+        isBottom
+        isLocked
+      /> */}
 
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
-        <p className="text text_type_main-large mr-2">{totalPrice(dummy)}</p>
+        <p className="text text_type_main-large mr-2">{totalPrice(ingredients)}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="medium">
           Оформить заказ
@@ -53,7 +52,6 @@ function BurgerConstructor ({ ingredients, dummy }) {
 
 BurgerConstructor.propTypes = {
   ingredients: ingredientsPropTypes,
-  dummy: ingredientsPropTypes
 }
 
 export default BurgerConstructor;

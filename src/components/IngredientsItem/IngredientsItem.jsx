@@ -4,6 +4,7 @@ import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function IngredientsItem ({ item }) {
+
   return (
     <div className={`${styles.cardContainer} mt-6`}>
       <div className={styles.counter}>
