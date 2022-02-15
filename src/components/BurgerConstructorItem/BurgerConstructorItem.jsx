@@ -21,10 +21,10 @@ function BurgerConstructorItem ({ item, isTop, isBottom, isLocked}) {
 }
 
 BurgerConstructorItem.propTypes = {
-  item: itemPropTypes,
-  isTop: PropTypes.bool,
-  isBottom: PropTypes.bool,
-  isLoading: PropTypes.bool
+  item: itemPropTypes.isRequired,
+  isTop: PropTypes.bool.isRequired,
+  isBottom: PropTypes.bool.isRequired,
+  isLocked: PropTypes.bool.isRequired
 }
 
 export default BurgerConstructorItem;

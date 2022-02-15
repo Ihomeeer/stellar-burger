@@ -20,7 +20,7 @@ function IngredientsItem ({ item }) {
 }
 
 IngredientsItem.propTypes = {
-  item: itemPropTypes
+  item: itemPropTypes.isRequired
 }
 
 export default IngredientsItem;
