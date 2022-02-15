@@ -22,9 +22,9 @@ function BurgerConstructorItem ({ item, isTop, isBottom, isLocked}) {
 
 BurgerConstructorItem.propTypes = {
   item: itemPropTypes.isRequired,
-  isTop: PropTypes.bool.isRequired,
-  isBottom: PropTypes.bool.isRequired,
-  isLocked: PropTypes.bool.isRequired
+  isTop: PropTypes.bool,
+  isBottom: PropTypes.bool,
+  isLocked: PropTypes.bool
 }
 
 export default BurgerConstructorItem;
