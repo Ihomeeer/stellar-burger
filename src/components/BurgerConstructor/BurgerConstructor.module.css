@@ -1,0 +1,56 @@
+.section {
+  width: 600px;
+  height: 912px;
+}
+
+.list {
+  width: fit-content;
+  height: 560px;
+  margin: 16px auto;
+  list-style-type: none;
+  padding: 0 8px 0 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  row-gap: 16px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.lowerPanel {
+  width: fit-content;
+  margin-left: auto;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
+.lowerPanel svg {
+  width: 33px;
+  height: 33px;
+  margin-right: 40px;
+}
+
+.listItem {
+  width: fit-content;
+}
+
+/* кастомизация скролла */
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: #9a9ac7;
+}
