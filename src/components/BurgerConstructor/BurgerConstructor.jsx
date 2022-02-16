@@ -17,11 +17,11 @@ function BurgerConstructor ({ ingredients, bun }) {
   return(
     <section className={`${styles.section} ml-10 pt-25`}>
 
-      {/* <BurgerConstructorItem
-        item={ingredients[0]}
+      {bun && <BurgerConstructorItem
+        item={bun}
         isTop
         isLocked
-      /> */}
+      />}
 
       <ul className={styles.list}>
         {ingredients.map((item, index) => {
@@ -33,11 +33,11 @@ function BurgerConstructor ({ ingredients, bun }) {
         })}
       </ul>
 
-      {/* <BurgerConstructorItem
+      {bun && <BurgerConstructorItem
         item={bun}
         isBottom
         isLocked
-      /> */}
+      />}
 
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
         <p className="text text_type_main-large mr-2">{totalPrice(ingredients)}</p>
