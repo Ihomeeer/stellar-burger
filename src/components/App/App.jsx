@@ -3,6 +3,7 @@ import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import Modal from '../Modal/Modal';
 import api from '../../utils/api';
 
 
@@ -23,17 +24,13 @@ function App() {
       setBasicIngredients(res.data);
       setBuns(filterBuns(res.data))
     })
-    .then(() => {
-      console.log(buns)
-    }
-    )
     .catch((err) => {
       console.log(err);
     })
   }, [])
 
   return (
-    <div className={appStyles.App}>
+    <div id="app" className={appStyles.App}>
       <AppHeader />
       <div className={appStyles.sectionContainer}>
         <BurgerIngredients
@@ -44,7 +41,10 @@ function App() {
           bun={buns[0]}
         />
       </div>
-
+      <div id="modal"></div>
+      <Modal
+        title="тройной казел"
+      />
     </div>
   );
 }
