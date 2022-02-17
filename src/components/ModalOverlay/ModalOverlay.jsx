@@ -4,9 +4,9 @@ import styles from './ModalOverlay.module.css'
 function ModalOverlay({children}) {
 
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       {children}
-    </section>
+    </div>
   )
 }
 

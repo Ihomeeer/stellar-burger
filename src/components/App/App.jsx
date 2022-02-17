@@ -4,6 +4,8 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
+import ModalIngredient from '../ModalIngredient/ModalIngredient';
+import ModalOrder from '../ModalOrder/ModalOrder';
 import api from '../../utils/api';
 
 
@@ -42,9 +44,19 @@ function App() {
         />
       </div>
       <div id="modal"></div>
-      <Modal
-        title="тройной казел"
-      />
+      {/* <Modal
+        title="Детали ингредиента"
+      >
+        <ModalIngredient
+         item={basicIngredients[5]}
+        />
+      </Modal> */}
+
+      <Modal>
+        <ModalOrder
+
+        />
+      </Modal>
     </div>
   );
 }

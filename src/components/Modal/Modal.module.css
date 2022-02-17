@@ -1,16 +1,28 @@
 .modalContainer {
   width: 720px;
-  height: 718px;
+  height: fit-content;
   border-radius: 40px;
-  border: 1px solid red;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: #1C1C21;
 }
 
 .upperPanel {
   width: 640px;
   min-height: 64px;
-  border: 1px solid green;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
