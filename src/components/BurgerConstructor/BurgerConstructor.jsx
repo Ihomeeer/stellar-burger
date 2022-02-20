@@ -1,8 +1,10 @@
-import React from "react";
-import { ingredientsPropTypes } from "../../utils/PropTypes";
+// Конструктор бургеров (правый который)
 import styles from './BurgerConstructor.module.css';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+import { ingredientsPropTypes, itemPropTypes } from "../../utils/PropTypes";
+
 
 function BurgerConstructor ({ ingredients, bun, openModal }) {
 
@@ -52,6 +54,8 @@ function BurgerConstructor ({ ingredients, bun, openModal }) {
 
 BurgerConstructor.propTypes = {
   ingredients: ingredientsPropTypes,
+  bun: itemPropTypes,
+  openModal: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

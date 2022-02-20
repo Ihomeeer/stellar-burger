@@ -1,7 +1,8 @@
-import React from "react";
+// модалка с инфой про ингредиент
 import styles from './ModalIngredient.module.css';
+import { itemPropTypes } from "../../utils/PropTypes";
 
-function ModalIngredient ({item}) {
+function ModalIngredient ({ item }) {
 
   return (
     <div className={styles.container}>
@@ -53,6 +54,10 @@ function ModalIngredient ({item}) {
 
     </div>
   )
+}
+
+ModalIngredient.propTypes = {
+  item: itemPropTypes.isRequired
 }
 
 export default ModalIngredient;

@@ -8,32 +8,36 @@ import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import ModalOrder from '../ModalOrder/ModalOrder';
 import api from '../../utils/api';
 
-
-
 function App() {
 
+  // костыльный фильтр для булок
   const filterBuns = (array) => {
     return array.filter((item) => item.type === 'bun')
   }
 
+  // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient) => {
     setIngredient(currentIngredient);
     setModalIngredientVisible(true);
   }
 
+  // открытие модалки с заказом
   const handleOpenOrderModal = () => {
     setModalOrderVisible(true);
   }
 
+  // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
     setIngredient({});
     setModalIngredientVisible(false);
   }
 
+  // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
     setModalOrderVisible(false);
   }
 
+  // хук для записи ВСЕХ ингредиентов
   const [basicIngredients, setBasicIngredients] = React.useState([]);
   // хук для выбора ингредиента
   const [ingredient, setIngredient] = React.useState({})
@@ -43,11 +47,9 @@ function App() {
   const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
   // костыль для булок
   const [buns, setBuns] = React.useState([])
-
   // ---------
   // !!!место зарезервировано для еще одного useState, но для номера заказа!!!
   // ---------
-
 
   // получение ингредиентов при отрисовке страницы
   React.useEffect(() => {

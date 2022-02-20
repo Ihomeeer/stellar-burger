@@ -1,8 +1,9 @@
-import React from "react";
+// Общий компонент для всех модалок
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById('modal');
 
@@ -27,13 +28,19 @@ function Modal ({children, title, isModalVisible, closeModal}) {
               <CloseIcon type="primary" />
             </button>
           }
-
         </div>
         {children}
       </div>
     </ModalOverlay>,
     modalRoot
   )
+}
+
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  isModalVisible: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired
 }
 
 export default Modal;

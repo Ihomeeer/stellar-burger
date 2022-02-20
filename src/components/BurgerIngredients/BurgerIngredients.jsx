@@ -1,7 +1,9 @@
+// Список ингредиентов для бургеров (секция слева)
 import React from "react";
 import { ingredientsPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from 'prop-types';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 
 
@@ -94,7 +96,8 @@ function BurgerIngredients ({ ingredients, openModal }) {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: ingredientsPropTypes
+  ingredients: ingredientsPropTypes,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;
