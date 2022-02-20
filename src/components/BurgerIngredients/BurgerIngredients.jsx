@@ -5,7 +5,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 
 
-function BurgerIngredients ({ ingredients }) {
+function BurgerIngredients ({ ingredients, openModal }) {
 
   const [current, setCurrent] = React.useState('one')
 
@@ -40,6 +40,7 @@ function BurgerIngredients ({ ingredients }) {
                   <li key={item._id}>
                     <IngredientsItem
                     item={item}
+                    openModal={openModal}
                     />
                   </li>
                 )
@@ -56,9 +57,12 @@ function BurgerIngredients ({ ingredients }) {
                 return item.type === "sauce"
               }).map(function(item) {
                 return (
-                  <IngredientsItem
+                  <li key={item._id}>
+                    <IngredientsItem
                     item={item}
-                    key={item._id} />
+                    openModal={openModal}
+                    />
+                  </li>
                 )
               })
             }
@@ -73,9 +77,12 @@ function BurgerIngredients ({ ingredients }) {
                 return item.type === "main"
               }).map(function(item) {
                 return (
-                  <IngredientsItem
+                  <li key={item._id}>
+                    <IngredientsItem
                     item={item}
-                    key={item._id} />
+                    openModal={openModal}
+                    />
+                  </li>
                 )
               })
             }

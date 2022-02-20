@@ -4,7 +4,7 @@ import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 
-function BurgerConstructor ({ ingredients, bun }) {
+function BurgerConstructor ({ ingredients, bun, openModal }) {
 
   function totalPrice(array) {
     let sum = 0;
@@ -42,7 +42,7 @@ function BurgerConstructor ({ ingredients, bun }) {
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
         <p className="text text_type_main-large mr-2">{totalPrice(ingredients)}</p>
         <CurrencyIcon type="primary" />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={openModal}>
           Оформить заказ
         </Button>
       </div>

@@ -6,21 +6,24 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById('modal');
 
-function Modal ({children, title, item}) {
+function Modal ({children, title, isModalVisible, closeModal}) {
 
   return ReactDOM.createPortal (
-    <ModalOverlay>
+    <ModalOverlay
+      isModalVisible={isModalVisible}
+      closeModal={closeModal}
+    >
       <div className={styles.modalContainer}>
         <div className={`${styles.upperPanel} ml-10 mr-10 mt-10`}>
           {title ?
             <>
-              <button className={styles.closeButton}>
+              <button className={styles.closeButton} onClick={closeModal}>
                 <CloseIcon type="primary" />
               </button>
               <h2 className={`${styles.title} text text_type_main-large`}>{title && title}</h2>
             </>
           :
-            <button className={styles.closeButton}>
+            <button className={styles.closeButton} onClick={closeModal}>
               <CloseIcon type="primary" />
             </button>
           }
