@@ -1,5 +1,6 @@
 import React from 'react';
 import appStyles from './App.module.css';
+import { IngredientsContext } from '../../services/IngredientsContext';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -13,6 +14,11 @@ function App() {
   // костыльный фильтр для булок
   const filterBuns = (array) => {
     return array.filter((item) => item.type === 'bun')
+  }
+
+  // костыльный фильтр для НЕбулок
+  const filterIngredients = (array) => {
+    return array.filter((item) => item.type !== 'bun')
   }
 
   // открытие модалки с ингредиентом
@@ -37,16 +43,17 @@ function App() {
     setModalOrderVisible(false);
   }
 
-  // хук для записи ВСЕХ ингредиентов
+  // хук для записи ингредиентов БЕЗ БУЛОК
   const [basicIngredients, setBasicIngredients] = React.useState([]);
-  // хук для выбора ингредиента
+  // хук для выбора ингредиента для модалки
   const [ingredient, setIngredient] = React.useState({})
   // видимость модалки с информацией об ингредиенте
   const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
   // видимость модалки с информацией о заказе
   const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
   // костыль для булок
-  const [buns, setBuns] = React.useState([])
+  const [buns, setBuns] = React.useState([]);
+
   // ---------
   // !!!место зарезервировано для еще одного useState, но для номера заказа!!!
   // ---------
@@ -55,8 +62,10 @@ function App() {
   React.useEffect(() => {
     api.getAllIngredients()
     .then((res) => {
-      setBasicIngredients(res.data);
-      setBuns(filterBuns(res.data));
+      if (res && res.success) {
+        setBasicIngredients(filterIngredients(res.data));
+        setBuns(filterBuns(res.data));
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -66,17 +75,17 @@ function App() {
   return (
     <div id="app" className={appStyles.App}>
       <AppHeader />
-      <div className={appStyles.sectionContainer}>
-        <BurgerIngredients
-          ingredients={basicIngredients}
-          openModal={handleOpenIngredientModal}
-        />
-        <BurgerConstructor
-          ingredients={basicIngredients}
-          bun={buns[0]}
-          openModal={handleOpenOrderModal}
-        />
-      </div>
+      <IngredientsContext.Provider value={basicIngredients}>
+        <div className={appStyles.sectionContainer}>
+          <BurgerIngredients
+            ingredients={basicIngredients}
+            openModal={handleOpenIngredientModal}
+          />
+          <BurgerConstructor
+            bun={buns[0]}
+            openModal={handleOpenOrderModal}
+          />
+        </div>
 
         <Modal
           title="Детали ингредиента"
@@ -96,6 +105,8 @@ function App() {
             orderNumber={1337}
           />
         </Modal>
+      </IngredientsContext.Provider>
+
 
     </div>
   );
