@@ -11,14 +11,9 @@ import api from '../../utils/api';
 
 function App() {
 
-  // костыльный фильтр для булок
-  const filterBuns = (array) => {
-    return array.filter((item) => item.type === 'bun')
-  }
-
-  // костыльный фильтр для НЕбулок
-  const filterIngredients = (array) => {
-    return array.filter((item) => item.type !== 'bun')
+  // фильтр ингредиентов по типу
+  const filterIngredients = (array, type) => {
+    return array.filter((item) => item.type === type);
   }
 
   // открытие модалки с ингредиентом
@@ -43,7 +38,7 @@ function App() {
     setModalOrderVisible(false);
   }
 
-  // хук для записи ингредиентов БЕЗ БУЛОК
+  // хук для записи всех ингредиентов
   const [basicIngredients, setBasicIngredients] = React.useState([]);
   // хук для выбора ингредиента для модалки
   const [ingredient, setIngredient] = React.useState({})
@@ -51,8 +46,32 @@ function App() {
   const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
   // видимость модалки с информацией о заказе
   const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
-  // костыль для булок
-  const [buns, setBuns] = React.useState([]);
+  const[ingredientsContext, setIngredientsContext] = React.useState({});
+
+
+  // const [ingedientsIds, setIngredientsIds] = React.useState([]);
+  // let idArray = [];
+
+  // // функция-парсер айди из массива ингредиентов, добавленных в бургер
+  // function parceId() {
+  //   basicIngredients?.map((item) => {
+  //     return idArray.push(item._id);
+  //   })
+  //     buns[0] && idArray?.push(buns[0]._id, buns[0]._id)
+  // }
+
+  // React.useEffect(() => {
+  //   parceId();
+  //   console.log(idArray);
+  //   if (idArray[0] !== undefined) {
+  //     setIngredientsIds(idArray);
+  //   }
+  //   if (ingedientsIds.length > 0) {
+  //     getOrderNumber(ingedientsIds);
+  //   }
+
+  //   // тут пока захардкожено под все ингредиенты, не забыть переделать и функцию и ЗАВИСИМОСТИ
+  // }, [basicIngredients])
 
   // ---------
   // !!!место зарезервировано для еще одного useState, но для номера заказа!!!
@@ -63,8 +82,8 @@ function App() {
     api.getAllIngredients()
     .then((res) => {
       if (res && res.success) {
-        setBasicIngredients(filterIngredients(res.data));
-        setBuns(filterBuns(res.data));
+        setBasicIngredients(res.data);
+        setIngredientsContext({allIngredients: res.data, main: filterIngredients(res.data, 'main'), buns: filterIngredients(res.data, 'bun'), sauces: filterIngredients(res.data, 'sauce')});
       }
     })
     .catch((err) => {
@@ -72,17 +91,23 @@ function App() {
     })
   }, [])
 
+  // function getOrderNumber(info) {
+  //   api.sendOrderInfo(info)
+  //   .then((res) => {
+  //     console.log(res);
+  //   })
+  // }
+
   return (
     <div id="app" className={appStyles.App}>
       <AppHeader />
-      <IngredientsContext.Provider value={basicIngredients}>
+      <IngredientsContext.Provider value={ingredientsContext}>
         <div className={appStyles.sectionContainer}>
           <BurgerIngredients
             ingredients={basicIngredients}
             openModal={handleOpenIngredientModal}
           />
           <BurgerConstructor
-            bun={buns[0]}
             openModal={handleOpenOrderModal}
           />
         </div>
@@ -106,8 +131,6 @@ function App() {
           />
         </Modal>
       </IngredientsContext.Provider>
-
-
     </div>
   );
 }

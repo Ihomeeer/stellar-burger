@@ -1,5 +1,6 @@
 // Модалка с деталями заказа
 import styles from "./ModalOrder.module.css";
+import { IngredientsContext } from '../../services/IngredientsContext';
 import successIcon from "../../images/success.svg";
 import PropTypes from 'prop-types';
 

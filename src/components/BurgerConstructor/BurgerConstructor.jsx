@@ -9,22 +9,23 @@ import { itemPropTypes } from "../../utils/PropTypes";
 
 
 function BurgerConstructor ({ bun, openModal }) {
-  const ingredients = React.useContext(IngredientsContext);
+  const { main } = React.useContext(IngredientsContext);
+  const { buns } = React.useContext(IngredientsContext);
 
   // Вот тут стоимость считается
-  const totalPrice = React.useMemo(() => ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0) + bun?.price*2, [ingredients, bun])
+  const totalPrice = React.useMemo(() =>  main?.reduce((prevPrice, item) => prevPrice + item.price, 0) + bun?.price*2, [main, bun])
 
   return(
     <section className={`${styles.section} ml-10 pt-25`}>
 
-      {bun && <BurgerConstructorItem
-        item={bun}
+      {buns && <BurgerConstructorItem
+        item={buns[0]}
         isTop
         isLocked
       />}
 
       <ul className={styles.list}>
-        {ingredients.map((item, index) => {
+        {main?.map((item, index) => {
           return (
             <li key={index} className={styles.listItem}>
               <BurgerConstructorItem item={item} />
@@ -33,9 +34,9 @@ function BurgerConstructor ({ bun, openModal }) {
         })}
       </ul>
 
-      {bun && <BurgerConstructorItem
-        item={bun}
-        isBottom
+      {buns && <BurgerConstructorItem
+        item={buns[0]}
+        isTop
         isLocked
       />}
 

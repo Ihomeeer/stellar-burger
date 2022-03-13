@@ -19,9 +19,21 @@ class Api extends React.Component {
 
   //получение списка всех ингредиентов с сервера
   getAllIngredients() {
-    return fetch(this._baseUrl, {
+    return fetch(`${this._baseUrl}/ingredients`, {
       method: 'GET',
       headers: this._headers
+    })
+    .then(res => this._checkStatus(res));
+  }
+
+  //Послать все на сервер и получить номер заказа
+  sendOrderInfo(info) {
+    return fetch(`${this._baseUrl}/orders`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        "ingredients": info
+      }),
     })
     .then(res => this._checkStatus(res));
   }
