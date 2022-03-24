@@ -20,6 +20,18 @@ const composeEnhancers =
     : compose;
 
 function App() {
+  // Стейт для записи всех ингредиентов
+  const [basicIngredients, setBasicIngredients] = React.useState([]);
+  // Стейт для выбора ингредиента для модалки
+  const [ingredient, setIngredient] = React.useState({})
+  // видимость модалки с информацией об ингредиенте
+  const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
+  // видимость модалки с информацией о заказе
+  const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
+  // Разные ингредиенты для контекста
+  const[ingredientsContext, setIngredientsContext] = React.useState({});
+  // Стейт для записи номера заказа
+  const[orderNumber, setOrderNumber] = React.useState();
 
   // фильтр ингредиентов по типу
   const filterIngredients = (array, type) => {
@@ -33,8 +45,19 @@ function App() {
   }
 
   // открытие модалки с заказом
-  const handleOpenOrderModal = () => {
-    setModalOrderVisible(true);
+  const handleOpenOrderModal = (info) => {
+    api.sendOrderInfo(info)
+    .then((res) => {
+      if (res && res.success) {
+        setOrderNumber(res.order.number);
+      }
+    })
+    .then (() => {
+      setModalOrderVisible(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   // закрытие модалки с ингредиентом
@@ -47,45 +70,6 @@ function App() {
   const handleCloseOrderModal = () => {
     setModalOrderVisible(false);
   }
-
-  // хук для записи всех ингредиентов
-  const [basicIngredients, setBasicIngredients] = React.useState([]);
-  // хук для выбора ингредиента для модалки
-  const [ingredient, setIngredient] = React.useState({})
-  // видимость модалки с информацией об ингредиенте
-  const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
-  // видимость модалки с информацией о заказе
-  const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
-  const[ingredientsContext, setIngredientsContext] = React.useState({});
-
-
-  // const [ingedientsIds, setIngredientsIds] = React.useState([]);
-  // let idArray = [];
-
-  // // функция-парсер айди из массива ингредиентов, добавленных в бургер
-  // function parceId() {
-  //   basicIngredients?.map((item) => {
-  //     return idArray.push(item._id);
-  //   })
-  //     buns[0] && idArray?.push(buns[0]._id, buns[0]._id)
-  // }
-
-  // React.useEffect(() => {
-  //   parceId();
-  //   console.log(idArray);
-  //   if (idArray[0] !== undefined) {
-  //     setIngredientsIds(idArray);
-  //   }
-  //   if (ingedientsIds.length > 0) {
-  //     getOrderNumber(ingedientsIds);
-  //   }
-
-  //   // тут пока захардкожено под все ингредиенты, не забыть переделать и функцию и ЗАВИСИМОСТИ
-  // }, [basicIngredients])
-
-  // ---------
-  // !!!место зарезервировано для еще одного useState, но для номера заказа!!!
-  // ---------
 
   // получение ингредиентов при отрисовке страницы
   React.useEffect(() => {
@@ -100,13 +84,6 @@ function App() {
       console.log(err);
     })
   }, [])
-
-  // function getOrderNumber(info) {
-  //   api.sendOrderInfo(info)
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  // }
 
   return (
     <div id="app" className={appStyles.App}>
@@ -137,7 +114,7 @@ function App() {
           closeModal={handleCloseOrderModal}
         >
           <ModalOrder
-            orderNumber={1337}
+            orderNumber={orderNumber}
           />
         </Modal>
       </IngredientsContext.Provider>
