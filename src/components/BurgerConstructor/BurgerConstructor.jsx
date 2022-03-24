@@ -27,6 +27,7 @@ function BurgerConstructor ({ bun, openModal }) {
       <ul className={styles.list}>
         {main?.map((item, index) => {
           return (
+            // Заменить индекс на id _______________________________________________________________________
             <li key={index} className={styles.listItem}>
               <BurgerConstructorItem item={item} />
             </li>

@@ -8,6 +8,16 @@ import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import ModalOrder from '../ModalOrder/ModalOrder';
 import api from '../../utils/api';
+import { compose, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+// const store = createStore(rootReducer, enhancer);
+
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
 
 function App() {
 
