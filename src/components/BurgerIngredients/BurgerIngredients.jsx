@@ -1,13 +1,19 @@
 // Список ингредиентов для бургеров (секция слева)
 import React from "react";
-import { ingredientsPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
+import { useSelector } from 'react-redux';
 
 
-function BurgerIngredients ({ ingredients, openModal }) {
+function BurgerIngredients ({ openModal }) {
+
+  const { buns, sauces, mainIngredients } =  useSelector(
+    state => state.allIngredientsReducer
+  );
+
+
 
   const [current, setCurrent] = React.useState('one')
 
@@ -35,9 +41,7 @@ function BurgerIngredients ({ ingredients, openModal }) {
           <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Булки</h3>
           <ul className={`${styles.list}`}>
             {
-              ingredients.filter(function(item) {
-                return item.type === "bun"
-              }).map(function(item) {
+              buns && buns?.map(function(item) {
                 return (
                   <li key={item._id}>
                     <IngredientsItem
@@ -55,9 +59,7 @@ function BurgerIngredients ({ ingredients, openModal }) {
           <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Соусы</h3>
           <ul className={`${styles.list}`}>
             {
-              ingredients.filter(function(item) {
-                return item.type === "sauce"
-              }).map(function(item) {
+              sauces && sauces?.map(function(item) {
                 return (
                   <li key={item._id}>
                     <IngredientsItem
@@ -75,9 +77,7 @@ function BurgerIngredients ({ ingredients, openModal }) {
           <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Начинки</h3>
           <ul className={`${styles.list}`}>
             {
-              ingredients.filter(function(item) {
-                return item.type === "main"
-              }).map(function(item) {
+              mainIngredients && mainIngredients?.map(function(item) {
                 return (
                   <li key={item._id}>
                     <IngredientsItem
@@ -96,7 +96,6 @@ function BurgerIngredients ({ ingredients, openModal }) {
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: ingredientsPropTypes,
   openModal: PropTypes.func.isRequired,
 };
 
