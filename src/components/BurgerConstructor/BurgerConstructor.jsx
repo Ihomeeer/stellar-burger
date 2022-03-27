@@ -8,26 +8,26 @@ import { useSelector } from 'react-redux'
 
 
 function BurgerConstructor({ openModal }) {
-  const { buns, sauces, mainIngredients } = useSelector(
-    state => state.allIngredientsReducer
+  const { bun, ingredients } = useSelector(
+    state => state.burgerConstructor
   );
   let idArray = [];
 
 
   // функция-парсер айди из массива ингредиентов, добавленных в бургер
   function parceId() {
-    mainIngredients && mainIngredients?.map((item) => {
+   ingredients && ingredients?.map((item) => {
       return idArray.push(item._id);
     })
-    buns && idArray?.push(buns[0]._id, buns[0]._id)
+    bun && idArray?.push(bun._id, bun._id)
   }
 
   React.useEffect(() => {
     parceId();
-  }, [mainIngredients, buns, openModal])
+  }, [ingredients, bun, openModal])
 
   // Вот тут стоимость считается, но это - БЕЗБУЛОЧНАЯ стоимость
-  const totalPrice = React.useMemo(() => mainIngredients && mainIngredients?.reduce((prevPrice, item) => prevPrice + item.price, 0), [mainIngredients, buns])
+  const totalPrice = React.useMemo(() => ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0), [ingredients, bun])
 
   const submitOrder = () => {
     idArray && openModal(idArray)
@@ -36,16 +36,16 @@ function BurgerConstructor({ openModal }) {
   return (
     <section className={`${styles.section} ml-10 pt-25`}>
 
-      {buns && <BurgerConstructorItem
-        item={buns[0]}
+      {bun && <BurgerConstructorItem
+        item={bun}
         isTop
         isLocked
       />}
 
       <ul className={styles.list}>
-        {mainIngredients && mainIngredients?.map((item) => {
+        {ingredients && ingredients?.map((item) => {
+          console.log(ingredients)
           return (
-            // Заменить индекс на id _______________________________________________________________________
             <li key={item._id} className={styles.listItem}>
               <BurgerConstructorItem item={item} />
             </li>
@@ -53,15 +53,15 @@ function BurgerConstructor({ openModal }) {
         })}
       </ul>
 
-      {buns && <BurgerConstructorItem
-        item={buns[0]}
+      {bun && <BurgerConstructorItem
+        item={bun}
         isBottom
         isLocked
       />}
 
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
         {/* Тут пока стоимость булки наследует костыльность изначального булочного хардкода */}
-        <p className="text text_type_main-large mr-2">{buns && totalPrice + buns[0].price * 2}</p>
+        <p className="text text_type_main-large mr-2">{ingredients && totalPrice + bun.price * 2}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="medium" onClick={submitOrder}>
           Оформить заказ
@@ -72,7 +72,7 @@ function BurgerConstructor({ openModal }) {
 }
 
 BurgerConstructor.propTypes = {
-  // openModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

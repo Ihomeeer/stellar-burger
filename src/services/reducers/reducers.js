@@ -6,12 +6,38 @@ import {
   SET_MAIN_INGREDIENTS
 } from "../actions/allIngredients";
 
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  SET_BUN
+} from '../actions/constructorIngredients';
+
 const initialAllIngredientsState = {
   ingredients: [],
   buns: '',
   sauces: '',
   mainIngredients: '',
   allIngredientsError: ''
+}
+
+const initialConstructorState = {
+  bun:
+  {
+    calories: 643,
+    carbohydrates: 85,
+    counter: 0,
+    fat: 26,
+    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+    image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
+    image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+    name: "Флюоресцентная булка R2-D3",
+    price: 988,
+    proteins: 44,
+    type: "bun",
+    __v: 0,
+    _id: "60d3b41abdacab0026a733c7"
+  },
+  ingredients: []
 }
 
 export const allIngredientsReducer = (state = initialAllIngredientsState, action) => {
@@ -45,6 +71,41 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
       return {
         ...state,
         mainIngredients: action.items
+      }
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const constructorIngredientsReducer = (state = initialConstructorState, action) => {
+  switch (action.type) {
+    case ADD_ITEM: {
+      const newItem = { ...action.item }
+      return {
+        ...state,
+        ingredients: [...state.ingredients, newItem]
+      }
+    }
+    case DELETE_ITEM: {
+      const modifiedState = { ...state };
+      const itemIndex = state.ingredients.filter(item => item._id === action._id);
+      if (itemIndex !== -1) {
+        modifiedState.ingredients.splice(itemIndex, 1);
+        return {
+          ...state,
+          ingredients: [...modifiedState.ingredients]
+        }
+      }
+      else {
+        return state;
+      }
+    }
+    case SET_BUN: {
+      return {
+        ...state,
+        bun: action.item
       }
     }
     default: {

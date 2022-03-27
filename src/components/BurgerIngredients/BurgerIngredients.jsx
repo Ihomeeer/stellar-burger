@@ -4,14 +4,36 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_ITEM, SET_BUN } from '../../services/actions/constructorIngredients';
+
+
 
 
 function BurgerIngredients ({ openModal }) {
+  const dispatch = useDispatch();
 
   const { buns, sauces, mainIngredients } =  useSelector(
-    state => state.allIngredientsReducer
+    state => state.allIngredients
   );
+
+  // const { bun, ingredients } =  useSelector(
+  //   state => state.burgerConstructor
+  // );
+
+  const testClick = (item) => {
+    dispatch({
+      type: ADD_ITEM,
+      item: item
+    })
+  }
+
+  const testBunClick = (item) => {
+    dispatch({
+      type: SET_BUN,
+      item: item
+    })
+  }
 
 
 
@@ -46,7 +68,7 @@ function BurgerIngredients ({ openModal }) {
                   <li key={item._id}>
                     <IngredientsItem
                     item={item}
-                    openModal={openModal}
+                    openModal={testBunClick}
                     />
                   </li>
                 )
@@ -64,7 +86,7 @@ function BurgerIngredients ({ openModal }) {
                   <li key={item._id}>
                     <IngredientsItem
                     item={item}
-                    openModal={openModal}
+                    openModal={testClick}
                     />
                   </li>
                 )

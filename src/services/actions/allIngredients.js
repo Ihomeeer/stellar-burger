@@ -7,6 +7,8 @@ export const GET_ITEMS_FAILED = 'GET_ITEMS_FAILED';
 export const SET_BUNS = 'SET_BUNS';
 export const SET_SAUCES = 'SET_SAUCES';
 export const SET_MAIN_INGREDIENTS = 'SET_MAIN_INGREDIENTS';
+export const INCREASE_COUNTER = 'INCREASE_COUNTER';
+export const DECREASE_COUNTER = 'DECREASE_COUNTER';
 
 
 
@@ -20,21 +22,23 @@ export function getAllItems() {
     })
       .then((response) => checkStatus(response))
       .then(res => {
+        const newData = res.data.map((item) => ({...item, counter: 0 })
+        )
         dispatch({
           type: GET_ITEMS_SUCCESS,
-          items: res.data
+          items: newData
         });
-        const mainIngredients = filterIngredients(res.data, 'main');
+        const mainIngredients = filterIngredients(newData, 'main');
         dispatch({
           type: SET_MAIN_INGREDIENTS,
           items: mainIngredients
         });
-        const buns = filterIngredients(res.data, 'bun');
+        const buns = filterIngredients(newData, 'bun');
         dispatch({
           type: SET_BUNS,
           items: buns
         });
-        const sauces = filterIngredients(res.data, 'sauce');
+        const sauces = filterIngredients(newData, 'sauce');
         dispatch({
           type: SET_SAUCES,
           items: sauces

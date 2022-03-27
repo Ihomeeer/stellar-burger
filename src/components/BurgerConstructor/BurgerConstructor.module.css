@@ -4,8 +4,9 @@
 }
 
 .list {
-  width: fit-content;
-  height: 560px;
+  width: 97%;
+  height: fit-content;
+  max-height: 560px;
   margin: 16px auto;
   list-style-type: none;
   padding: 0 8px 0 0;

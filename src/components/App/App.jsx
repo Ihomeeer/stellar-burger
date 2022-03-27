@@ -49,10 +49,6 @@ function App() {
     setModalIngredientVisible(true);
   }
 
-  // const { ingredients, buns, sauces, mainIngredients } =  useSelector(
-  //   state => state.allIngredientsReducer
-  // );
-
 
 
 

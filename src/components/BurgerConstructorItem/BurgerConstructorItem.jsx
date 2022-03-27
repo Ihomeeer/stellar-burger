@@ -6,6 +6,7 @@ import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructorItem ({ item, isTop, isBottom, isLocked}) {
+  console.log(item)
 
   return (
     <div className={`${styles.item} ${isTop || isBottom ? styles.borderItem : ''}`}>

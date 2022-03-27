@@ -6,10 +6,11 @@ import { itemPropTypes } from "../../utils/PropTypes";
 
 function IngredientsItem ({ item, openModal }) {
 
+
   return (
     <div className={`${styles.cardContainer} mt-6`} onClick={() => openModal(item)}>
       <div className={styles.counter}>
-        <Counter  count={1} size="default" />
+        <Counter  count={item.counter} size="default" />
       </div>
       <img alt={item.name} src={item.image} className={`${styles.cardImage} ml-4 mr-4`}></img>
       <div className={`${styles.priceContainer} mb-2 mt-1`}>

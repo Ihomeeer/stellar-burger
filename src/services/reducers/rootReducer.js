@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { allIngredientsReducer } from './reducers';
+import { allIngredientsReducer, constructorIngredientsReducer } from './reducers';
 
 
 // Корневой редьюсер
 const rootReducer = combineReducers({
-  allIngredientsReducer
+  allIngredients: allIngredientsReducer,
+  burgerConstructor: constructorIngredientsReducer
 })
 
 export default rootReducer;
