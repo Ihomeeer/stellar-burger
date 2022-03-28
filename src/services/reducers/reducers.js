@@ -10,6 +10,7 @@ import {
 import {
   ADD_ITEM,
   DELETE_ITEM,
+  DRAG_ARRAY,
   SET_BUN
 } from '../actions/constructorIngredients';
 
@@ -102,6 +103,12 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
       }
       else {
         return state;
+      }
+    }
+    case DRAG_ARRAY: {
+      return {
+        ...state,
+        ingredients: [...action.ingredients]
       }
     }
     case SET_BUN: {

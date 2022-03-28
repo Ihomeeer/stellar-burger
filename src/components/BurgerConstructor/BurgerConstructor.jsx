@@ -1,11 +1,11 @@
 // Конструктор бургеров (правый который)
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_ITEM, SET_BUN } from '../../services/actions/constructorIngredients';
+import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
 import { useDrop } from 'react-dnd';
 
 
@@ -58,6 +58,18 @@ function BurgerConstructor({ openModal }) {
     idArray && openModal(idArray)
   }
 
+  const moveItem = (dragIndex, hoverIndex) => {
+    const draggedItem = ingredients[dragIndex];
+    const modifiedItems = [...ingredients];
+    modifiedItems.splice(dragIndex, 1);
+    modifiedItems.splice(hoverIndex, 0, draggedItem);
+    dispatch({
+      type: DRAG_ARRAY,
+      ingredients: modifiedItems
+    })
+
+  };
+
   return (
     <section className={`${styles.section} ml-10 pt-25`}>
       <div className={`${styles.listContainer}`} ref={dropTarget}>
@@ -68,10 +80,14 @@ function BurgerConstructor({ openModal }) {
         />}
 
         <ul className={styles.list} >
-          {ingredients && ingredients?.map((item) => {
+          {ingredients && ingredients?.map((item, index) => {
             return (
               <li key={item.uid} className={styles.listItem}>
-                <BurgerConstructorItem item={item} />
+                <BurgerConstructorItem
+                  item={item}
+                  index={index}
+                  moveItem={moveItem}
+                />
               </li>
             )
           })}
