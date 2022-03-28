@@ -11,7 +11,6 @@ export const INCREASE_COUNTER = 'INCREASE_COUNTER';
 export const DECREASE_COUNTER = 'DECREASE_COUNTER';
 
 
-
 export function getAllItems() {
   return function (dispatch) {
     fetch(`${baseURL}/ingredients`, {
@@ -22,7 +21,7 @@ export function getAllItems() {
     })
       .then((response) => checkStatus(response))
       .then(res => {
-        const newData = res.data.map((item) => ({...item, counter: 0 })
+        const newData = res.data.map((item) => ({...item, counter: 0})
         )
         dispatch({
           type: GET_ITEMS_SUCCESS,

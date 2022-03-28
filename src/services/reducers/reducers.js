@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
@@ -82,7 +83,8 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
 export const constructorIngredientsReducer = (state = initialConstructorState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      const newItem = { ...action.item }
+      const newItem = {...action.item}
+      newItem.uid = uuidv4();
       return {
         ...state,
         ingredients: [...state.ingredients, newItem]
@@ -90,7 +92,7 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
     }
     case DELETE_ITEM: {
       const modifiedState = { ...state };
-      const itemIndex = state.ingredients.filter(item => item._id === action._id);
+      const itemIndex = state.ingredients.filter(item => item.uid === action.uid);
       if (itemIndex !== -1) {
         modifiedState.ingredients.splice(itemIndex, 1);
         return {

@@ -1,6 +1,8 @@
 .section {
   width: 600px;
   height: 912px;
+  display: flex;
+  flex-direction: column;
 }
 
 .list {
@@ -20,6 +22,8 @@
 
 .lowerPanel {
   width: fit-content;
+  margin-top: auto;
+  margin-bottom: 85px;
   margin-left: auto;
   min-height: fit-content;
   display: flex;

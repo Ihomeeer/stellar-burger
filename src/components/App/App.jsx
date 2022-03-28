@@ -7,9 +7,9 @@ import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import ModalOrder from '../ModalOrder/ModalOrder';
 import api from '../../utils/api'
-
-
-
+//ИМПОРТЫ ДЛЯ DnD___________________________________________________________________________________
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../services/actions/allIngredients';
@@ -108,12 +108,14 @@ function App() {
     <div id="app" className={appStyles.App}>
       <AppHeader />
       <div className={appStyles.sectionContainer}>
-        <BurgerIngredients
-          openModal={handleOpenIngredientModal}
-        />
-        <BurgerConstructor
-          openModal={handleOpenOrderModal}
-        />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients
+            openModal={handleOpenIngredientModal}
+          />
+          <BurgerConstructor
+            openModal={handleOpenOrderModal}
+          />
+        </DndProvider>
       </div>
 
       <Modal

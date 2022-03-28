@@ -4,19 +4,44 @@ import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_ITEM, SET_BUN } from '../../services/actions/constructorIngredients';
+import { useDrop } from 'react-dnd';
 
 
 function BurgerConstructor({ openModal }) {
+  const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
     state => state.burgerConstructor
   );
-  let idArray = [];
 
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  const onDropHandler = (item) => {
+    if (item.item.type != 'bun') {
+      dispatch({
+        type: ADD_ITEM,
+        ...item
+      })
+    } else {
+      dispatch({
+        type: SET_BUN,
+        ...item
+      })
+    }
+
+  }
+
+  let idArray = [];
 
   // функция-парсер айди из массива ингредиентов, добавленных в бургер
   function parceId() {
-   ingredients && ingredients?.map((item) => {
+    ingredients && ingredients?.map((item) => {
       return idArray.push(item._id);
     })
     bun && idArray?.push(bun._id, bun._id)
@@ -35,32 +60,30 @@ function BurgerConstructor({ openModal }) {
 
   return (
     <section className={`${styles.section} ml-10 pt-25`}>
+      <div className={`${styles.listContainer}`} ref={dropTarget}>
+        {bun && <BurgerConstructorItem
+          item={bun}
+          isTop
+          isLocked
+        />}
 
-      {bun && <BurgerConstructorItem
-        item={bun}
-        isTop
-        isLocked
-      />}
+        <ul className={styles.list} >
+          {ingredients && ingredients?.map((item) => {
+            return (
+              <li key={item.uid} className={styles.listItem}>
+                <BurgerConstructorItem item={item} />
+              </li>
+            )
+          })}
+        </ul>
 
-      <ul className={styles.list}>
-        {ingredients && ingredients?.map((item) => {
-          console.log(ingredients)
-          return (
-            <li key={item._id} className={styles.listItem}>
-              <BurgerConstructorItem item={item} />
-            </li>
-          )
-        })}
-      </ul>
-
-      {bun && <BurgerConstructorItem
-        item={bun}
-        isBottom
-        isLocked
-      />}
-
+        {bun && <BurgerConstructorItem
+          item={bun}
+          isBottom
+          isLocked
+        />}
+      </div>
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
-        {/* Тут пока стоимость булки наследует костыльность изначального булочного хардкода */}
         <p className="text text_type_main-large mr-2">{ingredients && totalPrice + bun.price * 2}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="medium" onClick={submitOrder}>
