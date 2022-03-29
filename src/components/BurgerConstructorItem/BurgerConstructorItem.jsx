@@ -73,7 +73,7 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
   }
 
   return (
-    <div className={`${styles.item} ${isTop || isBottom ? styles.borderItem : ''}`} ref={ref} style={{ opacity }}>
+    <div className={`${styles.item} ${isTop || isBottom ? styles.borderItem : ''}`} ref={isLocked ? null : ref} style={{ opacity }}>
       {!isLocked && <DragIcon type="primary" />}
       <ConstructorElement
         type={isTop ? 'top' : isBottom ? 'bottom' : ''}

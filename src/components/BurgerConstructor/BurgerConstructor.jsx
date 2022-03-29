@@ -9,6 +9,7 @@ import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructo
 import { useDrop } from 'react-dnd';
 
 
+
 function BurgerConstructor({ openModal }) {
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
@@ -23,18 +24,17 @@ function BurgerConstructor({ openModal }) {
   });
 
   const onDropHandler = (item) => {
-    if (item.item.type != 'bun') {
-      dispatch({
-        type: ADD_ITEM,
-        ...item
-      })
+    if (item.item.type !== 'bun') {
+        dispatch({
+          type: ADD_ITEM,
+          ...item
+        })
     } else {
       dispatch({
         type: SET_BUN,
         ...item
       })
     }
-
   }
 
   let idArray = [];
@@ -60,14 +60,17 @@ function BurgerConstructor({ openModal }) {
 
   const moveItem = (dragIndex, hoverIndex) => {
     const draggedItem = ingredients[dragIndex];
-    const modifiedItems = [...ingredients];
-    modifiedItems.splice(dragIndex, 1);
-    modifiedItems.splice(hoverIndex, 0, draggedItem);
-    dispatch({
-      type: DRAG_ARRAY,
-      ingredients: modifiedItems
-    })
-
+    if (draggedItem) {
+      const modifiedItems = [...ingredients];
+      modifiedItems.splice(dragIndex, 1);
+      modifiedItems.splice(hoverIndex, 0, draggedItem);
+      dispatch({
+        type: DRAG_ARRAY,
+        ingredients: modifiedItems
+      })
+    } else {
+      return
+    }
   };
 
   return (
