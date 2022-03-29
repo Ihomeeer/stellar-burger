@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
 import { useDrop } from 'react-dnd';
-
+import { v4 as generateUid } from 'uuid';
 
 
 function BurgerConstructor({ openModal }) {
   const dispatch = useDispatch();
+
   const { bun, ingredients } = useSelector(
     state => state.burgerConstructor
   );
@@ -23,17 +24,22 @@ function BurgerConstructor({ openModal }) {
     },
   });
 
-  const onDropHandler = (item) => {
-    if (item.item.type !== 'bun') {
+  const onDropHandler = (ingredient) => {
+    const { item } = ingredient;
+    if (!item.uid) {
+      if (item.type !== 'bun') {
+        // const newItem = {...item}
+        item.uid = generateUid();
         dispatch({
           type: ADD_ITEM,
-          ...item
+          item: item
         })
-    } else {
-      dispatch({
-        type: SET_BUN,
-        ...item
-      })
+      } else {
+        dispatch({
+          type: SET_BUN,
+          item: item
+        })
+      }
     }
   }
 
@@ -52,7 +58,7 @@ function BurgerConstructor({ openModal }) {
   }, [ingredients, bun, openModal])
 
   // Вот тут стоимость считается, но это - БЕЗБУЛОЧНАЯ стоимость
-  const totalPrice = React.useMemo(() => ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0), [ingredients, bun])
+  const totalPrice = React.useMemo(() => ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0), [ingredients])
 
   const submitOrder = () => {
     idArray && openModal(idArray)

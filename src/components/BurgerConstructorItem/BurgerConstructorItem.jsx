@@ -5,11 +5,15 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import {  useSelector, useDispatch } from 'react-redux';
 import { DELETE_ITEM } from '../../services/actions/constructorIngredients';
 
 function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveItem }) {
   const dispatch = useDispatch();
+
+  const { ingredients } = useSelector(
+    state => state.burgerConstructor
+  );
 
   const ref = useRef(null);
   const [, drop] = useDrop({
@@ -20,7 +24,6 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      console.log(item.index)
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
@@ -66,6 +69,7 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
   dragRef(drop(ref));
 
   const handleDelete = (item) => {
+    
     dispatch({
       type: DELETE_ITEM,
       item: item
