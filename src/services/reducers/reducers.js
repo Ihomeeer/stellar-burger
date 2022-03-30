@@ -4,7 +4,9 @@ import {
   GET_ITEMS_FAILED,
   SET_BUNS,
   SET_SAUCES,
-  SET_MAIN_INGREDIENTS
+  SET_MAIN_INGREDIENTS,
+  INCREASE_COUNTER,
+  DECREASE_COUNTER
 } from "../actions/allIngredients";
 
 import {
@@ -75,6 +77,14 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
         mainIngredients: action.items
       }
     }
+    // case INCREASE_COUNTER: {
+    //   const newState = { ...state }
+    //   const currentItem =
+    //   return {
+    //     ...state,
+
+    //   }
+    // }
     default: {
       return state;
     }
@@ -84,7 +94,7 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
 export const constructorIngredientsReducer = (state = initialConstructorState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      const newItem = {...action.item}
+      const newItem = { ...action.item }
       return {
         ...state,
         ingredients: [...state.ingredients, newItem]
@@ -92,8 +102,8 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
     }
     case DELETE_ITEM: {
       const modifiedState = { ...state };
-      const itemIndex = state.ingredients.filter(item => item.uid === action.item.uid);
-      console.log(state)
+      const item = state.ingredients.filter(item => item.uid === action.item.uid);
+      const itemIndex = state.ingredients.indexOf(item[0]);
       if (itemIndex !== -1) {
         modifiedState.ingredients.splice(itemIndex, 1);
         return {
