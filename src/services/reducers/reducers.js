@@ -25,22 +25,22 @@ const initialAllIngredientsState = {
 }
 
 const initialConstructorState = {
-  bun:
-  {
-    calories: 643,
-    carbohydrates: 85,
-    counter: 0,
-    fat: 26,
-    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-    image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-    name: "Флюоресцентная булка R2-D3",
-    price: 988,
-    proteins: 44,
-    type: "bun",
-    __v: 0,
-    _id: "60d3b41abdacab0026a733c7"
-  },
+  bun: '',
+  // {
+  //   calories: 643,
+  //   carbohydrates: 85,
+  //   counter: 0,
+  //   fat: 26,
+  //   image: "https://code.s3.yandex.net/react/code/bun-01.png",
+  //   image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
+  //   image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+  //   name: "Флюоресцентная булка R2-D3",
+  //   price: 988,
+  //   proteins: 44,
+  //   type: "bun",
+  //   __v: 0,
+  //   _id: "60d3b41abdacab0026a733c7"
+  // },
   ingredients: []
 }
 

@@ -1,5 +1,5 @@
 // Конструктор бургеров (правый который)
-import React, { useCallback } from 'react';
+import React from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -18,21 +18,25 @@ function BurgerConstructor({ openModal }) {
     state => state.burgerConstructor
   );
 
-  const [, dropTarget] = useDrop({
+  const [{ canDrop }, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
       onDropHandler(item);
     },
+    collect: monitor => ({
+      canDrop: monitor.canDrop(),
+    })
   });
 
   const onDropHandler = (ingredient) => {
     const { item } = ingredient;
     if (!item.uid) {
       if (item.type !== 'bun') {
-        item.uid = generateUid();
+        const newItem = { ...item }
+        newItem.uid = generateUid();
         dispatch({
           type: ADD_ITEM,
-          item: item
+          item: newItem
         })
         dispatch({
           type: INCREASE_COUNTER,
@@ -49,7 +53,10 @@ function BurgerConstructor({ openModal }) {
         })
       }
     } else {
-      return
+      // dispatch({
+      //   type: INCREASE_COUNTER,
+      //   item: item
+      // })
     }
   }
 
@@ -67,8 +74,16 @@ function BurgerConstructor({ openModal }) {
     parceId();
   }, [ingredients, bun, openModal])
 
-  // Вот тут стоимость считается, но это - БЕЗБУЛОЧНАЯ стоимость
-  const totalPrice = React.useMemo(() => ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0), [ingredients])
+  // Вот тут стоимость считается
+  const totalPrice = React.useMemo(() => {
+    if (ingredients && bun) {
+      const priceMain = ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0)
+      const priceWithBuns = bun && priceMain + bun.price * 2;
+      return priceWithBuns
+    } else {
+      return 0
+    }
+  }, [ingredients, bun])
 
   const submitOrder = () => {
     idArray && openModal(idArray)
@@ -91,7 +106,7 @@ function BurgerConstructor({ openModal }) {
 
   return (
     <section className={`${styles.section} ml-10 pt-25`}>
-      <div className={`${styles.listContainer}`} ref={dropTarget}>
+      <div className={`${styles.listContainer} ${canDrop && styles.listContainerRecept}`} ref={dropTarget}>
         {bun && <BurgerConstructorItem
           item={bun}
           isTop
@@ -119,7 +134,7 @@ function BurgerConstructor({ openModal }) {
         />}
       </div>
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
-        <p className="text text_type_main-large mr-2">{ingredients && totalPrice + bun.price * 2}</p>
+        <p className="text text_type_main-large mr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
         <Button type="primary" size="medium" onClick={submitOrder}>
           Оформить заказ

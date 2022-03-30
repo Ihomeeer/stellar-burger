@@ -5,6 +5,23 @@
   flex-direction: column;
 }
 
+.listContainer {
+  box-sizing: border-box;
+  margin-top: auto;
+  justify-self: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.listContainerRecept {
+  /* border-right: 4px solid rgba(114, 117, 119, 0.178);
+  border-left: 4px solid rgba(114, 117, 119, 0.178); */
+  background: rgba(121, 121, 129, 0.048);
+  border-radius: 50px;
+}
+
 .list {
   width: 97%;
   height: fit-content;

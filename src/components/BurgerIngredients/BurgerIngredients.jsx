@@ -1,5 +1,5 @@
 // Список ингредиентов для бургеров (секция слева)
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
@@ -14,6 +14,9 @@ function BurgerIngredients ({ openModal }) {
   const { buns, sauces, mainIngredients } =  useSelector(
     state => state.allIngredients
   );
+  // const { bun } = useSelector(
+  //   state => state.burgerConstructor
+  // );
 
   const [current, setCurrent] = React.useState('one')
 

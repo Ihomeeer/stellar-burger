@@ -11,7 +11,7 @@ import api from '../../utils/api'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllItems } from '../../services/actions/allIngredients';
 
 // фильтр ингредиентов по типу
@@ -29,8 +29,6 @@ export const checkStatus = (res) => {
 
 
 function App() {
-  // Стейт для записи всех ингредиентов
-  // const [basicIngredients, setBasicIngredients] = React.useState([]);
   // Стейт для выбора ингредиента для модалки
   const [ingredient, setIngredient] = React.useState({})
   // видимость модалки с информацией об ингредиенте
@@ -57,7 +55,6 @@ function App() {
     // Вызов экшена для получения всех ингредиентов от сервера
     dispatch(getAllItems())
   }, [])
-
 
 
 

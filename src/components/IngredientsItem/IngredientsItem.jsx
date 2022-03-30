@@ -6,19 +6,19 @@ import { itemPropTypes } from "../../utils/PropTypes";
 import { useDrag } from "react-dnd";
 
 function IngredientsItem({ item, openModal }) {
-  const [{isDrag}, dragRef] = useDrag({
+  const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: { item },
     collect: monitor => ({
       isDrag: monitor.isDragging()
-  })
+    })
   });
 
 
   return (
     <div className={`${styles.cardContainer} ${isDrag && styles.cardContainerMoving} mt-6`} onClick={() => openModal(item)} ref={dragRef}>
       <div className={styles.counter}>
-        <Counter count={item.counter} size="default" />
+        {item.counter > 0 && <Counter count={item.counter} size="default" />}
       </div>
       <img alt={item.name} src={item.image} className={`${styles.cardImage} ml-4 mr-4`}></img>
       <div className={`${styles.priceContainer} mb-2 mt-1`}>
