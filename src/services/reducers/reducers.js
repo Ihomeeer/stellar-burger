@@ -77,14 +77,40 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
         mainIngredients: action.items
       }
     }
-    // case INCREASE_COUNTER: {
-    //   const newState = { ...state }
-    //   const currentItem =
-    //   return {
-    //     ...state,
-
-    //   }
-    // }
+    case INCREASE_COUNTER: {
+      const newState = { ...state }
+      const currentItem = state.ingredients.findIndex((item) => {
+        return item._id === action.item._id
+      })
+      if (action.item.type === 'bun') {
+        // выпиливание остальных булок
+        newState.buns.map((bun) => {
+          bun.counter = 0
+        });
+        // 2, потому что булки всегда парные
+        newState.ingredients[currentItem].counter += 2;
+      } else {
+        newState.ingredients[currentItem].counter += 1;
+      }
+      return {
+        ...newState,
+      }
+    }
+    case DECREASE_COUNTER: {
+      const newState = { ...state }
+      const currentItem = state.ingredients.findIndex((item) => {
+        return item._id === action.item._id
+      })
+      if (action.item.type === 'bun') {
+        //булки всегда парные
+        newState.ingredients[currentItem].counter -= 2;
+      } else {
+        newState.ingredients[currentItem].counter -= 1;
+      }
+      return {
+        ...newState,
+      }
+    }
     default: {
       return state;
     }

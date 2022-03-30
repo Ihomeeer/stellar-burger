@@ -7,6 +7,7 @@ import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import {  useSelector, useDispatch } from 'react-redux';
 import { DELETE_ITEM } from '../../services/actions/constructorIngredients';
+import { DECREASE_COUNTER } from '../../services/actions/allIngredients';
 
 function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveItem }) {
   const dispatch = useDispatch();
@@ -69,9 +70,12 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
   dragRef(drop(ref));
 
   const handleDelete = (item) => {
-    
     dispatch({
       type: DELETE_ITEM,
+      item: item
+    })
+    dispatch({
+      type: DECREASE_COUNTER,
       item: item
     })
   }

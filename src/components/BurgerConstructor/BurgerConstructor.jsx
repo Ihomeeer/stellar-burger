@@ -6,6 +6,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
+import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
 
@@ -28,10 +29,13 @@ function BurgerConstructor({ openModal }) {
     const { item } = ingredient;
     if (!item.uid) {
       if (item.type !== 'bun') {
-        // const newItem = {...item}
         item.uid = generateUid();
         dispatch({
           type: ADD_ITEM,
+          item: item
+        })
+        dispatch({
+          type: INCREASE_COUNTER,
           item: item
         })
       } else {
@@ -39,7 +43,13 @@ function BurgerConstructor({ openModal }) {
           type: SET_BUN,
           item: item
         })
+        dispatch({
+          type: INCREASE_COUNTER,
+          item: item
+        })
       }
+    } else {
+      return
     }
   }
 
