@@ -50,7 +50,7 @@ const initialCurrentIngrState = {
 }
 
 const initialOrderState = {
-  orderNumber: '',
+  orderNumber: null,
   orderError: '',
   orderModalVisibility: false
 }
@@ -220,7 +220,7 @@ export const orderReducer = (state = initialOrderState, action) => {
     case DELETE_ORDER_NUMBER: {
       return {
         ...state,
-        orderNumber: '',
+        orderNumber: null,
         orderError: ''
       }
     }

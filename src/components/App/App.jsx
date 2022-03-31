@@ -50,7 +50,7 @@ function App() {
     state => state.currentIngredient
   );
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
-    state => state.burgerConstructor
+    state => state.order
   );
 
   // открытие модалки с ингредиентом
@@ -82,7 +82,7 @@ function App() {
       })
       .then(() => {
         dispatch({
-          type: SET_ORDER_MODAL_VISIBLE
+          type: SET_ORDER_MODAL_VISIBLE,
         })
       })
       .catch((err) => {
