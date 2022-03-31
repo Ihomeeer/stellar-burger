@@ -16,6 +16,11 @@ import {
   SET_BUN
 } from '../actions/constructorIngredients';
 
+import {
+  SET_CURRENT_INGREDIENT,
+  DELETE_CURRENT_INGREDIENT
+} from '../actions/currentIngredient'
+
 const initialAllIngredientsState = {
   ingredients: [],
   buns: '',
@@ -26,22 +31,11 @@ const initialAllIngredientsState = {
 
 const initialConstructorState = {
   bun: '',
-  // {
-  //   calories: 643,
-  //   carbohydrates: 85,
-  //   counter: 0,
-  //   fat: 26,
-  //   image: "https://code.s3.yandex.net/react/code/bun-01.png",
-  //   image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-  //   image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-  //   name: "Флюоресцентная булка R2-D3",
-  //   price: 988,
-  //   proteins: 44,
-  //   type: "bun",
-  //   __v: 0,
-  //   _id: "60d3b41abdacab0026a733c7"
-  // },
   ingredients: []
+}
+
+const initialCurrentIngrState = {
+  currentIngredient: ''
 }
 
 export const allIngredientsReducer = (state = initialAllIngredientsState, action) => {
@@ -85,7 +79,7 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
       if (action.item.type === 'bun') {
         // выпиливание остальных булок
         newState.buns.map((bun) => {
-          bun.counter = 0
+          return bun.counter = 0
         });
         // 2, потому что булки всегда парные
         newState.ingredients[currentItem].counter += 2;
@@ -151,6 +145,26 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
       return {
         ...state,
         bun: action.item
+      }
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const currentIngredientReducer = (state = initialCurrentIngrState, action) => {
+  switch (action.type) {
+    case SET_CURRENT_INGREDIENT: {
+      return {
+        ...state,
+        currentIngredient: action.item
+      }
+    }
+    case DELETE_CURRENT_INGREDIENT: {
+      return {
+        ...state,
+        currentIngredient: ''
       }
     }
     default: {

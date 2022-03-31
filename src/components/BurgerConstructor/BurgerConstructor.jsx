@@ -52,11 +52,6 @@ function BurgerConstructor({ openModal }) {
           item: item
         })
       }
-    } else {
-      // dispatch({
-      //   type: INCREASE_COUNTER,
-      //   item: item
-      // })
     }
   }
 
@@ -78,7 +73,7 @@ function BurgerConstructor({ openModal }) {
   const totalPrice = React.useMemo(() => {
     if (ingredients && bun) {
       const priceMain = ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0)
-      const priceWithBuns = bun && priceMain + bun.price * 2;
+      const priceWithBuns = priceMain + bun.price * 2;
       return priceWithBuns
     } else {
       return 0

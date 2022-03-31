@@ -1,8 +1,14 @@
 // модалка с инфой про ингредиент
 import styles from './ModalIngredient.module.css';
-import { itemPropTypes } from "../../utils/PropTypes";
+import { useSelector } from 'react-redux';
 
-function ModalIngredient ({ item }) {
+function ModalIngredient () {
+
+  const { currentIngredient } =  useSelector(
+    state => state.currentIngredient
+  );
+
+  const item = currentIngredient && currentIngredient;
 
   return (
     <div className={styles.container}>
@@ -54,10 +60,6 @@ function ModalIngredient ({ item }) {
 
     </div>
   )
-}
-
-ModalIngredient.propTypes = {
-  item: itemPropTypes.isRequired
 }
 
 export default ModalIngredient;

@@ -13,6 +13,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
 import { useDispatch } from 'react-redux';
 import { getAllItems } from '../../services/actions/allIngredients';
+import {
+  SET_CURRENT_INGREDIENT,
+  DELETE_CURRENT_INGREDIENT
+} from '../../services/actions/currentIngredient';
 
 // фильтр ингредиентов по типу
 export const filterIngredients = (array, type) => {
@@ -29,8 +33,6 @@ export const checkStatus = (res) => {
 
 
 function App() {
-  // Стейт для выбора ингредиента для модалки
-  const [ingredient, setIngredient] = React.useState({})
   // видимость модалки с информацией об ингредиенте
   const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
   // видимость модалки с информацией о заказе
@@ -43,36 +45,17 @@ function App() {
   const dispatch = useDispatch();
   // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient) => {
-    setIngredient(currentIngredient);
+    dispatch({
+      type: SET_CURRENT_INGREDIENT,
+      item: currentIngredient
+    })
     setModalIngredientVisible(true);
   }
-
-
-
-
 
   React.useEffect(() => {
     // Вызов экшена для получения всех ингредиентов от сервера
     dispatch(getAllItems())
   }, [])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // открытие модалки с заказом
   const handleOpenOrderModal = (info) => {
@@ -92,7 +75,9 @@ function App() {
 
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
-    setIngredient({});
+    dispatch({
+      type: DELETE_CURRENT_INGREDIENT
+    })
     setModalIngredientVisible(false);
   }
 
@@ -120,9 +105,7 @@ function App() {
         isModalVisible={modalIngredientVisible}
         closeModal={handleCloseIngredientModal}
       >
-        <ModalIngredient
-          item={ingredient}
-        />
+        <ModalIngredient />
       </Modal>
 
       <Modal

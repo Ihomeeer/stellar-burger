@@ -5,16 +5,12 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from "../../utils/PropTypes";
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {  useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DELETE_ITEM } from '../../services/actions/constructorIngredients';
 import { DECREASE_COUNTER } from '../../services/actions/allIngredients';
 
 function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveItem }) {
   const dispatch = useDispatch();
-
-  const { ingredients } = useSelector(
-    state => state.burgerConstructor
-  );
 
   const ref = useRef(null);
   const [, drop] = useDrop({

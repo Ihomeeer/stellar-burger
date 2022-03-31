@@ -14,9 +14,6 @@ function BurgerIngredients ({ openModal }) {
   const { buns, sauces, mainIngredients } =  useSelector(
     state => state.allIngredients
   );
-  // const { bun } = useSelector(
-  //   state => state.burgerConstructor
-  // );
 
   const [current, setCurrent] = React.useState('one')
 
