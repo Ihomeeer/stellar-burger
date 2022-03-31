@@ -34,7 +34,7 @@ function ModalOverlay({ children, isModalVisible, closeModal }) {
 
 ModalOverlay.propTypes = {
   children: PropTypes.node.isRequired,
-  isModalVisible: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool,
   closeModal: PropTypes.func.isRequired
 }
 

@@ -39,7 +39,7 @@ function Modal ({children, title, isModalVisible, closeModal}) {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
-  isModalVisible: PropTypes.bool.isRequired,
+  isModalVisible: PropTypes.bool,
   closeModal: PropTypes.func.isRequired
 }
 

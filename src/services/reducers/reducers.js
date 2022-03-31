@@ -18,8 +18,18 @@ import {
 
 import {
   SET_CURRENT_INGREDIENT,
-  DELETE_CURRENT_INGREDIENT
-} from '../actions/currentIngredient'
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_INGREDIENT_MODAL_INVISIBLE
+} from '../actions/currentIngredient';
+
+import {
+  ORDER_SUBMIT_SUCCESS,
+  ORDER_SUBMIT_FAILURE,
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_VISIBLE,
+  SET_ORDER_MODAL_INVISIBLE
+} from '../actions/order';
 
 const initialAllIngredientsState = {
   ingredients: [],
@@ -35,7 +45,14 @@ const initialConstructorState = {
 }
 
 const initialCurrentIngrState = {
-  currentIngredient: ''
+  currentIngredient: '',
+  ingredientModalVisibility: false
+}
+
+const initialOrderState = {
+  orderNumber: '',
+  orderError: '',
+  orderModalVisibility: false
 }
 
 export const allIngredientsReducer = (state = initialAllIngredientsState, action) => {
@@ -165,6 +182,58 @@ export const currentIngredientReducer = (state = initialCurrentIngrState, action
       return {
         ...state,
         currentIngredient: ''
+      }
+    }
+    case SET_INGREDIENT_MODAL_VISIBLE: {
+      return {
+        ...state,
+        ingredientModalVisibility: true
+      }
+    }
+    case SET_INGREDIENT_MODAL_INVISIBLE: {
+      return {
+        ...state,
+        ingredientModalVisibility: false
+      }
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const orderReducer = (state = initialOrderState, action) => {
+  switch (action.type) {
+    case ORDER_SUBMIT_SUCCESS: {
+      return {
+        ...state,
+        orderNumber: action.number,
+        orderError: ''
+      }
+    }
+    case ORDER_SUBMIT_FAILURE: {
+      return {
+        ...state,
+        orderError: action.error
+      }
+    }
+    case DELETE_ORDER_NUMBER: {
+      return {
+        ...state,
+        orderNumber: '',
+        orderError: ''
+      }
+    }
+    case SET_ORDER_MODAL_VISIBLE: {
+      return {
+        ...state,
+        orderModalVisibility: true
+      }
+    }
+    case SET_ORDER_MODAL_INVISIBLE: {
+      return {
+        ...state,
+        orderModalVisibility: false
       }
     }
     default: {

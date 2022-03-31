@@ -1,5 +1,5 @@
 // Список ингредиентов для бургеров (секция слева)
-import React, { useEffect } from "react";
+import React from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';

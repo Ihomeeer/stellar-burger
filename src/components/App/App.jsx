@@ -11,12 +11,22 @@ import api from '../../utils/api'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../services/actions/allIngredients';
 import {
   SET_CURRENT_INGREDIENT,
-  DELETE_CURRENT_INGREDIENT
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_INGREDIENT_MODAL_INVISIBLE
 } from '../../services/actions/currentIngredient';
+
+import {
+  ORDER_SUBMIT_SUCCESS,
+  ORDER_SUBMIT_FAILURE,
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_VISIBLE,
+  SET_ORDER_MODAL_INVISIBLE
+} from '../../services/actions/order';
 
 // фильтр ингредиентов по типу
 export const filterIngredients = (array, type) => {
@@ -33,23 +43,25 @@ export const checkStatus = (res) => {
 
 
 function App() {
-  // видимость модалки с информацией об ингредиенте
-  const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
-  // видимость модалки с информацией о заказе
-  const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
-  // Стейт для записи номера заказа
-  const [orderNumber, setOrderNumber] = React.useState();
-
 
   //КОНСТАНТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
   const dispatch = useDispatch();
+  const { ingredientModalVisibility } = useSelector(
+    state => state.currentIngredient
+  );
+  const { orderNumber, orderError, orderModalVisibility } = useSelector(
+    state => state.burgerConstructor
+  );
+
   // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient) => {
     dispatch({
       type: SET_CURRENT_INGREDIENT,
       item: currentIngredient
     })
-    setModalIngredientVisible(true);
+    dispatch({
+      type: SET_INGREDIENT_MODAL_VISIBLE,
+    })
   }
 
   React.useEffect(() => {
@@ -62,28 +74,44 @@ function App() {
     api.sendOrderInfo(info)
       .then((res) => {
         if (res && res.success) {
-          setOrderNumber(res.order.number);
+          dispatch({
+            type: ORDER_SUBMIT_SUCCESS,
+            number: res.order.number
+          })
         }
       })
       .then(() => {
-        setModalOrderVisible(true);
+        dispatch({
+          type: SET_ORDER_MODAL_VISIBLE
+        })
       })
       .catch((err) => {
-        console.log(err);
+        dispatch({
+          type: ORDER_SUBMIT_FAILURE,
+          error: err
+        })
+        orderError && console.log(orderError)
       })
   }
 
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
     dispatch({
+      type: SET_INGREDIENT_MODAL_INVISIBLE,
+    })
+    dispatch({
       type: DELETE_CURRENT_INGREDIENT
     })
-    setModalIngredientVisible(false);
   }
 
   // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
-    setModalOrderVisible(false);
+    dispatch({
+      type: SET_ORDER_MODAL_INVISIBLE
+    })
+    dispatch({
+      type: DELETE_ORDER_NUMBER
+    })
   }
 
   return (
@@ -102,14 +130,14 @@ function App() {
 
       <Modal
         title="Детали ингредиента"
-        isModalVisible={modalIngredientVisible}
+        isModalVisible={ingredientModalVisibility}
         closeModal={handleCloseIngredientModal}
       >
         <ModalIngredient />
       </Modal>
 
       <Modal
-        isModalVisible={modalOrderVisible}
+        isModalVisible={orderModalVisibility}
         closeModal={handleCloseOrderModal}
       >
         <ModalOrder
