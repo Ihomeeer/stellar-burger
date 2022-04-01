@@ -13,11 +13,12 @@ import { v4 as generateUid } from 'uuid';
 
 function BurgerConstructor({ openModal }) {
   const dispatch = useDispatch();
-
+  let idArray = [];
   const { bun, ingredients } = useSelector(
     state => state.burgerConstructor
   );
 
+  // контейнер для приема ингредиентов
   const [{ canDrop }, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -28,6 +29,7 @@ function BurgerConstructor({ openModal }) {
     })
   });
 
+  // обработка перетаскивания ингредиента в конструктор
   const onDropHandler = (ingredient) => {
     const { item } = ingredient;
     if (!item.uid) {
@@ -54,8 +56,6 @@ function BurgerConstructor({ openModal }) {
       }
     }
   }
-
-  let idArray = [];
 
   // функция-парсер айди из массива ингредиентов, добавленных в бургер
   function parceId() {
@@ -84,6 +84,7 @@ function BurgerConstructor({ openModal }) {
     idArray && openModal(idArray)
   }
 
+  // обработка тасовки ингредиентов в конструкторе
   const moveItem = (dragIndex, hoverIndex) => {
     const draggedItem = ingredients[dragIndex];
     if (draggedItem) {

@@ -6,6 +6,7 @@ import { itemPropTypes } from "../../utils/PropTypes";
 import { useDrag } from "react-dnd";
 
 function IngredientsItem({ item, openModal }) {
+  // реф для реализации таскания ингредиентов
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: { item },

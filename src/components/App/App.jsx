@@ -19,7 +19,6 @@ import {
   SET_INGREDIENT_MODAL_VISIBLE,
   SET_INGREDIENT_MODAL_INVISIBLE
 } from '../../services/actions/currentIngredient';
-
 import {
   ORDER_SUBMIT_SUCCESS,
   ORDER_SUBMIT_FAILURE,
@@ -41,10 +40,7 @@ export const checkStatus = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-
 function App() {
-
-  //КОНСТАНТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
   const dispatch = useDispatch();
   const { ingredientModalVisibility } = useSelector(
     state => state.currentIngredient
@@ -148,4 +144,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

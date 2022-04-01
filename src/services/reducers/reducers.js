@@ -6,7 +6,8 @@ import {
   SET_SAUCES,
   SET_MAIN_INGREDIENTS,
   INCREASE_COUNTER,
-  DECREASE_COUNTER
+  DECREASE_COUNTER,
+  SET_CURRENT_TAB
 } from "../actions/allIngredients";
 
 import {
@@ -36,7 +37,8 @@ const initialAllIngredientsState = {
   buns: '',
   sauces: '',
   mainIngredients: '',
-  allIngredientsError: ''
+  allIngredientsError: '',
+  currentTab: 'buns'
 }
 
 const initialConstructorState = {
@@ -120,6 +122,12 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
       }
       return {
         ...newState,
+      }
+    }
+    case SET_CURRENT_TAB: {
+      return {
+        ...state,
+        currentTab: action.currentTab
       }
     }
     default: {
