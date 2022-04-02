@@ -27,7 +27,7 @@ function BurgerIngredients({ openModal }) {
   //Обработка нажатий на вкладки
   const handleSelectTab = (ref, currentTab) => {
     // прыжок к нужному рефу
-    ref.current.scrollIntoView();
+    ref.current.scrollIntoView({behavior: "smooth"});
     handleTab(currentTab);
   }
 

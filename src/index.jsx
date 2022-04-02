@@ -9,13 +9,11 @@ import { Provider } from 'react-redux';
 import rootReducer from './services/reducers/rootReducer';
 import thunk from 'redux-thunk';
 
-
 // подключение редакс-девтулз
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
-
 
 // расширение хранилища
 const enhancer = composeEnhancers(applyMiddleware(thunk));

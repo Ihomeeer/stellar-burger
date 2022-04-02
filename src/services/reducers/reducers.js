@@ -7,14 +7,16 @@ import {
   SET_MAIN_INGREDIENTS,
   INCREASE_COUNTER,
   DECREASE_COUNTER,
-  SET_CURRENT_TAB
+  SET_CURRENT_TAB,
+  CLEAR_COUNTERS
 } from "../actions/allIngredients";
 
 import {
   ADD_ITEM,
   DELETE_ITEM,
   DRAG_ARRAY,
-  SET_BUN
+  SET_BUN,
+  CLEAR_INGREDIENTS
 } from '../actions/constructorIngredients';
 
 import {
@@ -130,6 +132,13 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
         currentTab: action.currentTab
       }
     }
+    case CLEAR_COUNTERS: {
+      const newState = { ...state }
+      newState.ingredients.map((item) => { return item.counter = 0 })
+      return {
+        ...newState
+      }
+    }
     default: {
       return state;
     }
@@ -170,6 +179,13 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
       return {
         ...state,
         bun: action.item
+      }
+    }
+    case CLEAR_INGREDIENTS: {
+      return {
+        ...state,
+        bun: '',
+        ingredients: []
       }
     }
     default: {

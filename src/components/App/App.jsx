@@ -6,7 +6,6 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import ModalOrder from '../ModalOrder/ModalOrder';
-import api from '../../utils/api'
 //ИМПОРТЫ ДЛЯ DnD___________________________________________________________________________________
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -20,24 +19,14 @@ import {
   SET_INGREDIENT_MODAL_INVISIBLE
 } from '../../services/actions/currentIngredient';
 import {
-  ORDER_SUBMIT_SUCCESS,
-  ORDER_SUBMIT_FAILURE,
   DELETE_ORDER_NUMBER,
-  SET_ORDER_MODAL_VISIBLE,
-  SET_ORDER_MODAL_INVISIBLE
+  SET_ORDER_MODAL_INVISIBLE,
+  placeOrder
 } from '../../services/actions/order';
 
 // фильтр ингредиентов по типу
 export const filterIngredients = (array, type) => {
   return array.filter((item) => item.type === type);
-}
-
-// проверка статуса промиса для экшенов
-export const checkStatus = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
 }
 
 function App() {
@@ -67,27 +56,7 @@ function App() {
 
   // открытие модалки с заказом
   const handleOpenOrderModal = (info) => {
-    api.sendOrderInfo(info)
-      .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: ORDER_SUBMIT_SUCCESS,
-            number: res.order.number
-          })
-        }
-      })
-      .then(() => {
-        dispatch({
-          type: SET_ORDER_MODAL_VISIBLE,
-        })
-      })
-      .catch((err) => {
-        dispatch({
-          type: ORDER_SUBMIT_FAILURE,
-          error: err
-        })
-        orderError && console.log(orderError)
-      })
+    dispatch(placeOrder(info, orderError))
   }
 
   // закрытие модалки с ингредиентом

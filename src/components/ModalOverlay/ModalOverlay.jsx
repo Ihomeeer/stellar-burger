@@ -1,5 +1,4 @@
 // сюда впихивается все содержание модалки через компонент Modal, а еще тут всякие хэндлеры для закрытия модалок
-import React from "react";
 import styles from './ModalOverlay.module.css'
 import PropTypes from 'prop-types';
 
@@ -11,19 +10,6 @@ function ModalOverlay({ children, isModalVisible, closeModal }) {
       closeModal()
     }
   }
-
-  // закрытие по клику на esc
-  const modalEscPressHandler = (e) => {
-    if (e.key === 'Escape') {
-      closeModal()
-    }
-  }
-
-  // закрытие по клику на esc - слушатель
-  React.useEffect(() => {
-    document.addEventListener('keydown', modalEscPressHandler)
-    return  () => document.removeEventListener('keydown', modalEscPressHandler)
-  }, [])
 
   return (
     <div className={`${styles.container} ${isModalVisible ? styles.containerActive : ''}`} onClick={overlayClick}>

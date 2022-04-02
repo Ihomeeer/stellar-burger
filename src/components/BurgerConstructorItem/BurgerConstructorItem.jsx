@@ -86,6 +86,8 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
 
 BurgerConstructorItem.propTypes = {
   item: itemPropTypes.isRequired,
+  index: PropTypes.number,
+  moveItem: PropTypes.func,
   isTop: PropTypes.bool,
   isBottom: PropTypes.bool,
   isLocked: PropTypes.bool

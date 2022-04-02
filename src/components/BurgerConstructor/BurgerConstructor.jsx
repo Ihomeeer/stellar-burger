@@ -67,7 +67,7 @@ function BurgerConstructor({ openModal }) {
 
   React.useEffect(() => {
     parceId();
-  }, [ingredients, bun, openModal])
+  }, [openModal])
 
   // Вот тут стоимость считается
   const totalPrice = React.useMemo(() => {
@@ -81,7 +81,7 @@ function BurgerConstructor({ openModal }) {
   }, [ingredients, bun])
 
   const submitOrder = () => {
-    idArray && openModal(idArray)
+    openModal(idArray)
   }
 
   // обработка тасовки ингредиентов в конструкторе
@@ -132,7 +132,7 @@ function BurgerConstructor({ openModal }) {
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
         <p className="text text_type_main-large mr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
-        <Button type="primary" size="medium" onClick={submitOrder}>
+        <Button type="primary" size="medium" onClick={submitOrder} disabled = {bun ? false : true}>
           Оформить заказ
         </Button>
       </div>
