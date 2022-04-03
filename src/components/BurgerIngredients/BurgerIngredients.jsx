@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 
 
 
-function BurgerIngredients ({ openModal }) {
+function BurgerIngredients({ openModal }) {
 
-  const { buns, sauces, mainIngredients } =  useSelector(
+  const { ingredients, buns, sauces, mainIngredients } = useSelector(
     state => state.allIngredients
   );
 
@@ -35,62 +35,67 @@ function BurgerIngredients ({ openModal }) {
           Начинки
         </Tab>
       </div>
+      {ingredients.length > 1
+        ?
+        <div className={`${styles.itemsContainer} ${styles.scrollIngredients}`}>
+          <div>
+            <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Булки</h3>
+            <ul className={`${styles.list}`}>
+              {
+                buns && buns?.map(function (item) {
+                  return (
+                    <li key={item._id}>
+                      <IngredientsItem
+                        item={item}
+                        openModal={openModal}
+                      />
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
 
-      <div className={`${styles.itemsContainer} ${styles.scrollIngredients}`}>
-        <div>
-          <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Булки</h3>
-          <ul className={`${styles.list}`}>
-            {
-              buns && buns?.map(function(item) {
-                return (
-                  <li key={item._id}>
-                    <IngredientsItem
-                    item={item}
-                    openModal={openModal}
-                    />
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
+          <div>
+            <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Соусы</h3>
+            <ul className={`${styles.list}`}>
+              {
+                sauces && sauces?.map(function (item) {
+                  return (
+                    <li key={item._id}>
+                      <IngredientsItem
+                        item={item}
+                        openModal={openModal}
+                      />
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
 
-        <div>
-          <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Соусы</h3>
-          <ul className={`${styles.list}`}>
-            {
-              sauces && sauces?.map(function(item) {
-                return (
-                  <li key={item._id}>
-                    <IngredientsItem
-                    item={item}
-                    openModal={openModal}
-                    />
-                  </li>
-                )
-              })
-            }
-          </ul>
+          <div>
+            <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Начинки</h3>
+            <ul className={`${styles.list}`}>
+              {
+                mainIngredients && mainIngredients?.map(function (item) {
+                  return (
+                    <li key={item._id}>
+                      <IngredientsItem
+                        item={item}
+                        openModal={openModal}
+                      />
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
         </div>
+        :
+        <h2 className={styles.loading}>Загрузка... </h2>
+      }
 
-        <div>
-          <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`}>Начинки</h3>
-          <ul className={`${styles.list}`}>
-            {
-              mainIngredients && mainIngredients?.map(function(item) {
-                return (
-                  <li key={item._id}>
-                    <IngredientsItem
-                    item={item}
-                    openModal={openModal}
-                    />
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
-      </div>
     </section>
   )
 }

@@ -13,11 +13,11 @@ import { v4 as generateUid } from 'uuid';
 
 function BurgerConstructor({ openModal }) {
   const dispatch = useDispatch();
-
   const { bun, ingredients } = useSelector(
     state => state.burgerConstructor
   );
 
+  // контейнер для приема ингредиентов
   const [{ canDrop }, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -28,7 +28,8 @@ function BurgerConstructor({ openModal }) {
     })
   });
 
-  const onDropHandler = (ingredient) => {
+  // обработка перетаскивания ингредиента в конструктор
+  function onDropHandler(ingredient)  {
     const { item } = ingredient;
     if (!item.uid) {
       if (item.type !== 'bun') {
@@ -55,20 +56,6 @@ function BurgerConstructor({ openModal }) {
     }
   }
 
-  let idArray = [];
-
-  // функция-парсер айди из массива ингредиентов, добавленных в бургер
-  function parceId() {
-    ingredients && ingredients?.map((item) => {
-      return idArray.push(item._id);
-    })
-    bun && idArray?.push(bun._id, bun._id)
-  }
-
-  React.useEffect(() => {
-    parceId();
-  }, [ingredients, bun, openModal])
-
   // Вот тут стоимость считается
   const totalPrice = React.useMemo(() => {
     if (ingredients && bun) {
@@ -80,10 +67,13 @@ function BurgerConstructor({ openModal }) {
     }
   }, [ingredients, bun])
 
+  // Формирование массива Id'ов и отправка на сервер, открытие модалки с номером заказа
   const submitOrder = () => {
-    idArray && openModal(idArray)
+    const idArray = [bun._id, ...ingredients.map(item => item._id), bun._id];
+    ingredients && openModal(idArray)
   }
 
+  // обработка тасовки ингредиентов в конструкторе
   const moveItem = (dragIndex, hoverIndex) => {
     const draggedItem = ingredients[dragIndex];
     if (draggedItem) {
@@ -131,7 +121,7 @@ function BurgerConstructor({ openModal }) {
       <div className={`${styles.lowerPanel} mt-10 mr-4`}>
         <p className="text text_type_main-large mr-2">{totalPrice}</p>
         <CurrencyIcon type="primary" />
-        <Button type="primary" size="medium" onClick={submitOrder}>
+        <Button type="primary" size="medium" onClick={submitOrder} disabled={bun ? false : true}>
           Оформить заказ
         </Button>
       </div>

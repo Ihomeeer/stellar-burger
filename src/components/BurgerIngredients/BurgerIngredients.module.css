@@ -43,6 +43,12 @@
   overflow-x: hidden;
 }
 
+.loading {
+  margin: 30px auto;
+  font-size: 70px;
+  color: rgba(138, 133, 133, 0.336);
+}
+
 /* кастомизация скролла */
 
 .scrollIngredients::-webkit-scrollbar {
