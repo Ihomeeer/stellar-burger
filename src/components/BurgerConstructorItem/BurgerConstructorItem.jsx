@@ -11,48 +11,40 @@ import { DECREASE_COUNTER } from '../../services/actions/allIngredients';
 
 function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveItem }) {
   const dispatch = useDispatch();
-
   const ref = useRef(null);
+  // реф для тасовки ингредиентов
   const [, drop] = useDrop({
     accept: "ingredient",
     hover(item, monitor) {
       if (!ref.current) {
         return;
       }
+      // начальное положение
       const dragIndex = item.index;
+      // конечное положение
       const hoverIndex = index;
-      // Don't replace items with themselves
+      // если индексы равны, то ничего не трогать
       if (dragIndex === hoverIndex) {
         return;
       }
-      // Determine rectangle on screen
+      // Рассчет координат и положения указателя мыши
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      // Get vertical middle
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // Determine mouse position
       const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      // Time to actually perform the action
+      // плохо мутировать объет напрямую, но тут ничего не поделать
       moveItem(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });
+
+  // реф для таскания
   const [{ isDragging }, dragRef] = useDrag({
     type: "ingredient",
     item: () => {
@@ -65,6 +57,7 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
   const opacity = isDragging ? 0 : 1;
   dragRef(drop(ref));
 
+  // удаление ингредиента из конструктора
   const handleDelete = (item) => {
     dispatch({
       type: DELETE_ITEM,
@@ -93,6 +86,8 @@ function BurgerConstructorItem({ item, index, isTop, isBottom, isLocked, moveIte
 
 BurgerConstructorItem.propTypes = {
   item: itemPropTypes.isRequired,
+  index: PropTypes.number,
+  moveItem: PropTypes.func,
   isTop: PropTypes.bool,
   isBottom: PropTypes.bool,
   isLocked: PropTypes.bool

@@ -1,6 +1,6 @@
 import { baseURL } from '../../utils/constants';
-import { filterIngredients, checkStatus } from '../../components/App/App';
-
+import { filterIngredients } from '../../components/App/App';
+import { checkStatus } from '../../utils/checkStatus';
 
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
 export const GET_ITEMS_FAILED = 'GET_ITEMS_FAILED';
@@ -9,7 +9,8 @@ export const SET_SAUCES = 'SET_SAUCES';
 export const SET_MAIN_INGREDIENTS = 'SET_MAIN_INGREDIENTS';
 export const INCREASE_COUNTER = 'INCREASE_COUNTER';
 export const DECREASE_COUNTER = 'DECREASE_COUNTER';
-
+export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
+export const CLEAR_COUNTERS = 'CLEAR_COUNTERS';
 
 export function getAllItems() {
   return function (dispatch) {
@@ -21,7 +22,7 @@ export function getAllItems() {
     })
       .then((response) => checkStatus(response))
       .then(res => {
-        const newData = res.data.map((item) => ({...item, counter: 0})
+        const newData = res.data.map((item) => ({ ...item, counter: 0 })
         )
         dispatch({
           type: GET_ITEMS_SUCCESS,
@@ -47,7 +48,7 @@ export function getAllItems() {
         dispatch({
           type: GET_ITEMS_FAILED,
           error: `Произошла ошибка ${err.statusCode}`
-        });
+        })
       })
-  };
+  }
 }
