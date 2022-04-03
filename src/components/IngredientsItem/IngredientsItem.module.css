@@ -9,6 +9,10 @@
   background-color: rgba(114, 117, 119, 0.178);
 }
 
+.cardContainerMoving {
+  opacity: 0;
+}
+
 .counter {
   position: absolute;
   top: 0;

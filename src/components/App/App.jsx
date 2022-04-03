@@ -6,99 +6,111 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import ModalOrder from '../ModalOrder/ModalOrder';
-import api from '../../utils/api';
+//ИМПОРТЫ ДЛЯ DnD___________________________________________________________________________________
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+//ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllItems } from '../../services/actions/allIngredients';
+import {
+  SET_CURRENT_INGREDIENT,
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_INGREDIENT_MODAL_INVISIBLE
+} from '../../services/actions/currentIngredient';
+import {
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_INVISIBLE,
+  placeOrder
+} from '../../services/actions/order';
+
+// фильтр ингредиентов по типу
+export const filterIngredients = (array, type) => {
+  return array.filter((item) => item.type === type);
+}
 
 function App() {
-
-  // костыльный фильтр для булок
-  const filterBuns = (array) => {
-    return array.filter((item) => item.type === 'bun')
-  }
+  const dispatch = useDispatch();
+  const { ingredientModalVisibility } = useSelector(
+    state => state.currentIngredient
+  );
+  const { orderNumber, orderError, orderModalVisibility } = useSelector(
+    state => state.order
+  );
 
   // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient) => {
-    setIngredient(currentIngredient);
-    setModalIngredientVisible(true);
+    dispatch({
+      type: SET_CURRENT_INGREDIENT,
+      item: currentIngredient
+    })
+    dispatch({
+      type: SET_INGREDIENT_MODAL_VISIBLE,
+    })
   }
 
+  React.useEffect(() => {
+    // Вызов экшена для получения всех ингредиентов от сервера
+    dispatch(getAllItems())
+  }, [])
+
   // открытие модалки с заказом
-  const handleOpenOrderModal = () => {
-    setModalOrderVisible(true);
+  const handleOpenOrderModal = (info) => {
+    dispatch(placeOrder(info, orderError))
   }
 
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
-    setIngredient({});
-    setModalIngredientVisible(false);
+    dispatch({
+      type: SET_INGREDIENT_MODAL_INVISIBLE,
+    })
+    dispatch({
+      type: DELETE_CURRENT_INGREDIENT
+    })
   }
 
   // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
-    setModalOrderVisible(false);
+    dispatch({
+      type: SET_ORDER_MODAL_INVISIBLE
+    })
+    dispatch({
+      type: DELETE_ORDER_NUMBER
+    })
   }
-
-  // хук для записи ВСЕХ ингредиентов
-  const [basicIngredients, setBasicIngredients] = React.useState([]);
-  // хук для выбора ингредиента
-  const [ingredient, setIngredient] = React.useState({})
-  // видимость модалки с информацией об ингредиенте
-  const [modalIngredientVisible, setModalIngredientVisible] = React.useState(false);
-  // видимость модалки с информацией о заказе
-  const [modalOrderVisible, setModalOrderVisible] = React.useState(false);
-  // костыль для булок
-  const [buns, setBuns] = React.useState([])
-  // ---------
-  // !!!место зарезервировано для еще одного useState, но для номера заказа!!!
-  // ---------
-
-  // получение ингредиентов при отрисовке страницы
-  React.useEffect(() => {
-    api.getAllIngredients()
-    .then((res) => {
-      setBasicIngredients(res.data);
-      setBuns(filterBuns(res.data));
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }, [])
 
   return (
     <div id="app" className={appStyles.App}>
       <AppHeader />
       <div className={appStyles.sectionContainer}>
-        <BurgerIngredients
-          ingredients={basicIngredients}
-          openModal={handleOpenIngredientModal}
-        />
-        <BurgerConstructor
-          ingredients={basicIngredients}
-          bun={buns[0]}
-          openModal={handleOpenOrderModal}
-        />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients
+            openModal={handleOpenIngredientModal}
+          />
+          <BurgerConstructor
+            openModal={handleOpenOrderModal}
+          />
+        </DndProvider>
       </div>
 
-        <Modal
-          title="Детали ингредиента"
-          isModalVisible={modalIngredientVisible}
-          closeModal={handleCloseIngredientModal}
-        >
-          <ModalIngredient
-            item={ingredient}
-          />
-        </Modal>
+      <Modal
+        title="Детали ингредиента"
+        isModalVisible={ingredientModalVisibility}
+        closeModal={handleCloseIngredientModal}
+      >
+        <ModalIngredient />
+      </Modal>
 
-        <Modal
-          isModalVisible={modalOrderVisible}
-          closeModal={handleCloseOrderModal}
-        >
-          <ModalOrder
-            orderNumber={1337}
-          />
-        </Modal>
-
+      <Modal
+        isModalVisible={orderModalVisibility}
+        closeModal={handleCloseOrderModal}
+      >
+        <ModalOrder
+          orderNumber={orderNumber}
+        />
+      </Modal>
     </div>
   );
 }
 
-export default App;
+export default App

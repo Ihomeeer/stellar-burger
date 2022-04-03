@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import appHeaderStyles from './AppHeader.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-function AppHeader () {
+function AppHeader() {
   return (
     <header className={appHeaderStyles.header}>
       <nav className={appHeaderStyles.nav}>
@@ -17,10 +17,10 @@ function AppHeader () {
               </NavLink>
             </li>
             <li className={`${appHeaderStyles.listElement}`}>
-            <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
-              <ListIcon type="secondary" />
-              <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
-            </NavLink>
+              <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
+                <ListIcon type="secondary" />
+                <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
+              </NavLink>
             </li>
           </div>
 
@@ -29,10 +29,10 @@ function AppHeader () {
           </li>
 
           <li className={appHeaderStyles.listElement}>
-          <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
-            <ProfileIcon type="secondary" />
-            <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
-          </NavLink>
+            <NavLink to="/" className={`${appHeaderStyles.navLink} ${appHeaderStyles.navLinkSecondary} pt-4 pb-4 pr-5 pl-5`}>
+              <ProfileIcon type="secondary" />
+              <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
+            </NavLink>
           </li>
 
         </ul>

@@ -3,13 +3,23 @@ import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from "../../utils/PropTypes";
+import { useDrag } from "react-dnd";
 
-function IngredientsItem ({ item, openModal }) {
+function IngredientsItem({ item, openModal }) {
+  // реф для реализации таскания ингредиентов
+  const [{ isDrag }, dragRef] = useDrag({
+    type: "ingredient",
+    item: { item },
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  });
+
 
   return (
-    <div className={`${styles.cardContainer} mt-6`} onClick={() => openModal(item)}>
+    <div className={`${styles.cardContainer} ${isDrag && styles.cardContainerMoving} mt-6`} onClick={() => openModal(item)} ref={dragRef}>
       <div className={styles.counter}>
-        <Counter  count={1} size="default" />
+        {item.counter > 0 && <Counter count={item.counter} size="default" />}
       </div>
       <img alt={item.name} src={item.image} className={`${styles.cardImage} ml-4 mr-4`}></img>
       <div className={`${styles.priceContainer} mb-2 mt-1`}>

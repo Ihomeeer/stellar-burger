@@ -1,11 +1,30 @@
 .section {
   width: 600px;
   height: 912px;
+  display: flex;
+  flex-direction: column;
+}
+
+.listContainer {
+  min-height: 400px;
+  box-sizing: border-box;
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.listContainerRecept {
+  background: rgba(121, 121, 129, 0.048);
+  border-radius: 50px;
 }
 
 .list {
-  width: fit-content;
-  height: 560px;
+  width: 97%;
+  height: fit-content;
+  max-height: 560px;
   margin: 16px auto;
   list-style-type: none;
   padding: 0 8px 0 0;
@@ -19,6 +38,8 @@
 
 .lowerPanel {
   width: fit-content;
+  margin-top: auto;
+  margin-bottom: 85px;
   margin-left: auto;
   min-height: fit-content;
   display: flex;

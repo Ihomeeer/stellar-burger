@@ -17,7 +17,7 @@ function ModalOrder ({ orderNumber }) {
 }
 
 ModalOrder.propTypes = {
-  orderNumber: PropTypes.number.isRequired
+  orderNumber: PropTypes.number
 }
 
 export default ModalOrder;
