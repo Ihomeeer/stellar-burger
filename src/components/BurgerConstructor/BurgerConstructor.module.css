@@ -34,7 +34,7 @@
 }
 
 .listItem {
-  width: fit-content;
+  width: 100%;
 }
 
 /* кастомизация скролла */

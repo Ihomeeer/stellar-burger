@@ -1,4 +1,4 @@
-import React from "react";
+// тут хидер - лого, кнопки всякие важные (лента заказов, личный кабинет и проч.)
 import { NavLink } from 'react-router-dom';
 import appHeaderStyles from './AppHeader.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'

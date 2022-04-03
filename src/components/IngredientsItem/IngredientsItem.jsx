@@ -1,11 +1,13 @@
-import React from "react";
-import { itemPropTypes } from "../../utils/PropTypes";
+// карточка с ингредиентом для левой секции
 import styles from './IngredientsItem.module.css';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+import { itemPropTypes } from "../../utils/PropTypes";
 
-function IngredientsItem ({ item }) {
+function IngredientsItem ({ item, openModal }) {
+
   return (
-    <div className={`${styles.cardContainer} mt-6`}>
+    <div className={`${styles.cardContainer} mt-6`} onClick={() => openModal(item)}>
       <div className={styles.counter}>
         <Counter  count={1} size="default" />
       </div>
@@ -20,7 +22,8 @@ function IngredientsItem ({ item }) {
 }
 
 IngredientsItem.propTypes = {
-  item: itemPropTypes.isRequired
+  item: itemPropTypes.isRequired,
+  openModal: PropTypes.func.isRequired,
 }
 
 export default IngredientsItem;
