@@ -1,27 +1,25 @@
 import React from 'react';
-import styles from './LoginPage.module.css';
-import EnteringForm from '../../components/EnteringForm/EnteringForm';
+import styles from './RegisterPage.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { login,  CLEAR_LOGIN_STATE } from '../../services/actions/user';
+import { register } from '../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import { CLEAR_REGISTRATION_STATE } from '../../services/actions/user';
+import EnteringForm from '../../components/EnteringForm/EnteringForm';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
+  const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const history = useHistory();
-  const { login_success } = useSelector(
+  const { register_success } = useSelector(
     state => state.user
   );
 
-  React.useEffect(() => {
-    if (login_success) {
-      history.replace({pathname: '/'})
-      dispatch({ type: CLEAR_LOGIN_STATE })
-    }
-  }, [history, login_success])
-
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -33,23 +31,39 @@ const LoginPage = () => {
 
   const clearState = () => {
     setEmail('');
+    setName('');
     setPassword('');
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(register(name, email, password));
     clearState();
   }
+
+  React.useEffect(() => {
+    if (register_success) {
+      history.replace({pathname: '/login'})
+      dispatch({ type: CLEAR_REGISTRATION_STATE })
+    }
+  }, [history, register_success])
 
   return (
     <section className={styles.section}>
       <EnteringForm
-        formTitle="Вход"
-        buttonTitle="Войти"
+        formTitle="Регистрация"
+        buttonTitle="Зарегистрироваться"
         onSubmit={onSubmit}
       >
-        <div className={styles.inputContainer}>
+        <Input
+          type="text"
+          name="name"
+          size="default"
+          placeholder="Имя"
+          value={name}
+          onChange={handleNameChange}
+        />
+        <div className="mt-6 mb-6">
           <Input
             type="email"
             name="email"
@@ -59,8 +73,7 @@ const LoginPage = () => {
             onChange={handleEmailChange}
           />
         </div>
-
-        <div className={`mt-6 mb-6 ${styles.inputContainer}`}>
+        <div className="mt-6 mb-6">
           <Input
             type="password"
             name="password"
@@ -76,4 +89,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default RegisterPage;
