@@ -1,5 +1,6 @@
 import { baseURL } from '../../utils/constants';
 import { checkStatus } from '../../utils/checkStatus';
+import { setCookie, getCookie } from '../../utils/cookie';
 
 export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
 export const USER_REGISTRATION_FAILURE = 'USER_REGISTRATION_FAILURE';
@@ -20,6 +21,16 @@ export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 export const SET_RESET_PASSWORD_STATE = 'SET_RESET_PASSWORD_STATE';
 export const CLEAR_RESET_PASSWORD_STATE = 'CLEAR_RESET_PASSWORD_STATE';
+
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILURE = "GET_USER_FAILURE";
+
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+
+export const SET_USER_STATE = "SET_USER_STATE";
+export const DELETE_USER_STATE = "DELETE_USER_STATE";
+
 
 // регистрация нового пользователя
 export function register(name, email, password) {
@@ -54,6 +65,10 @@ export function register(name, email, password) {
           type: USER_REGISTRATION_FAILURE,
           registerError: err
         })
+        dispatch({
+          type: SET_REGISTRATION_STATE,
+          register_success: false
+        })
         console.log(err);
       })
   }
@@ -76,6 +91,14 @@ export function login(email, password) {
       .then((res) => checkStatus(res))
       .then((res) => {
         if (res && res.success) {
+          let authToken;
+          let refreshToken;
+          authToken = res.accessToken.split('Bearer ')[1];
+          refreshToken = res.refreshToken;
+          if (authToken && refreshToken) {
+            setCookie('token', authToken);
+            setCookie('refreshToken', refreshToken);
+          }
           dispatch({
             type: USER_LOGIN_SUCCESS,
             user: res.user,
@@ -91,6 +114,10 @@ export function login(email, password) {
         dispatch({
           type: USER_LOGIN_FAILURE,
           loginError: err
+        })
+        dispatch({
+          type: SET_LOGIN_STATE,
+          login_success: false
         })
         console.log(err);
       })
@@ -112,7 +139,6 @@ export function forgotPassword(email) {
     })
       .then((res) => checkStatus(res))
       .then((res) => {
-        console.log('then')
         if (res && res.success) {
           dispatch({
             type: FORGOT_PASSWORD_SUCCESS,
@@ -128,6 +154,10 @@ export function forgotPassword(email) {
         dispatch({
           type: FORGOT_PASSWORD_FAILURE,
           forgotPassowrdError: err
+        })
+        dispatch({
+          type: SET_FORGOT_PASSWORD_STATE,
+          forgot_password_success: false
         })
         console.log(err);
       })
@@ -150,7 +180,6 @@ export function resetPassword(password, token) {
     })
       .then((res) => checkStatus(res))
       .then((res) => {
-        console.log('then')
         if (res && res.success) {
           dispatch({
             type: RESET_PASSWORD_SUCCESS,
@@ -166,6 +195,80 @@ export function resetPassword(password, token) {
         dispatch({
           type: RESET_PASSWORD_FAILURE,
           resetPassowrdError: err
+        })
+        dispatch({
+          type: SET_RESET_PASSWORD_STATE,
+          reset_password_success: false
+        })
+        console.log(err);
+      })
+  }
+}
+
+// авторизация пользователя
+export function getUser() {
+  const token = getCookie('token');
+  return function (dispatch) {
+    fetch(`${baseURL}/auth/user`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    })
+      .then((res) => checkStatus(res))
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_USER_SUCCESS,
+            authError: ""
+          })
+          dispatch({
+            type: SET_USER_STATE,
+            user: res.user
+          })
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: GET_USER_FAILURE,
+          authError: err
+        })
+        console.log(err);
+      })
+  }
+}
+
+// изменение данных пользователя
+export function updateUser() {
+  const token = getCookie('token');
+  return function (dispatch) {
+    fetch(`${baseURL}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    })
+      .then((res) => checkStatus(res))
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_USER_SUCCESS,
+            updateError: ""
+          })
+          dispatch({
+            type: SET_USER_STATE,
+            user: res.user
+          })
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: UPDATE_USER_FAILURE,
+          updateError: err
         })
         console.log(err);
       })

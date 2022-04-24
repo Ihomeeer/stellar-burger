@@ -7,6 +7,8 @@ import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
@@ -18,7 +20,17 @@ export const filterIngredients = (array, type) => {
 }
 
 function App() {
+  const dispatch = useDispatch();
 
+  const { user } = useSelector(
+    state => state.user
+  );
+
+  React.useEffect(() => {
+    if (!user.name) {
+      dispatch(getUser());
+    }
+  }, [])
 
   return (
     <div id="app" className={appStyles.App}>

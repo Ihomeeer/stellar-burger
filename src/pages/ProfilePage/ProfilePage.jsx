@@ -1,10 +1,70 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
+import { deleteCookie } from '../../utils/cookie';
+import { DELETE_USER_STATE } from '../../services/actions/user';
 
 const ProfilePage = () => {
+  const { user } = useSelector(
+    state => state.user
+  );
+  const dispatch = useDispatch();
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+
+  // Приведение инпутов к дефолтному значению, т.е. к актуальным имени и адресу. Пароль для красоты.
+  const resetForm = () => {
+    setName(user.name);
+    setEmail(user.email);
+    setPassword('');
+  }
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  }
+
+  React.useEffect(() => {
+    if (user.name) {
+      resetForm();
+    }
+  }, [user.name]);
+
+  const handleSubmit = (e) => {
+    console.log(user)
+    console.log(name)
+    e.preventDefault();
+    const userData = {}
+    if (name !== user.name) {
+      console.log(111)
+      userData.name = name;
+      console.log(userData)
+    }
+    if (email !== user.email) {
+      userData.email = email;
+    }
+    dispatch(updateUser(userData));
+  }
+
+  const handleExit = () => {
+    dispatch({
+      type: DELETE_USER_STATE
+    })
+    deleteCookie('token');
+    deleteCookie('refreshToken');
+  }
 
   return (
     <section className={styles.section}>
@@ -17,7 +77,7 @@ const ProfilePage = () => {
           История заказов
         </NavLink>
 
-        <NavLink to="/profile/orders/:id" className={styles.navLink} activeClassName={styles.navLinkActive}>
+        <NavLink to="/login" className={styles.navLink} activeClassName={styles.navLinkActive} onClick={handleExit}>
           Выход
         </NavLink>
 
@@ -25,25 +85,40 @@ const ProfilePage = () => {
           В этом разделе вы можете <br /> изменить свои персональные данные
         </p>
       </nav>
-      <form className={styles.inputsForm}>
-      <Input
-            type="text"
-            icon="EditIcon"
-            name="name"
-            placeholder="Имя"
-          />
-          <Input
-            type="email"
-            icon="EditIcon"
-            name="email"
-            placeholder="E-mail"
-          />
-          <Input
-            type="password"
-            icon="EditIcon"
-            name="password"
-            placeholder="Пароль"
-          />
+      <form className={styles.inputsForm} autoComplete="off" onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          icon="EditIcon"
+          name="name"
+          placeholder="Имя"
+          value={name}
+          onChange={handleNameChange}
+          autoComplete="off"
+        />
+        <Input
+          type="email"
+          icon="EditIcon"
+          name="email"
+          placeholder="E-mail"
+          value={email}
+          defaultValue={user?.email}
+          onChange={handleEmailChange}
+          autoComplete="off"
+        />
+        <Input
+          type="text"
+          icon="EditIcon"
+          name="password"
+          placeholder="Пароль"
+          value={password}
+          defaultValue={user?.password}
+          onChange={handlePasswordChange}
+          autoComplete="off"
+        />
+        <div className={styles.buttonsContainer}>
+          <Button className={styles.button} onClick={resetForm} type="secondary">Отмена</Button>
+          <Button className={`${styles.button} ${styles.submitButton}`} type="primary">Сохранить</Button>
+        </div>
       </form>
     </section>
   )

@@ -14,7 +14,13 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
   SET_RESET_PASSWORD_STATE,
-  CLEAR_RESET_PASSWORD_STATE
+  CLEAR_RESET_PASSWORD_STATE,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  SET_USER_STATE,
+  DELETE_USER_STATE
 } from '../actions/user';
 
 const initialUserState = {
@@ -23,6 +29,8 @@ const initialUserState = {
   loginError: "",
   forgotPassowrdError: "",
   resetPassowrdError: "",
+  authError: "",
+  updateError: "",
   register_success: false,
   login_success: false,
   forgot_password_success: false,
@@ -34,20 +42,19 @@ export const userReducer = (state = initialUserState, action) => {
     case USER_REGISTRATION_SUCCESS: {
       return {
         ...state,
-        registerError: ""
+        registerError: action.registerError,
       }
     }
     case USER_REGISTRATION_FAILURE: {
       return {
         ...state,
-        registerError: action.error,
-        register_success: false
+        registerError: action.registerError,
       }
     }
     case SET_REGISTRATION_STATE: {
       return {
         ...state,
-        register_success: true
+        register_success: action.register_success
       }
     }
     case CLEAR_REGISTRATION_STATE: {
@@ -69,13 +76,12 @@ export const userReducer = (state = initialUserState, action) => {
         ...state,
         user: {},
         loginError: action.error,
-        login_success: false
       }
     }
     case SET_LOGIN_STATE: {
       return {
         ...state,
-        login_success: true
+        login_success: action.login_success
       }
     }
     case CLEAR_LOGIN_STATE: {
@@ -88,20 +94,19 @@ export const userReducer = (state = initialUserState, action) => {
     case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
-        forgot_password_success: true
+        forgotPassowrdError: action.error
       }
     }
     case FORGOT_PASSWORD_FAILURE: {
       return {
         ...state,
-        forgot_password_success: false,
         forgotPassowrdError: action.error
       }
     }
     case SET_FORGOT_PASSWORD_STATE: {
       return {
         ...state,
-        forgot_password_success: true,
+        forgot_password_success: action.forgot_password_success,
       }
     }
     case CLEAR_FORGOT_PASSWORD_STATE: {
@@ -114,20 +119,19 @@ export const userReducer = (state = initialUserState, action) => {
     case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
-        reset_password_success: true
+        resetPassowrdError: action.resetPassowrdError
       }
     }
     case RESET_PASSWORD_FAILURE: {
       return {
         ...state,
-        reset_password_success: false,
-        resetPassowrdError: action.error
+        resetPassowrdError: action.resetPassowrdError
       }
     }
     case SET_RESET_PASSWORD_STATE: {
       return {
         ...state,
-        reset_password_success: true,
+        reset_password_success: action.reset_password_success,
       }
     }
     case CLEAR_RESET_PASSWORD_STATE: {
@@ -135,6 +139,43 @@ export const userReducer = (state = initialUserState, action) => {
         ...state,
         reset_password_success: false,
         resetPassowrdError: ""
+      }
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        authError: action.authError
+      }
+    }
+    case GET_USER_FAILURE: {
+      return {
+        ...state,
+        authError: action.authError
+      }
+    }
+
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        updateError: action.updateError
+      }
+    }
+    case UPDATE_USER_FAILURE: {
+      return {
+        ...state,
+        updateError: action.updateError
+      }
+    }
+    case SET_USER_STATE: {
+      return {
+        ...state,
+        user: action.user,
+      }
+    }
+    case DELETE_USER_STATE: {
+      return {
+        ...state,
+        user: {},
       }
     }
     default: {
