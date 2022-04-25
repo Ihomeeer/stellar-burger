@@ -1,6 +1,7 @@
 import { baseURL } from '../../utils/constants';
 import { checkStatus } from '../../utils/checkStatus';
-import { setCookie, getCookie } from '../../utils/cookie';
+import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
+import { refreshFetch } from '../../utils/refreshFetch';
 
 export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
 export const USER_REGISTRATION_FAILURE = 'USER_REGISTRATION_FAILURE';
@@ -22,14 +23,19 @@ export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
 export const SET_RESET_PASSWORD_STATE = 'SET_RESET_PASSWORD_STATE';
 export const CLEAR_RESET_PASSWORD_STATE = 'CLEAR_RESET_PASSWORD_STATE';
 
+export const SET_USER_STATE = "SET_USER_STATE";
+export const DELETE_USER_STATE = "DELETE_USER_STATE";
+
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILURE = "GET_USER_FAILURE";
 
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 
-export const SET_USER_STATE = "SET_USER_STATE";
-export const DELETE_USER_STATE = "DELETE_USER_STATE";
+export const SESSION_TERMINATION_SUCCESS = "DELETE_USER_SUCCESS";
+export const SESSION_TERMINATION_FAILURE = "DELETE_USER_FAILURE";
+export const SET_SESSION_TERMINATION_STATE = "SET_DELETE_USER_STATE";
+export const CLEAR_SESSION_TERMINATION_STATE = "CLEAR_DELETE_USER_STATE";
 
 
 // регистрация нового пользователя
@@ -209,7 +215,7 @@ export function resetPassword(password, token) {
 export function getUser() {
   const token = getCookie('token');
   return function (dispatch) {
-    fetch(`${baseURL}/auth/user`, {
+    refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -217,18 +223,15 @@ export function getUser() {
         "Content-Type": "application/json"
       },
     })
-      .then((res) => checkStatus(res))
       .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            authError: ""
-          })
-          dispatch({
-            type: SET_USER_STATE,
-            user: res.user
-          })
-        }
+        dispatch({
+          type: GET_USER_SUCCESS,
+          authError: ""
+        })
+        dispatch({
+          type: SET_USER_STATE,
+          user: res.user
+        })
       })
       .catch((err) => {
         dispatch({
@@ -241,34 +244,82 @@ export function getUser() {
 }
 
 // изменение данных пользователя
-export function updateUser() {
+export function updateUser(userData) {
   const token = getCookie('token');
   return function (dispatch) {
-    fetch(`${baseURL}/auth/user`, {
+    refreshFetch(`${baseURL}/auth/user`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
+      body: JSON.stringify({
+        "name": userData?.name,
+        "email": userData?.email
+      }),
     })
-      .then((res) => checkStatus(res))
       .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: UPDATE_USER_SUCCESS,
-            updateError: ""
-          })
-          dispatch({
-            type: SET_USER_STATE,
-            user: res.user
-          })
-        }
+        dispatch({
+          type: UPDATE_USER_SUCCESS,
+          updateError: ""
+        })
+        dispatch({
+          type: SET_USER_STATE,
+          user: res.user
+        })
       })
       .catch((err) => {
         dispatch({
           type: UPDATE_USER_FAILURE,
           updateError: err
+        })
+        console.log(err);
+      })
+  }
+}
+
+// завершение сеанса пользователя
+export const deleteUser = () => {
+  const refreshToken = getCookie('refreshToken');
+  return function (dispatch) {
+    fetch(`${baseURL}/auth/logout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "token": refreshToken
+      }),
+    })
+      .then((res) => checkStatus(res))
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: SESSION_TERMINATION_SUCCESS,
+            deleteUserError: ""
+          })
+          dispatch({
+            type: DELETE_USER_STATE,
+            user: {}
+          })
+          dispatch({
+            type: SET_SESSION_TERMINATION_STATE,
+            delete_user_success: true
+          })
+          deleteCookie('token');
+          deleteCookie('refreshToken');
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: SESSION_TERMINATION_FAILURE,
+          deleteUserError: err
+        })
+        dispatch({
+          type: SET_SESSION_TERMINATION_STATE,
+          delete_user_success: false
         })
         console.log(err);
       })

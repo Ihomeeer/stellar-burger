@@ -20,7 +20,11 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
   SET_USER_STATE,
-  DELETE_USER_STATE
+  DELETE_USER_STATE,
+  SESSION_TERMINATION_SUCCESS,
+  SESSION_TERMINATION_FAILURE,
+  SET_SESSION_TERMINATION_STATE,
+  CLEAR_SESSION_TERMINATION_STATE
 } from '../actions/user';
 
 const initialUserState = {
@@ -31,10 +35,12 @@ const initialUserState = {
   resetPassowrdError: "",
   authError: "",
   updateError: "",
+  deleteUserError: "",
   register_success: false,
   login_success: false,
   forgot_password_success: false,
   reset_password_success: false,
+  delete_user_success: false
 }
 
 export const userReducer = (state = initialUserState, action) => {
@@ -175,7 +181,33 @@ export const userReducer = (state = initialUserState, action) => {
     case DELETE_USER_STATE: {
       return {
         ...state,
+        user: action.user,
+      }
+    }
+    case SESSION_TERMINATION_SUCCESS: {
+      return {
+        ...state,
+        deleteUserError: action.deleteUserError
+      }
+    }
+    case SESSION_TERMINATION_FAILURE: {
+      return {
+        ...state,
+        deleteUserError: action.deleteUserError
+      }
+    }
+    case SET_SESSION_TERMINATION_STATE: {
+      return {
+        ...state,
+        delete_user_success: action.delete_user_success
+      }
+    }
+    case CLEAR_SESSION_TERMINATION_STATE: {
+      return {
+        ...state,
         user: {},
+        deleteUserError: "",
+        delete_user_success: false
       }
     }
     default: {
@@ -183,3 +215,5 @@ export const userReducer = (state = initialUserState, action) => {
     }
   }
 }
+
+

@@ -4,8 +4,8 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
-import { deleteCookie } from '../../utils/cookie';
-import { DELETE_USER_STATE } from '../../services/actions/user';
+import { deleteUser } from '../../services/actions/user';
+import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
 
 const ProfilePage = () => {
   const { user } = useSelector(
@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
 
   // Приведение инпутов к дефолтному значению, т.е. к актуальным имени и адресу. Пароль для красоты.
   const resetForm = () => {
@@ -43,14 +42,11 @@ const ProfilePage = () => {
   }, [user.name]);
 
   const handleSubmit = (e) => {
-    console.log(user)
-    console.log(name)
     e.preventDefault();
     const userData = {}
     if (name !== user.name) {
       console.log(111)
       userData.name = name;
-      console.log(userData)
     }
     if (email !== user.email) {
       userData.email = email;
@@ -59,11 +55,10 @@ const ProfilePage = () => {
   }
 
   const handleExit = () => {
+    dispatch(deleteUser());
     dispatch({
-      type: DELETE_USER_STATE
+      type: CLEAR_SESSION_TERMINATION_STATE,
     })
-    deleteCookie('token');
-    deleteCookie('refreshToken');
   }
 
   return (
