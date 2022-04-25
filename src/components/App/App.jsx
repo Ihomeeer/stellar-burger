@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 
 
