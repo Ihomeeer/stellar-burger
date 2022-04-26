@@ -1,4 +1,3 @@
-import React from 'react';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -7,10 +6,8 @@ import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
-import { BrowserRouter as Router, Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation, vuseParams } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 
@@ -21,17 +18,6 @@ export const filterIngredients = (array, type) => {
 }
 
 function App() {
-  const dispatch = useDispatch();
-
-  const { user } = useSelector(
-    state => state.user
-  );
-
-  React.useEffect(() => {
-    if (!user.name) {
-      dispatch(getUser());
-    }
-  }, [])
 
   return (
     <div id="app" className={appStyles.App}>
@@ -41,9 +27,9 @@ function App() {
           <Route path="/" exact={true}>
             <MainPage />
           </Route>
-          <Route path="/profile" exact={true}>
+          <ProtectedRoute path="/profile" exact={true}>
             <ProfilePage />
-          </Route>
+          </ProtectedRoute>
           <Route path="/login" exact={true}>
             <LoginPage />
           </Route>

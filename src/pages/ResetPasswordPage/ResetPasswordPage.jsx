@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { resetPassword,  CLEAR_RESET_PASSWORD_STATE } from '../../services/actions/user';
+import { Redirect, useHistory } from 'react-router-dom';
+import { resetPassword, CLEAR_RESET_PASSWORD_STATE } from '../../services/actions/user';
 import styles from './ResetPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+
 
 const ResetPasswordPage = () => {
 
@@ -18,10 +19,10 @@ const ResetPasswordPage = () => {
 
   React.useEffect(() => {
     if (reset_password_success) {
-      history.replace({pathname: '/login'})
+      history.replace({ pathname: '/login' })
       dispatch({ type: CLEAR_RESET_PASSWORD_STATE })
     }
-  }, [history, reset_password_success])
+  }, [history, reset_password_success, dispatch])
 
   const handleTokenChange = (e) => {
     setToken(e.target.value);
@@ -34,6 +35,12 @@ const ResetPasswordPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPassword(password, token));
+  }
+
+  if (history.location.state.forgotPassword === false) {
+    return (
+      <Redirect to='/' />
+    )
   }
 
   return (

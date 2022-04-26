@@ -32,10 +32,10 @@ export const GET_USER_FAILURE = "GET_USER_FAILURE";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 
-export const SESSION_TERMINATION_SUCCESS = "DELETE_USER_SUCCESS";
-export const SESSION_TERMINATION_FAILURE = "DELETE_USER_FAILURE";
-export const SET_SESSION_TERMINATION_STATE = "SET_DELETE_USER_STATE";
-export const CLEAR_SESSION_TERMINATION_STATE = "CLEAR_DELETE_USER_STATE";
+export const SESSION_TERMINATION_SUCCESS = "SESSION_TERMINATION_SUCCESS";
+export const SESSION_TERMINATION_FAILURE = "SESSION_TERMINATION_FAILURE";
+export const SET_SESSION_TERMINATION_STATE = "SET_SESSION_TERMINATION_STATE";
+export const CLEAR_SESSION_TERMINATION_STATE = "CLEAR_SESSION_TERMINATION_STATE";
 
 
 // регистрация нового пользователя
@@ -218,8 +218,7 @@ export function getUser() {
     refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
       headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
     })

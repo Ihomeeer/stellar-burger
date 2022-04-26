@@ -5,6 +5,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login,  CLEAR_LOGIN_STATE } from '../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,13 @@ const LoginPage = () => {
       history.replace({pathname: '/'})
       dispatch({ type: CLEAR_LOGIN_STATE })
     }
-  }, [history, login_success])
+  }, [history, login_success, dispatch])
 
+  if (getCookie('token')) {
+    return (
+      <Redirect to='/'/>
+    )
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -41,6 +47,8 @@ const LoginPage = () => {
     dispatch(login(email, password));
     clearState();
   }
+
+
 
   return (
     <section className={styles.section}>

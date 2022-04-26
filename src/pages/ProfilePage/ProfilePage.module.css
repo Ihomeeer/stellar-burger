@@ -53,6 +53,7 @@
 
 .buttonsContainer {
   width: 320px;
+  height: 56px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

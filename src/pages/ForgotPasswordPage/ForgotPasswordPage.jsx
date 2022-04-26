@@ -5,6 +5,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { forgotPassword, CLEAR_FORGOT_PASSWORD_STATE } from '../../services/actions/user';
+import { getCookie } from '../../utils/cookie';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = React.useState('');
@@ -16,10 +17,10 @@ const ForgotPasswordPage = () => {
 
   React.useEffect(() => {
     if (forgot_password_success) {
-      history.replace({pathname: '/reset-password'})
+      history.replace({pathname: '/reset-password', state: { forgotPassword: true}})
       dispatch({ type: CLEAR_FORGOT_PASSWORD_STATE })
     }
-  }, [history, forgot_password_success])
+  }, [history, forgot_password_success, dispatch])
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -28,6 +29,12 @@ const ForgotPasswordPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(forgotPassword(email));
+  }
+
+  if (getCookie('token')) {
+    return (
+      <Redirect to='/'/>
+    )
   }
 
   return (

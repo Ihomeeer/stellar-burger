@@ -4,7 +4,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
-import { deleteUser } from '../../services/actions/user';
+import { getUser, deleteUser } from '../../services/actions/user';
 import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
 
 const ProfilePage = () => {
@@ -15,6 +15,23 @@ const ProfilePage = () => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [buttonsDisabled, setButtonsDisabled] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!user.name) {
+      dispatch(getUser());
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (user.name) {
+      resetForm();
+    }
+  }, [user.name]);
+
+  React.useEffect(() => {
+    handleButtonsDisable()
+  }, [name, email])
 
   // Приведение инпутов к дефолтному значению, т.е. к актуальным имени и адресу. Пароль для красоты.
   const resetForm = () => {
@@ -35,23 +52,25 @@ const ProfilePage = () => {
     setPassword(e.target.value);
   }
 
-  React.useEffect(() => {
-    if (user.name) {
-      resetForm();
-    }
-  }, [user.name]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {}
+    setButtonsDisabled(true);
     if (name !== user.name) {
-      console.log(111)
       userData.name = name;
     }
     if (email !== user.email) {
       userData.email = email;
     }
     dispatch(updateUser(userData));
+  }
+
+  const handleButtonsDisable = () => {
+    if (name !== user.name || email !== user.email) {
+      setButtonsDisabled(false);
+    } else {
+      setButtonsDisabled(true);
+    }
   }
 
   const handleExit = () => {
@@ -111,8 +130,16 @@ const ProfilePage = () => {
           autoComplete="off"
         />
         <div className={styles.buttonsContainer}>
-          <Button className={styles.button} onClick={resetForm} type="secondary">Отмена</Button>
-          <Button className={`${styles.button} ${styles.submitButton}`} type="primary">Сохранить</Button>
+          {
+            buttonsDisabled
+              ?
+              <></>
+              :
+              <>
+                <Button className={styles.button} onClick={resetForm} type="secondary" >Отмена</Button>
+                <Button className={`${styles.button} ${styles.submitButton}`} type="primary" >Сохранить</Button>
+              </>
+          }
         </div>
       </form>
     </section>

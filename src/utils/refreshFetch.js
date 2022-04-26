@@ -28,8 +28,7 @@ export const refreshFetch = (url, options = {}) => {
           })
           .catch(err => new Error(err));
         options.headers.authorization = `Bearer ${getCookie('token')}`;
-        const res = await fetch(url, options);
-        return checkStatus(res)
+        await fetch(url, options);
       } else {
         return Promise.reject(err)
       }
