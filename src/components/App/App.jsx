@@ -22,6 +22,7 @@ function ModalSwitch() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+
   // This piece of state is set when one of the
   // gallery links is clicked. The `background` state
   // is the location that we were at when one of
@@ -51,27 +52,27 @@ function ModalSwitch() {
     <div>
       <AppHeader />
       <Switch location={background || location}>
-        <Route path="/" >
+        <Route path="/" exact={true}>
           <MainPage />
         </Route>
-        <ProtectedRoute path="/profile" >
+        <ProtectedRoute path="/profile" exact={true}>
           <ProfilePage />
         </ProtectedRoute>
-        <Route path="/login" >
+        <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
-        <Route path="/register" >
+        <Route path="/register" exact={true}>
           <RegisterPage />
         </Route>
-        <Route path="/forgot-password" >
+        <Route path="/forgot-password" exact={true}>
           <ForgotPasswordPage />
         </Route>
-        <Route path="/reset-password" >
+        <Route path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </Route>
-        <Route path="/ingredients/:ingredientId" exact={true}>
+        <ProtectedRoute path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
-        </Route>
+        </ProtectedRoute>
         <Route path="*">
           <NotFoundPage />
         </Route>

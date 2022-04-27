@@ -1,12 +1,34 @@
 import styles from './IngredientPage.module.css';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../services/actions/user';
+import { useParams } from 'react-router-dom';
+import { getAllItems } from '../../services/actions/allIngredients';
 
 const IngredientPage = () => {
-  const { currentIngredient } =  useSelector(
-    state => state.currentIngredient
+  const { ingredientId } = useParams()
+
+  const { ingredients } = useSelector(
+    state => state.allIngredients
   );
 
-  const item = currentIngredient && currentIngredient;
+  const item = ingredients.filter(ingredient => ingredient._id === ingredientId)[0];
+
+  const { user } = useSelector(
+    state => state.user
+  );
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (!user.name) {
+      dispatch(getUser());
+    }
+  }, [])
+
+  React.useEffect(() => {
+    // Вызов экшена для получения всех ингредиентов от сервера
+    dispatch(getAllItems())
+  }, [])
 
   return (
 
