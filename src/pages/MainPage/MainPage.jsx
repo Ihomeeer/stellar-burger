@@ -13,9 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../services/actions/allIngredients';
 import {
   SET_CURRENT_INGREDIENT,
-  DELETE_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
-  SET_INGREDIENT_MODAL_INVISIBLE
 } from '../../services/actions/currentIngredient';
 import {
   DELETE_ORDER_NUMBER,
@@ -25,9 +23,7 @@ import {
 
 function MainPage() {
   const dispatch = useDispatch();
-  const { ingredientModalVisibility } = useSelector(
-    state => state.currentIngredient
-  );
+
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
     state => state.order
   );
@@ -53,16 +49,6 @@ function MainPage() {
     dispatch(placeOrder(info, orderError))
   }
 
-  // закрытие модалки с ингредиентом
-  const handleCloseIngredientModal = () => {
-    dispatch({
-      type: SET_INGREDIENT_MODAL_INVISIBLE,
-    })
-    dispatch({
-      type: DELETE_CURRENT_INGREDIENT
-    })
-  }
-
   // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
     dispatch({
@@ -85,14 +71,6 @@ function MainPage() {
           />
         </DndProvider>
       </div>
-
-      <Modal
-        title="Детали ингредиента"
-        isModalVisible={ingredientModalVisibility}
-        closeModal={handleCloseIngredientModal}
-      >
-        <ModalIngredient />
-      </Modal>
 
       <Modal
         isModalVisible={orderModalVisibility}
