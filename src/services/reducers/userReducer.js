@@ -74,14 +74,14 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         user: action.user,
-        loginError: ""
+        loginError: action.loginError
       }
     }
     case USER_LOGIN_FAILURE: {
       return {
         ...state,
         user: {},
-        loginError: action.error,
+        loginError: action.loginError
       }
     }
     case SET_LOGIN_STATE: {

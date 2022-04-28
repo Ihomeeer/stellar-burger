@@ -1,3 +1,4 @@
+import React from 'react';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -10,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../services/actions/currentIngredient';
+import { getAllItems } from '../../services/actions/allIngredients';
+import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { BrowserRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
@@ -21,6 +24,7 @@ function ModalSwitch() {
   let location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
+
 
 
   // This piece of state is set when one of the
@@ -46,7 +50,9 @@ function ModalSwitch() {
     })
     history.goBack()
   }
-  console.log(location)
+
+
+
 
   return (
     <div>
@@ -103,6 +109,21 @@ export const filterIngredients = (array, type) => {
 }
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector(
+    state => state.user
+  );
+
+  React.useEffect(() => {
+    // Вызов экшена для получения всех ингредиентов от сервера
+    dispatch(getAllItems())
+  }, [])
+
+  React.useEffect(() => {
+    if (!user.name) {
+      dispatch(getUser());
+    }
+  }, [])
 
   return (
     <div id="app" className={appStyles.App}>

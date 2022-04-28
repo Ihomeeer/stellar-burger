@@ -19,16 +19,16 @@ const IngredientPage = () => {
   );
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (!user.name) {
-      dispatch(getUser());
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   if (!user.name) {
+  //     dispatch(getUser());
+  //   }
+  // }, [])
 
-  React.useEffect(() => {
-    // Вызов экшена для получения всех ингредиентов от сервера
-    dispatch(getAllItems())
-  }, [])
+  // React.useEffect(() => {
+  //   // Вызов экшена для получения всех ингредиентов от сервера
+  //   dispatch(getAllItems())
+  // }, [])
 
   return (
 

@@ -3,7 +3,7 @@ import styles from './RegisterPage.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CLEAR_REGISTRATION_STATE } from '../../services/actions/user';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 
@@ -13,7 +13,7 @@ const RegisterPage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const history = useHistory();
-  const { register_success } = useSelector(
+  const { register_success, registerError } = useSelector(
     state => state.user
   );
 
@@ -85,6 +85,7 @@ const RegisterPage = () => {
           />
         </div>
       </EnteringForm>
+      <p className={styles.error}>{registerError && registerError}</p>
     </section>
   )
 }

@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const history = useHistory();
-  const { login_success } = useSelector(
+  const { login_success, loginError } = useSelector(
     state => state.user
   );
 
@@ -48,8 +48,6 @@ const LoginPage = () => {
     clearState();
   }
 
-
-
   return (
     <section className={styles.section}>
       <EnteringForm
@@ -80,6 +78,7 @@ const LoginPage = () => {
           />
         </div>
       </EnteringForm>
+      <p className={styles.error}>{loginError && loginError}</p>
     </section>
   )
 }

@@ -18,12 +18,6 @@ const ProfilePage = () => {
   const [buttonsDisabled, setButtonsDisabled] = React.useState(false);
 
   React.useEffect(() => {
-    if (!user.name) {
-      dispatch(getUser());
-    }
-  }, [])
-
-  React.useEffect(() => {
     if (user.name) {
       resetForm();
     }

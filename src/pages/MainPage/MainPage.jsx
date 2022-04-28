@@ -39,11 +39,6 @@ function MainPage() {
     })
   }
 
-  React.useEffect(() => {
-    // Вызов экшена для получения всех ингредиентов от сервера
-    dispatch(getAllItems())
-  }, [])
-
   // открытие модалки с заказом
   const handleOpenOrderModal = (info) => {
     dispatch(placeOrder(info, orderError))
