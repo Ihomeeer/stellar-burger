@@ -21,6 +21,7 @@ import {
   UPDATE_USER_FAILURE,
   SET_USER_STATE,
   DELETE_USER_STATE,
+  SET_USER_LOGGED_IN_STATE,
   SESSION_TERMINATION_SUCCESS,
   SESSION_TERMINATION_FAILURE,
   SET_SESSION_TERMINATION_STATE,
@@ -29,6 +30,7 @@ import {
 
 const initialUserState = {
   user: {},
+  isLoggedIn: false,
   registerError: "",
   loginError: "",
   forgotPassowrdError: "",
@@ -159,6 +161,14 @@ export const userReducer = (state = initialUserState, action) => {
         authError: action.authError
       }
     }
+    case SET_USER_LOGGED_IN_STATE: {
+      return {
+        ...state,
+        isLoggedIn: action.isLoggedIn
+      }
+    }
+
+
 
     case UPDATE_USER_SUCCESS: {
       return {

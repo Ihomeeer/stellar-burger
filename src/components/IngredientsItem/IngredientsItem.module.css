@@ -3,6 +3,7 @@
   height: 209px;
   position: relative;
   cursor: pointer;
+  border-radius: 30px;
 }
 
 .cardContainer:hover {

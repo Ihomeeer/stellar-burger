@@ -1,10 +1,9 @@
 // тут хидер - лого, кнопки всякие важные (лента заказов, личный кабинет и проч.)
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import appHeaderStyles from './AppHeader.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function AppHeader() {
-  const history = useHistory()
   return (
     <header className={appHeaderStyles.header}>
       <nav className={appHeaderStyles.nav}>
@@ -26,7 +25,9 @@ function AppHeader() {
           </div>
 
           <li className={appHeaderStyles.listElement}>
-            <Logo />
+            <NavLink exact to="/">
+              <Logo />
+            </NavLink>
           </li>
 
           <li className={appHeaderStyles.listElement}>

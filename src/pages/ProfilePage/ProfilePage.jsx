@@ -4,7 +4,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
-import { getUser, deleteUser } from '../../services/actions/user';
+import { deleteUser } from '../../services/actions/user';
 import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
 
 const ProfilePage = () => {

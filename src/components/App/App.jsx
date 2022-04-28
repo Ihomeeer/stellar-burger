@@ -14,7 +14,7 @@ import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../..
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
-import { BrowserRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
@@ -102,32 +102,27 @@ function ModalSwitch() {
   );
 }
 
-
 function App() {
+  const history = useHistory();
   let location = useLocation();
   const dispatch = useDispatch();
-  const { user } = useSelector(
+  const { user, isLoggedIn } = useSelector(
     state => state.user
   );
 
-
   React.useEffect(() => {
-    if (location.pathname === "/" || location.pathname === '/ingredients/:ingredientId') {
       dispatch(getAllItems());
-    }
-  }, [location, dispatch])
+  }, [location, history])
 
   React.useEffect(() => {
-    if (location.pathname === '/profile' || location.pathname === '/ingredients/:ingredientId') {
-      if (!user.name) {
+      if (!isLoggedIn) {
         dispatch(getUser());
       }
-    }
-  }, [location, dispatch])
+  }, [location, history])
 
   return (
     <div id="app" className={appStyles.App}>
-        <ModalSwitch />
+      <ModalSwitch />
     </div>
   );
 }

@@ -37,11 +37,12 @@ const ResetPasswordPage = () => {
     dispatch(resetPassword(password, token));
   }
 
-  if (history.location.state.forgotPassword === false) {
-    return (
-      <Redirect to='/' />
-    )
-  }
+  React.useEffect(() => {
+    if (history?.location?.pathname === '/reset-password' && !history?.location?.state?.forgotPassword) {
+      history.replace({pathname: '/login'})
+    }
+  }, [history.location.pathname])
+
 
   return (
     <section className={styles.section}>

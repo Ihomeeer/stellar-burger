@@ -25,6 +25,8 @@ export const CLEAR_RESET_PASSWORD_STATE = 'CLEAR_RESET_PASSWORD_STATE';
 
 export const SET_USER_STATE = "SET_USER_STATE";
 export const DELETE_USER_STATE = "DELETE_USER_STATE";
+export const SET_USER_LOGGED_IN_STATE = "SET_USER_LOGGED_IN_STATE";
+
 
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILURE = "GET_USER_FAILURE";
@@ -231,11 +233,19 @@ export function getUser() {
           type: SET_USER_STATE,
           user: res.user
         })
+        dispatch({
+          type: SET_USER_LOGGED_IN_STATE,
+          isLoggedIn: true
+        })
       })
       .catch((err) => {
         dispatch({
           type: GET_USER_FAILURE,
           authError: err
+        })
+        dispatch({
+          type: SET_USER_LOGGED_IN_STATE,
+          isLoggedIn: false
         })
         console.log(err);
       })
@@ -306,6 +316,10 @@ export const deleteUser = () => {
           dispatch({
             type: SET_SESSION_TERMINATION_STATE,
             delete_user_success: true
+          })
+          dispatch({
+            type: SET_USER_LOGGED_IN_STATE,
+            isLoggedIn: false
           })
           deleteCookie('token');
           deleteCookie('refreshToken');
