@@ -19,13 +19,15 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 
+// фильтр ингредиентов по типу
+export const filterIngredients = (array, type) => {
+  return array.filter((item) => item.type === type);
+}
 
 function ModalSwitch() {
   let location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
-
-
 
   // This piece of state is set when one of the
   // gallery links is clicked. The `background` state
@@ -50,9 +52,6 @@ function ModalSwitch() {
     })
     history.goBack()
   }
-
-
-
 
   return (
     <div>
@@ -103,33 +102,32 @@ function ModalSwitch() {
   );
 }
 
-// фильтр ингредиентов по типу
-export const filterIngredients = (array, type) => {
-  return array.filter((item) => item.type === type);
-}
 
 function App() {
+  let location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector(
     state => state.user
   );
 
-  React.useEffect(() => {
-    // Вызов экшена для получения всех ингредиентов от сервера
-    dispatch(getAllItems())
-  }, [])
 
   React.useEffect(() => {
-    if (!user.name) {
-      dispatch(getUser());
+    if (location.pathname === "/" || location.pathname === '/ingredients/:ingredientId') {
+      dispatch(getAllItems());
     }
-  }, [])
+  }, [location, dispatch])
+
+  React.useEffect(() => {
+    if (location.pathname === '/profile') {
+      if (!user.name) {
+        dispatch(getUser());
+      }
+    }
+  }, [location, dispatch])
 
   return (
     <div id="app" className={appStyles.App}>
-      <Router>
         <ModalSwitch />
-      </Router>
     </div>
   );
 }

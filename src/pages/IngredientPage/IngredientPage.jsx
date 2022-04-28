@@ -14,22 +14,6 @@ const IngredientPage = () => {
 
   const item = ingredients.filter(ingredient => ingredient._id === ingredientId)[0];
 
-  const { user } = useSelector(
-    state => state.user
-  );
-  const dispatch = useDispatch();
-
-  // React.useEffect(() => {
-  //   if (!user.name) {
-  //     dispatch(getUser());
-  //   }
-  // }, [])
-
-  // React.useEffect(() => {
-  //   // Вызов экшена для получения всех ингредиентов от сервера
-  //   dispatch(getAllItems())
-  // }, [])
-
   return (
 
     <div className={styles.container}>

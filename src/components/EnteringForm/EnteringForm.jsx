@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './EnteringForm.module.css';
@@ -42,6 +41,13 @@ const EnteringForm = ({ children, onSubmit, formTitle, buttonTitle }) => {
       </form>
     </div>
   )
+}
+
+EnteringForm.propTypes = {
+  children: PropTypes.node.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  formTitle: PropTypes.string.isRequired,
+  buttonTitle: PropTypes.string.isRequired,
 }
 
 export default EnteringForm;

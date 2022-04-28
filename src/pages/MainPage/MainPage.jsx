@@ -1,16 +1,13 @@
-import React from 'react';
 import styles from './MainPage.module.css';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import Modal from '../../components/Modal/Modal';
-import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
 import ModalOrder from '../../components/ModalOrder/ModalOrder';
 //ИМПОРТЫ ДЛЯ DnD___________________________________________________________________________________
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllItems } from '../../services/actions/allIngredients';
 import {
   SET_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
