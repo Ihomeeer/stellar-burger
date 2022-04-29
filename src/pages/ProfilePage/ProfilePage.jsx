@@ -1,16 +1,19 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
 import { deleteUser } from '../../services/actions/user';
 import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
+import { getUser } from '../../services/actions/user';
 
 const ProfilePage = () => {
-  const { user } = useSelector(
+  const location = useLocation();
+  const { user, isLoggedIn } = useSelector(
     state => state.user
   );
+
   const dispatch = useDispatch();
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');

@@ -18,6 +18,7 @@ import { Route, Switch, useHistory, useLocation, useParams } from 'react-router-
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
+import { getCookie } from '../../utils/cookie';
 
 // фильтр ингредиентов по типу
 export const filterIngredients = (array, type) => {
@@ -75,9 +76,9 @@ function ModalSwitch() {
         <Route path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </Route>
-        <ProtectedRoute path="/ingredients/:ingredientId" exact={true}>
+        <Route path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
-        </ProtectedRoute>
+        </Route>
         <Route path="*">
           <NotFoundPage />
         </Route>
@@ -106,19 +107,25 @@ function App() {
   const history = useHistory();
   let location = useLocation();
   const dispatch = useDispatch();
-  const { user, isLoggedIn } = useSelector(
+  const { ingredientId } = useParams();
+  const { isLoggedIn } = useSelector(
     state => state.user
   );
 
-  React.useEffect(() => {
-      dispatch(getAllItems());
-  }, [location, history])
 
   React.useEffect(() => {
-      if (!isLoggedIn) {
-        dispatch(getUser());
-      }
-  }, [location, history])
+    if (getCookie('token') && !isLoggedIn) {
+        dispatch(getUser())
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/forgot-password' && location.pathname !== '/reset-password') {
+      dispatch(getAllItems());
+    }
+  }, [])
+
+
 
   return (
     <div id="app" className={appStyles.App}>

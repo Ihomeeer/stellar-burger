@@ -116,6 +116,10 @@ export function login(email, password) {
             type: SET_LOGIN_STATE,
             login_success: true
           })
+          dispatch({
+            type: SET_USER_LOGGED_IN_STATE,
+            isLoggedIn: true
+          })
         }
       })
       .catch((err) => {
@@ -215,16 +219,16 @@ export function resetPassword(password, token) {
 
 // авторизация пользователя
 export function getUser() {
-  const token = getCookie('token');
   return function (dispatch) {
-    refreshFetch(`${baseURL}/auth/user`, {
+    return refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${getCookie('token')}`,
         "Content-Type": "application/json"
       },
     })
       .then((res) => {
+        console.log('авторизация - then')
         dispatch({
           type: GET_USER_SUCCESS,
           authError: ""
@@ -239,6 +243,7 @@ export function getUser() {
         })
       })
       .catch((err) => {
+        console.log('catch в экшнах')
         dispatch({
           type: GET_USER_FAILURE,
           authError: err
@@ -254,13 +259,12 @@ export function getUser() {
 
 // изменение данных пользователя
 export function updateUser(userData) {
-  const token = getCookie('token');
   return function (dispatch) {
     refreshFetch(`${baseURL}/auth/user`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getCookie('token')}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
