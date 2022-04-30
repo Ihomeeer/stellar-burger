@@ -27,7 +27,6 @@ export const SET_USER_STATE = "SET_USER_STATE";
 export const DELETE_USER_STATE = "DELETE_USER_STATE";
 export const SET_USER_LOGGED_IN_STATE = "SET_USER_LOGGED_IN_STATE";
 
-
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILURE = "GET_USER_FAILURE";
 
@@ -38,6 +37,8 @@ export const SESSION_TERMINATION_SUCCESS = "SESSION_TERMINATION_SUCCESS";
 export const SESSION_TERMINATION_FAILURE = "SESSION_TERMINATION_FAILURE";
 export const SET_SESSION_TERMINATION_STATE = "SET_SESSION_TERMINATION_STATE";
 export const CLEAR_SESSION_TERMINATION_STATE = "CLEAR_SESSION_TERMINATION_STATE";
+
+export const SET_LOGGING_IN = "SET_LOGGING_IN";
 
 
 // регистрация нового пользователя
@@ -85,6 +86,10 @@ export function register(name, email, password) {
 // логин существующего пользователя
 export function login(email, password) {
   return function (dispatch) {
+    dispatch({
+      type: SET_LOGGING_IN,
+      loggingIn: true
+    })
     fetch(`${baseURL}/auth/login`, {
       method: "POST",
       headers: {
@@ -122,6 +127,12 @@ export function login(email, password) {
           })
         }
       })
+      .then(() => {
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
+      })
       .catch((err) => {
         dispatch({
           type: USER_LOGIN_FAILURE,
@@ -131,7 +142,17 @@ export function login(email, password) {
           type: SET_LOGIN_STATE,
           login_success: false
         })
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
         console.log(err);
+      })
+      .finally(() => {
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
       })
   }
 }
@@ -220,6 +241,10 @@ export function resetPassword(password, token) {
 // авторизация пользователя
 export function getUser() {
   return function (dispatch) {
+    dispatch({
+      type: SET_LOGGING_IN,
+      loggingIn: true
+    })
     refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
       headers: {
@@ -240,6 +265,13 @@ export function getUser() {
           type: SET_USER_LOGGED_IN_STATE,
           isLoggedIn: true
         })
+
+      })
+      .then(() => {
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
       })
       .catch((err) => {
         console.log('catch в экшнах')
@@ -251,7 +283,17 @@ export function getUser() {
           type: SET_USER_LOGGED_IN_STATE,
           isLoggedIn: false
         })
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
         console.log(err);
+      })
+      .finally(() => {
+        dispatch({
+          type: SET_LOGGING_IN,
+          loggingIn: false
+        })
       })
   }
 }

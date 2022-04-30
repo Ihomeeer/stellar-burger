@@ -25,12 +25,14 @@ import {
   SESSION_TERMINATION_SUCCESS,
   SESSION_TERMINATION_FAILURE,
   SET_SESSION_TERMINATION_STATE,
-  CLEAR_SESSION_TERMINATION_STATE
+  CLEAR_SESSION_TERMINATION_STATE,
+  SET_LOGGING_IN
 } from '../actions/user';
 
 const initialUserState = {
   user: {},
   isLoggedIn: false,
+  loggingIn: true,
   registerError: "",
   loginError: "",
   forgotPassowrdError: "",
@@ -167,9 +169,6 @@ export const userReducer = (state = initialUserState, action) => {
         isLoggedIn: action.isLoggedIn
       }
     }
-
-
-
     case UPDATE_USER_SUCCESS: {
       return {
         ...state,
@@ -220,10 +219,14 @@ export const userReducer = (state = initialUserState, action) => {
         delete_user_success: false
       }
     }
+    case SET_LOGGING_IN: {
+      return {
+        ...state,
+        loggingIn: action.loggingIn
+      }
+    }
     default: {
       return state;
     }
   }
 }
-
-

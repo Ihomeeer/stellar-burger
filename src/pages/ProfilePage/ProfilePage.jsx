@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, Redirect } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const { user, isLoggedIn } = useSelector(
     state => state.user
   );
+
 
   const dispatch = useDispatch();
   const [name, setName] = React.useState('');
