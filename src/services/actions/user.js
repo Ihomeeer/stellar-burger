@@ -220,15 +220,14 @@ export function resetPassword(password, token) {
 // авторизация пользователя
 export function getUser() {
   return function (dispatch) {
-    return refreshFetch(`${baseURL}/auth/user`, {
+    refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${getCookie('token')}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getCookie('token')}`
       },
     })
       .then((res) => {
-        console.log('авторизация - then')
         dispatch({
           type: GET_USER_SUCCESS,
           authError: ""

@@ -4,7 +4,6 @@ import { useParams, useLocation } from 'react-router-dom';
 
 const IngredientPage = () => {
   const { ingredientId } = useParams()
-  const location = useLocation();
 
   const { ingredients } = useSelector(
     state => state.allIngredients

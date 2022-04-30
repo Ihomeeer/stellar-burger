@@ -114,7 +114,7 @@ function App() {
 
 
   React.useEffect(() => {
-    if (getCookie('token') && !isLoggedIn) {
+    if (getCookie('token') && !isLoggedIn ) {
         dispatch(getUser())
     }
   }, [])
