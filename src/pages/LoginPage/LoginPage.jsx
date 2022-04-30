@@ -4,24 +4,29 @@ import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { getCookie } from '../../utils/cookie';
+import { useLocation, useHistory } from 'react-router-dom';
+
 
 const LoginPage = () => {
-  const location = useLocation();
+  let location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const history = useHistory();
-  const { loginError } = useSelector(
+  const { isLoggedIn, loginError } = useSelector(
     state => state.user
   );
 
-  if (getCookie('token')) {
-    return (
-      <Redirect to='/' />
-    )
-  }
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      if (location?.state?.from?.pathname) {
+        history.replace({ pathname: location?.state?.from?.pathname })
+      } else {
+        history.replace({ pathname: "/" })
+      }
+    }
+  }, [isLoggedIn])
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

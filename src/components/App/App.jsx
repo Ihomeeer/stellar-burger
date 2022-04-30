@@ -14,7 +14,7 @@ import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../..
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
-import { Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
@@ -104,23 +104,20 @@ function ModalSwitch() {
 }
 
 function App() {
-  const history = useHistory();
-  let location = useLocation();
   const dispatch = useDispatch();
-  const { ingredientId } = useParams();
   const { isLoggedIn } = useSelector(
     state => state.user
   );
 
 
   React.useEffect(() => {
-    if (getCookie('token') && !isLoggedIn ) {
-        dispatch(getUser())
+    if (getCookie('token') && !isLoggedIn) {
+      dispatch(getUser())
     }
   }, [])
 
   React.useEffect(() => {
-      dispatch(getAllItems());
+    dispatch(getAllItems());
   }, [])
 
   return (
