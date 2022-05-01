@@ -3,6 +3,7 @@
   height: 209px;
   position: relative;
   cursor: pointer;
+  border-radius: 30px;
 }
 
 .cardContainer:hover {
@@ -32,4 +33,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }

@@ -5,6 +5,7 @@ import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorIte
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
 import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
@@ -12,10 +13,13 @@ import { v4 as generateUid } from 'uuid';
 
 
 function BurgerConstructor({ openModal }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
     state => state.burgerConstructor
   );
+
+  const { isLoggedIn } = useSelector(store => store.user);
 
   // контейнер для приема ингредиентов
   const [{ canDrop }, dropTarget] = useDrop({
@@ -70,7 +74,11 @@ function BurgerConstructor({ openModal }) {
   // Формирование массива Id'ов и отправка на сервер, открытие модалки с номером заказа
   const submitOrder = () => {
     const idArray = [bun._id, ...ingredients.map(item => item._id), bun._id];
-    ingredients && openModal(idArray)
+    if (isLoggedIn) {
+      ingredients && openModal(idArray)
+    } else {
+      history.replace({pathname: '/login'})
+    }
   }
 
   // обработка тасовки ингредиентов в конструкторе
