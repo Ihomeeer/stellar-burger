@@ -29,14 +29,6 @@ function ModalSwitch() {
   let location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // This piece of state is set when one of the
-  // gallery links is clicked. The `background` state
-  // is the location that we were at when one of
-  // the gallery links was clicked. If it's there,
-  // use it as the location for the <Switch> so
-  // we show the gallery in the background, behind
-  // the modal.
   const background = location.state && location.state.background;
 
   const { ingredientModalVisibility } = useSelector(
@@ -114,10 +106,12 @@ function App() {
     if (getCookie('token') && !isLoggedIn) {
       dispatch(getUser())
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
     dispatch(getAllItems());
+    // eslint-disable-next-line
   }, [])
 
   return (

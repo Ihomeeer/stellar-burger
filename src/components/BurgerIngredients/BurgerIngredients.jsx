@@ -86,7 +86,7 @@ function BurgerIngredients({ openModal }) {
       </div>
       {ingredients.length > 0
         ?
-        <div className={`${styles.itemsContainer} ${styles.scrollIngredients}`} ref={refContainer} onScroll={handleScroll}>
+        <div className={`${styles.itemsContainer} ${styles.scrollIngredients}`} ref={refContainer} onScroll={ handleScroll }>
 
           <div>
             <h3 className={`${styles.text} ${styles.header} text text_type_main-medium mb-6`} ref={bunsRef}>Булки</h3>

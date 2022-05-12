@@ -1,12 +1,13 @@
 // карточка с ингредиентом для левой секции
+import { FC } from "react";
 import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import { itemPropTypes } from "../../utils/PropTypes";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from 'react-router-dom';
+import { TIngredientsItem } from '../../utils/types';
 
-function IngredientsItem({ item, openModal }) {
+const IngredientsItem: FC<TIngredientsItem> = ({ item, openModal }) => {
+  console.log(item)
 
   const location = useLocation()
   const ingredientId = item._id;
@@ -45,9 +46,9 @@ function IngredientsItem({ item, openModal }) {
   )
 }
 
-IngredientsItem.propTypes = {
-  item: itemPropTypes.isRequired,
-  openModal: PropTypes.func.isRequired,
-}
+// IngredientsItem.propTypes = {
+//   item: itemPropTypes.isRequired,
+//   openModal: PropTypes.func.isRequired,
+// }
 
 export default IngredientsItem;
