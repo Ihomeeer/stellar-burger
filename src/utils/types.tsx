@@ -15,7 +15,33 @@ export type TBaseIngredient = {
   readonly _id: string;
 }
 
-export type TIngredientsItem = {
-  item: TBaseIngredient;
+export type TConstructorIngredient = TBaseIngredient & {
+  uid?: string;
+  index?: number | undefined;
+}
+
+export type TBurgerIngredients = {
   openModal: (currentIngredient: TBaseIngredient) => void;
+}
+
+export type TIngredientsItem = TBurgerIngredients & {
+  item: TBaseIngredient;
+}
+
+export type TAllIngredientsState = {
+  ingredients: TBaseIngredient[];
+  buns: TBaseIngredient[] | undefined;
+  sauces: TBaseIngredient[] | undefined,
+  mainIngredients: TBaseIngredient[] | undefined,
+  allIngredientsError: string | undefined,
+  currentTab: string | undefined
+}
+
+export type TBurgerConstructorItem = {
+  item: TConstructorIngredient;
+  index?: number | undefined;
+  isTop?: boolean;
+  isBottom?: boolean;
+  isLocked?: boolean;
+  moveItem: (dragIndex: number, hoverIndex: number) => void;
 }

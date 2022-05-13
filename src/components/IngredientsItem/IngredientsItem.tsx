@@ -7,7 +7,6 @@ import { useLocation, Link } from 'react-router-dom';
 import { TIngredientsItem } from '../../utils/types';
 
 const IngredientsItem: FC<TIngredientsItem> = ({ item, openModal }) => {
-  console.log(item)
 
   const location = useLocation()
   const ingredientId = item._id;
@@ -45,10 +44,5 @@ const IngredientsItem: FC<TIngredientsItem> = ({ item, openModal }) => {
     </Link>
   )
 }
-
-// IngredientsItem.propTypes = {
-//   item: itemPropTypes.isRequired,
-//   openModal: PropTypes.func.isRequired,
-// }
 
 export default IngredientsItem;
