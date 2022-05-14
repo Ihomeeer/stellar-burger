@@ -1,4 +1,48 @@
+// ------------ Редакс-хранилище ------------
+export type TAllIngredientsState = {
+  ingredients: TBaseIngredient[];
+  buns: TBaseIngredient[];
+  sauces: TBaseIngredient[];
+  mainIngredients: TBaseIngredient[];
+  allIngredientsError: string;
+  currentTab: string;
+}
 
+export type TBurgerConstructorState = {
+  bun: TConstructorIngredient;
+  ingredients: TConstructorIngredient[];
+}
+
+export type TUserState = {
+  user: {
+    email: string;
+    name: string;
+  }
+  isLoggedIn: boolean;
+  loggingIn: boolean;
+  registerError: string;
+  loginError: string;
+  forgotPassowrdError: string;
+  resetPassowrdError: string;
+  authError: string;
+  updateError: string;
+  deleteUserError: string;
+  register_success: boolean;
+  login_success: boolean;
+  forgot_password_success: boolean;
+  reset_password_success: boolean;
+  delete_user_success: boolean;
+}
+
+export type TOrderState = {
+  orderNumber: number;
+  orderError: string;
+  orderModalVisibility: boolean;
+}
+
+
+// ------------ Остальные типы ------------
+// Базовый объект ингредиента
 export type TBaseIngredient = {
   readonly calories: number;
   readonly carbohydrates: number;
@@ -15,11 +59,8 @@ export type TBaseIngredient = {
   readonly _id: string;
 }
 
-export type TConstructorIngredient = TBaseIngredient & {
-  uid?: string;
-  index?: number | undefined;
-}
 
+// Ингредиенты
 export type TBurgerIngredients = {
   openModal: (currentIngredient: TBaseIngredient) => void;
 }
@@ -29,13 +70,11 @@ export type TIngredientsItem = TBurgerIngredients & {
   counter?: number;
 }
 
-export type TAllIngredientsState = {
-  ingredients: TBaseIngredient[];
-  buns: TBaseIngredient[] | undefined;
-  sauces: TBaseIngredient[] | undefined,
-  mainIngredients: TBaseIngredient[] | undefined,
-  allIngredientsError: string | undefined,
-  currentTab: string | undefined
+
+// Бургерный конструктор
+export type TConstructorIngredient = TBaseIngredient & {
+  uid?: string;
+  index?: number | undefined;
 }
 
 export type TBurgerConstructor = {
@@ -50,3 +89,4 @@ export type TBurgerConstructorItem = {
   isLocked?: boolean;
   moveItem: (dragIndex: number, hoverIndex: number) => void;
 }
+

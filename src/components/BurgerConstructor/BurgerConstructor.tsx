@@ -10,17 +10,17 @@ import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructo
 import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
-import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient } from '../../utils/types';
+import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient, TBurgerConstructorState, TUserState } from '../../utils/types';
 
 
 const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
-    (state: RootStateOrAny) => state.burgerConstructor
+    (state: RootStateOrAny): TBurgerConstructorState => state.burgerConstructor
   );
   const { isLoggedIn } = useSelector(
-    (state: RootStateOrAny) => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
   // контейнер для приема ингредиентов

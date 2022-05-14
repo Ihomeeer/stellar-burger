@@ -1,6 +1,6 @@
 import styles from './IngredientPage.module.css';
 import { useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const IngredientPage = () => {
   const { ingredientId } = useParams()

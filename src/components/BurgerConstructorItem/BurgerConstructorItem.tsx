@@ -44,8 +44,7 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
         dragIndex !== undefined && moveItem(dragIndex, hoverIndex);
         item.index = hoverIndex;
       }
-
-    },
+    }
   })
 
   // реф для таскания

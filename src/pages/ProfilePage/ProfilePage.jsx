@@ -1,12 +1,11 @@
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
 import { deleteUser } from '../../services/actions/user';
 import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
-import { getCookie } from '../../utils/cookie';
 
 const ProfilePage = () => {
   const { user } = useSelector(
@@ -23,10 +22,12 @@ const ProfilePage = () => {
     if (user.name) {
       resetForm();
     }
+        // eslint-disable-next-line
   }, [user.name]);
 
   React.useEffect(() => {
     handleButtonsDisable()
+        // eslint-disable-next-line
   }, [name, email])
 
   // Приведение инпутов к дефолтному значению, т.е. к актуальным имени и адресу. Пароль для красоты.

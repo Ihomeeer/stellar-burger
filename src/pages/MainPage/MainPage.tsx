@@ -17,13 +17,13 @@ import {
   SET_ORDER_MODAL_INVISIBLE,
   placeOrder
 } from '../../services/actions/order';
-import { TBaseIngredient } from '../../utils/types'
+import { TBaseIngredient, TOrderState } from '../../utils/types'
 
 function MainPage() {
   const dispatch = useDispatch();
 
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
-    (state: RootStateOrAny) => state.order
+    (state: RootStateOrAny): TOrderState => state.order
   );
 
   // открытие модалки с ингредиентом
