@@ -1,11 +1,12 @@
 // сюда впихивается все содержание модалки через компонент Modal, а еще тут всякие хэндлеры для закрытия модалок
+import { FC, MouseEvent } from 'react'
 import styles from './ModalOverlay.module.css'
-import PropTypes from 'prop-types';
+import { TModalOverlay } from '../../utils/types'
 
-function ModalOverlay({ children, isModalVisible, closeModal }) {
+const ModalOverlay: FC<TModalOverlay> = ({ children, isModalVisible, closeModal }) => {
 
   // закрытие по клику на оверлей
-  const overlayClick = (e) => {
+  const overlayClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       closeModal()
     }
@@ -16,12 +17,6 @@ function ModalOverlay({ children, isModalVisible, closeModal }) {
       {children}
     </div>
   )
-}
-
-ModalOverlay.propTypes = {
-  children: PropTypes.node.isRequired,
-  isModalVisible: PropTypes.bool,
-  closeModal: PropTypes.func.isRequired
 }
 
 export default ModalOverlay;

@@ -34,14 +34,14 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
         const clientOffset = monitor?.getClientOffset();
         // @ts-ignore
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-        if (dragIndex && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        if (dragIndex! < hoverIndex && hoverClientY < hoverMiddleY) {
           return;
         }
-        if (dragIndex && dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        if (dragIndex! > hoverIndex && hoverClientY > hoverMiddleY) {
           return;
         }
         // плохо мутировать объет напрямую, но тут ничего не поделать
-        dragIndex !== undefined && moveItem(dragIndex, hoverIndex);
+        moveItem(dragIndex!, hoverIndex);
         item.index = hoverIndex;
       }
     }

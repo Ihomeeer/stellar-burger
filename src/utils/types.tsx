@@ -40,6 +40,11 @@ export type TOrderState = {
   orderModalVisibility: boolean;
 }
 
+export type TCurrentIngredientState = {
+  currentIngredient: TBaseIngredient;
+  ingredientModalVisibility: boolean;
+}
+
 
 // ------------ Остальные типы ------------
 // Базовый объект ингредиента
@@ -90,3 +95,18 @@ export type TBurgerConstructorItem = {
   moveItem: (dragIndex: number, hoverIndex: number) => void;
 }
 
+// ModalOverlay
+export type TModalOverlay = {
+  isModalVisible: boolean;
+  closeModal: () => void;
+}
+
+// ModalOrder
+export type TModalOrder = {
+  orderNumber: number;
+}
+
+// Modal
+export type TModal = TModalOverlay & {
+  title?: string;
+}

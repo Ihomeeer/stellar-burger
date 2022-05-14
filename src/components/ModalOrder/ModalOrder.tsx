@@ -1,9 +1,10 @@
 // Модалка с деталями заказа
+import { FC } from 'react';
 import styles from "./ModalOrder.module.css";
 import successIcon from "../../images/success.svg";
-import PropTypes from 'prop-types';
+import { TModalOrder } from '../../utils/types';
 
-function ModalOrder ({ orderNumber }) {
+const ModalOrder: FC<TModalOrder> = ({ orderNumber }) => {
 
   return (
     <div className={styles.container}>
@@ -14,10 +15,6 @@ function ModalOrder ({ orderNumber }) {
       <p className={`${styles.text}text text_type_main-default text_color_inactive mb-30`}>Дождитесь готовности на орбитальной станции</p>
     </div>
   )
-}
-
-ModalOrder.propTypes = {
-  orderNumber: PropTypes.number
 }
 
 export default ModalOrder;
