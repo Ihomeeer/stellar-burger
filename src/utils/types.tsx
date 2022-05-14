@@ -26,6 +26,7 @@ export type TBurgerIngredients = {
 
 export type TIngredientsItem = TBurgerIngredients & {
   item: TBaseIngredient;
+  counter?: number;
 }
 
 export type TAllIngredientsState = {
@@ -37,11 +38,19 @@ export type TAllIngredientsState = {
   currentTab: string | undefined
 }
 
+export type TBurgerConstructor = {
+  openModal: (info: string[]) => void;
+}
+
 export type TBurgerConstructorItem = {
-  item: TConstructorIngredient;
+  item?: TConstructorIngredient;
   index?: number | undefined;
   isTop?: boolean;
   isBottom?: boolean;
   isLocked?: boolean;
-  moveItem: (dragIndex: number, hoverIndex: number) => void;
+  moveItem?: (dragIndex: number, hoverIndex: number) => void;
 }
+
+// export type TDropItem = TBurgerConstructorItem & {
+//   item?: TBurgerConstructorItem;
+// }

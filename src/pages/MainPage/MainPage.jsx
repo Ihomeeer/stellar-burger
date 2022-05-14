@@ -38,6 +38,7 @@ function MainPage() {
 
   // открытие модалки с заказом
   const handleOpenOrderModal = (info) => {
+    console.log(info)
     dispatch(placeOrder(info, orderError))
   }
 

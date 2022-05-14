@@ -1,30 +1,32 @@
 // Конструктор бургеров (правый который)
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
 import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
+import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem } from '../../utils/types';
 
 
-function BurgerConstructor({ openModal }) {
+const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
-    state => state.burgerConstructor
+    (state: RootStateOrAny) => state.burgerConstructor
   );
-
-  const { isLoggedIn } = useSelector(store => store.user);
+  const { isLoggedIn } = useSelector(
+    (state: RootStateOrAny) => state.user
+  );
 
   // контейнер для приема ингредиентов
   const [{ canDrop }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TConstructorIngredient) {
       onDropHandler(item);
     },
     collect: monitor => ({
@@ -33,9 +35,10 @@ function BurgerConstructor({ openModal }) {
   });
 
   // обработка перетаскивания ингредиента в конструктор
-  function onDropHandler(ingredient)  {
-    const { item } = ingredient;
-    if (!item.uid) {
+  function onDropHandler(ingredient: TConstructorIngredient) {
+    const { item }: TBurgerConstructorItem = ingredient;
+
+    if (item && !item.uid) {
       if (item.type !== 'bun') {
         const newItem = { ...item }
         newItem.uid = generateUid();
@@ -60,10 +63,15 @@ function BurgerConstructor({ openModal }) {
     }
   }
 
+
+
+
+
+
   // Вот тут стоимость считается
   const totalPrice = React.useMemo(() => {
     if (ingredients && bun) {
-      const priceMain = ingredients && ingredients?.reduce((prevPrice, item) => prevPrice + item.price, 0)
+      const priceMain: number = ingredients && ingredients?.reduce((prevPrice: number, item: TConstructorIngredient) => prevPrice + item.price, 0)
       const priceWithBuns = priceMain + bun.price * 2;
       return priceWithBuns
     } else {
@@ -73,16 +81,16 @@ function BurgerConstructor({ openModal }) {
 
   // Формирование массива Id'ов и отправка на сервер, открытие модалки с номером заказа
   const submitOrder = () => {
-    const idArray = [bun._id, ...ingredients.map(item => item._id), bun._id];
+    const idArray: string[] = [bun._id, ...ingredients.map((item: TConstructorIngredient) => item._id), bun._id];
     if (isLoggedIn) {
       ingredients && openModal(idArray)
     } else {
-      history.replace({pathname: '/login'})
+      history.replace({ pathname: '/login' })
     }
   }
 
   // обработка тасовки ингредиентов в конструкторе
-  const moveItem = (dragIndex, hoverIndex) => {
+  const moveItem = (dragIndex: number, hoverIndex: number) => {
     const draggedItem = ingredients[dragIndex];
     if (draggedItem) {
       const modifiedItems = [...ingredients];
@@ -107,7 +115,7 @@ function BurgerConstructor({ openModal }) {
         />}
 
         <ul className={styles.list} >
-          {ingredients && ingredients?.map((item, index) => {
+          {ingredients && ingredients?.map((item: TConstructorIngredient, index: number) => {
             return (
               <li key={item.uid} className={styles.listItem}>
                 <BurgerConstructorItem
@@ -142,3 +150,33 @@ BurgerConstructor.propTypes = {
 }
 
 export default BurgerConstructor;
+
+
+
+// function onDropHandler(ingredient: TConstructorIngredient) {
+//   const { item } = ingredient;
+//   console.log(item)
+//   if (!item.uid) {
+//     if (item.type !== 'bun') {
+//       const newItem = { ...item }
+//       newItem.uid = generateUid();
+//       dispatch({
+//         type: ADD_ITEM,
+//         item: newItem
+//       })
+//       dispatch({
+//         type: INCREASE_COUNTER,
+//         item: item
+//       })
+//     } else {
+//       dispatch({
+//         type: SET_BUN,
+//         item: item
+//       })
+//       dispatch({
+//         type: INCREASE_COUNTER,
+//         item: item
+//       })
+//     }
+//   }
+// }

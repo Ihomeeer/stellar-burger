@@ -27,7 +27,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
   const refContainer = useRef<HTMLDivElement>(null!);
 
   //Обработка нажатий на вкладки
-  const handleSelectTab = (ref: {current: HTMLHeadingElement}, currentTab: string) => {
+  const handleSelectTab = (ref: { current: HTMLHeadingElement }, currentTab: string) => {
     // прыжок к нужному рефу
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +68,6 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
       currentTab: tab
     })
   }
-  // --------------------------------------------------------------------------------------
 
   return (
     <section className={styles.section}>

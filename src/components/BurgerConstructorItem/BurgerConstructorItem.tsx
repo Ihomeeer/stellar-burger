@@ -41,7 +41,7 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
           return;
         }
         // плохо мутировать объет напрямую, но тут ничего не поделать
-        dragIndex && moveItem(dragIndex, hoverIndex);
+        dragIndex && moveItem && moveItem(dragIndex, hoverIndex);
         item.index = hoverIndex;
       }
 
@@ -76,14 +76,16 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
   return (
     <div className={`${styles.item} ${isTop || isBottom ? styles.borderItem : ''}`} ref={isLocked ? null : ref} style={{ opacity }}>
       {!isLocked && <DragIcon type="primary" />}
-      <ConstructorElement
-        type={isTop ? 'top' : isBottom ? 'bottom' : undefined}
-        isLocked={isLocked ? true : false}
-        text={isTop ? item.name + ` верх` : isBottom ? item.name + ` низ` : item.name}
-        price={item.price}
-        thumbnail={item.image}
-        handleClose={() => handleDelete(item)}
-      />
+      {
+        item && <ConstructorElement
+          type={isTop ? 'top' : isBottom ? 'bottom' : undefined}
+          isLocked={isLocked ? true : false}
+          text={isTop ? item.name + ` верх` : isBottom ? item.name + ` низ` : item.name}
+          price={item.price}
+          thumbnail={item.image}
+          handleClose={() => handleDelete(item)}
+        />
+      }
     </div>
   )
 }
