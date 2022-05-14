@@ -31,7 +31,7 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
         // Рассчет координат и положения указателя мыши
         const hoverBoundingRect = ref.current?.getBoundingClientRect();
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const clientOffset = monitor.getClientOffset();
+        const clientOffset = monitor?.getClientOffset();
         // @ts-ignore
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
         if (dragIndex && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -41,7 +41,7 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
           return;
         }
         // плохо мутировать объет напрямую, но тут ничего не поделать
-        dragIndex && moveItem && moveItem(dragIndex, hoverIndex);
+        dragIndex !== undefined && moveItem(dragIndex, hoverIndex);
         item.index = hoverIndex;
       }
 

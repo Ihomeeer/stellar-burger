@@ -43,14 +43,10 @@ export type TBurgerConstructor = {
 }
 
 export type TBurgerConstructorItem = {
-  item?: TConstructorIngredient;
+  item: TConstructorIngredient;
   index?: number | undefined;
   isTop?: boolean;
   isBottom?: boolean;
   isLocked?: boolean;
-  moveItem?: (dragIndex: number, hoverIndex: number) => void;
+  moveItem: (dragIndex: number, hoverIndex: number) => void;
 }
-
-// export type TDropItem = TBurgerConstructorItem & {
-//   item?: TBurgerConstructorItem;
-// }

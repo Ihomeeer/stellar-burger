@@ -10,7 +10,7 @@ import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructo
 import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
-import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem } from '../../utils/types';
+import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient } from '../../utils/types';
 
 
 const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
@@ -26,7 +26,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   // контейнер для приема ингредиентов
   const [{ canDrop }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item: TConstructorIngredient) {
+    drop(item: TBurgerConstructorItem) {
       onDropHandler(item);
     },
     collect: monitor => ({
@@ -35,9 +35,8 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   });
 
   // обработка перетаскивания ингредиента в конструктор
-  function onDropHandler(ingredient: TConstructorIngredient) {
+  function onDropHandler(ingredient: TBurgerConstructorItem) {
     const { item }: TBurgerConstructorItem = ingredient;
-
     if (item && !item.uid) {
       if (item.type !== 'bun') {
         const newItem = { ...item }
@@ -63,11 +62,6 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
     }
   }
 
-
-
-
-
-
   // Вот тут стоимость считается
   const totalPrice = React.useMemo(() => {
     if (ingredients && bun) {
@@ -91,8 +85,8 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
 
   // обработка тасовки ингредиентов в конструкторе
   const moveItem = (dragIndex: number, hoverIndex: number) => {
-    const draggedItem = ingredients[dragIndex];
-    if (draggedItem) {
+    const draggedItem: TBaseIngredient = ingredients[dragIndex];
+    if (draggedItem && draggedItem.type !== "bun") {
       const modifiedItems = [...ingredients];
       modifiedItems.splice(dragIndex, 1);
       modifiedItems.splice(hoverIndex, 0, draggedItem);
@@ -110,6 +104,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
       <div className={`${styles.listContainer} ${canDrop && styles.listContainerRecept}`} ref={dropTarget}>
         {bun && <BurgerConstructorItem
           item={bun}
+          moveItem={moveItem}
           isTop
           isLocked
         />}
@@ -130,6 +125,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
 
         {bun && <BurgerConstructorItem
           item={bun}
+          moveItem={moveItem}
           isBottom
           isLocked
         />}
