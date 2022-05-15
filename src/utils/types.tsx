@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+import { Location } from "history";
 
 // ------------ Редакс-хранилище ------------
 export type TAllIngredientsState = {
@@ -65,6 +66,8 @@ export type TBaseIngredient = {
   readonly __v: number;
   readonly _id: string;
 }
+
+export type TFilterIngredients = (array: Array<TBaseIngredient>, type: string) => Array<TBaseIngredient>
 
 // EnteringForm
 export type TEnteringForm = {
@@ -135,4 +138,5 @@ export type THistory = History & {
 // Location
 export type TLocation = {
     from: Location;
+    background: Location;
 };

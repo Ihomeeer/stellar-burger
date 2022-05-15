@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { useSelector, RootStateOrAny } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { TUserState } from '../../utils/types';
 
-export const ProtectedRoute: FC = ({ children, ...rest }) => {
-  const { isLoggedIn, loggingIn } = useSelector((state: RootStateOrAny):TUserState => state.user);
+export const ProtectedRoute: FC<RouteProps> = ({ children, path, ...rest }) => {
+  const { isLoggedIn, loggingIn } = useSelector((state: RootStateOrAny): TUserState => state.user);
 
   return (
     <>

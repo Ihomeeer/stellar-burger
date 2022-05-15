@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { TCurrentIngredientState, TUserState, TLocation, TFilterIngredients } from '../../utils/types';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -7,7 +8,7 @@ import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../services/actions/currentIngredient';
@@ -21,18 +22,18 @@ import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { getCookie } from '../../utils/cookie';
 
 // фильтр ингредиентов по типу
-export const filterIngredients = (array, type) => {
+export const filterIngredients: TFilterIngredients = (array, type) => {
   return array.filter((item) => item.type === type);
 }
 
-function ModalSwitch() {
-  let location = useLocation();
+const ModalSwitch: FC = () => {
+  let location = useLocation<TLocation>();
   const dispatch = useDispatch();
   const history = useHistory();
   const background = location.state && location.state.background;
 
   const { ingredientModalVisibility } = useSelector(
-    state => state.currentIngredient
+    (state: RootStateOrAny): TCurrentIngredientState => state.currentIngredient
   );
 
   // закрытие модалки с ингредиентом
@@ -95,10 +96,10 @@ function ModalSwitch() {
   );
 }
 
-function App() {
+const App: FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(
-    state => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
 
