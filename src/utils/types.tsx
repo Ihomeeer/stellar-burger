@@ -1,3 +1,4 @@
+
 // ------------ Редакс-хранилище ------------
 export type TAllIngredientsState = {
   ingredients: TBaseIngredient[];
@@ -109,4 +110,16 @@ export type TModalOrder = {
 // Modal
 export type TModal = TModalOverlay & {
   title?: string;
+}
+
+// EnteringForm
+export type TEnteringForm = {
+  onSubmit: () => void;
+  formTitle: string;
+  buttonTitle: string;
+}
+
+export type THistory = History & {
+  location: {pathname: string};
+  forgotPassword: boolean;
 }

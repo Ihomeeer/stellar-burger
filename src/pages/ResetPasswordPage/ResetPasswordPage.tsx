@@ -1,21 +1,23 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { FC, ChangeEvent } from 'react';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { resetPassword, CLEAR_RESET_PASSWORD_STATE } from '../../services/actions/user';
 import styles from './ResetPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TUserState, THistory } from '../../utils/types';
 
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage: FC = () => {
 
-  const [password, setPassword] = React.useState('');
-  const [token, setToken] = React.useState('');
+  const [password, setPassword] = React.useState<string>('');
+  const [token, setToken] = React.useState<string>('');
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useHistory<THistory>(); // --------------------------------------------------------------------------------------убрать any
   const { reset_password_success } = useSelector(
-    state => state.user
+    (state: RootStateOrAny):  TUserState => state.user
   );
+  console.log(history)
 
   React.useEffect(() => {
     if (reset_password_success) {
@@ -24,22 +26,21 @@ const ResetPasswordPage = () => {
     }
   }, [history, reset_password_success, dispatch])
 
-  const handleTokenChange = (e) => {
+  const handleTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value);
   }
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (): void => {
     dispatch(resetPassword(password, token));
   }
 
   React.useEffect(() => {
     if (history?.location?.pathname === '/reset-password' && !history?.location?.state?.forgotPassword) {
-      history.replace({pathname: '/login'})
+      history.replace({ pathname: '/login' })
     }
   }, [history.location.pathname])
 
