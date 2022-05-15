@@ -1,4 +1,6 @@
-export function setCookie(name, value, props) {
+import { TGetCookie, TDeleteCookie, TSetCookie } from "./types";
+
+export const setCookie: TSetCookie = (name, value, props) => {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -21,7 +23,7 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function getCookie(name) {
+export const getCookie: TGetCookie = (name) => {
   const matches = document.cookie.match(
     // eslint-disable-next-line
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -29,7 +31,7 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function deleteCookie(name) {
+export const deleteCookie: TDeleteCookie = (name) => {
   setCookie(name, "", {
     'max-age': -1
   })

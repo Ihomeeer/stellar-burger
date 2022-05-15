@@ -173,3 +173,16 @@ export type TApiResponse = Response & {
 }
 
 export type TRefreshFetch = (url: string, options: TApiOptions) => Promise<any>
+
+
+//  ------------ Кукисы  ------------
+type TCookieProps = {
+  [key: string]: number | Date | string | boolean;
+  expires?: any;
+}
+
+export type TGetCookie = (name: string) => string | undefined;
+
+export type TDeleteCookie = (name: string) => void;
+
+export type TSetCookie = (name: string, value: string, props?: TCookieProps) => void;
