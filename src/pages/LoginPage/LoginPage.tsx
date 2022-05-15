@@ -26,6 +26,7 @@ const LoginPage: FC = () => {
         history.replace({ pathname: "/" })
       }
     }
+    // eslint-disable-next-line
   }, [isLoggedIn])
 
 

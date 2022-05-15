@@ -3,7 +3,6 @@ import { FC } from "react";
 import { useRef } from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { SET_CURRENT_TAB } from '../../services/actions/allIngredients';
@@ -152,9 +151,5 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  openModal: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

@@ -42,6 +42,7 @@ const ResetPasswordPage: FC = () => {
     if (history?.location?.pathname === '/reset-password' && !history?.location?.state?.forgotPassword) {
       history.replace({ pathname: '/login' })
     }
+    // eslint-disable-next-line
   }, [history.location.pathname])
 
 

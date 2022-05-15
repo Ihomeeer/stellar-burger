@@ -47,6 +47,7 @@ const RegisterPage: FC = () => {
       history.replace({pathname: '/login'})
       dispatch({ type: CLEAR_REGISTRATION_STATE })
     }
+    // eslint-disable-next-line
   }, [history, register_success])
 
   return (

@@ -137,6 +137,39 @@ export type THistory = History & {
 
 // Location
 export type TLocation = {
-    from: Location;
-    background: Location;
+  from: Location;
+  background: Location;
 };
+
+
+// ------------ API ------------
+type TOrderResponse = {
+  success: boolean;
+  name: string;
+  order: {
+    number: number;
+  }
+}
+
+export type TResponseHeaders = {
+  Accept?: string;
+  'Content-Type': string;
+  authorization?: string;
+}
+
+export type TApiOptions =  {
+  readonly method?: 'PATCH' | 'POST' | 'GET';
+  headers?: TResponseHeaders;
+  readonly body?: BodyInit | null | undefined;
+}
+
+export type TApiResponse = Response & {
+  readonly refreshToken?: string;
+  readonly accessToken?: string;
+  readonly success?: boolean;
+  readonly message?: string;
+  readonly user?: TUserState;
+  readonly order?: TOrderResponse;
+}
+
+export type TRefreshFetch = (url: string, options: TApiOptions) => Promise<any>

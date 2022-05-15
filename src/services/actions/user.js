@@ -249,7 +249,7 @@ export function getUser() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${getCookie('token')}`
+        Authorization: `Bearer ${getCookie('token')}`
       },
     })
       .then((res) => {

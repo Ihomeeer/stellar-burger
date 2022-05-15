@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import { useSelector, RootStateOrAny } from 'react-redux';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { TUserState } from '../../utils/types';

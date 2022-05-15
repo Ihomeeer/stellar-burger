@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
@@ -141,38 +140,4 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   )
 }
 
-BurgerConstructor.propTypes = {
-  openModal: PropTypes.func.isRequired,
-}
-
 export default BurgerConstructor;
-
-
-
-// function onDropHandler(ingredient: TConstructorIngredient) {
-//   const { item } = ingredient;
-//   console.log(item)
-//   if (!item.uid) {
-//     if (item.type !== 'bun') {
-//       const newItem = { ...item }
-//       newItem.uid = generateUid();
-//       dispatch({
-//         type: ADD_ITEM,
-//         item: newItem
-//       })
-//       dispatch({
-//         type: INCREASE_COUNTER,
-//         item: item
-//       })
-//     } else {
-//       dispatch({
-//         type: SET_BUN,
-//         item: item
-//       })
-//       dispatch({
-//         type: INCREASE_COUNTER,
-//         item: item
-//       })
-//     }
-//   }
-// }
