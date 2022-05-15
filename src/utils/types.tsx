@@ -1,3 +1,4 @@
+import { FormEvent } from 'react';
 
 // ------------ Редакс-хранилище ------------
 export type TAllIngredientsState = {
@@ -65,8 +66,15 @@ export type TBaseIngredient = {
   readonly _id: string;
 }
 
+// EnteringForm
+export type TEnteringForm = {
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  formTitle: string;
+  buttonTitle: string;
+}
 
-// Ингредиенты
+
+// ------------ Ингредиенты ------------
 export type TBurgerIngredients = {
   openModal: (currentIngredient: TBaseIngredient) => void;
 }
@@ -77,7 +85,7 @@ export type TIngredientsItem = TBurgerIngredients & {
 }
 
 
-// Бургерный конструктор
+// ------------ Бургерный конструктор ------------
 export type TConstructorIngredient = TBaseIngredient & {
   uid?: string;
   index?: number | undefined;
@@ -96,6 +104,8 @@ export type TBurgerConstructorItem = {
   moveItem: (dragIndex: number, hoverIndex: number) => void;
 }
 
+
+// ------------ Модалки ------------
 // ModalOverlay
 export type TModalOverlay = {
   isModalVisible: boolean;
@@ -112,14 +122,17 @@ export type TModal = TModalOverlay & {
   title?: string;
 }
 
-// EnteringForm
-export type TEnteringForm = {
-  onSubmit: () => void;
-  formTitle: string;
-  buttonTitle: string;
+
+// ------------ Навигация ------------
+// History
+export type THistory = History & {
+  location: {
+    pathname: string;
+  };
+  forgotPassword?: boolean;
 }
 
-export type THistory = History & {
-  location: {pathname: string};
-  forgotPassword: boolean;
-}
+// Location
+export type TLocation = {
+    from: Location;
+};

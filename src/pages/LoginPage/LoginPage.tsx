@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
+import { TUserState, THistory, TLocation } from '../../utils/types';
 import styles from './LoginPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
 
-const LoginPage = () => {
-  let location = useLocation();
-  const history = useHistory();
+const LoginPage: FC = () => {
+  let location = useLocation<TLocation>();
+  const history = useHistory<THistory>();
   const dispatch = useDispatch();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
   const { isLoggedIn, loginError } = useSelector(
-    state => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
   React.useEffect(() => {
@@ -28,20 +29,20 @@ const LoginPage = () => {
   }, [isLoggedIn])
 
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
-  const clearState = () => {
+  const clearState = (): void => {
     setEmail('');
     setPassword('');
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(login(email, password));
     clearState();

@@ -1,57 +1,58 @@
-import React from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
+import { TUserState } from '../../utils/types';
 import { NavLink } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
 import { deleteUser } from '../../services/actions/user';
 import { CLEAR_SESSION_TERMINATION_STATE } from '../../services/actions/user';
 
-const ProfilePage = () => {
+const ProfilePage: FC = () => {
   const { user } = useSelector(
-    state => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
   const dispatch = useDispatch();
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [buttonsDisabled, setButtonsDisabled] = React.useState(false);
+  const [name, setName] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+  const [buttonsDisabled, setButtonsDisabled] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (user.name) {
       resetForm();
     }
-        // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user.name]);
 
   React.useEffect(() => {
     handleButtonsDisable()
-        // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [name, email])
 
   // Приведение инпутов к дефолтному значению, т.е. к актуальным имени и адресу. Пароль для красоты.
-  const resetForm = () => {
+  const resetForm = (): void => {
     setName(user.name);
     setEmail(user.email);
     setPassword('');
   }
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   }
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const userData = {}
+    const userData: { name?: string; email?: string; } = {}
     setButtonsDisabled(true);
     if (name !== user.name) {
       userData.name = name;
@@ -104,7 +105,6 @@ const ProfilePage = () => {
           placeholder="Имя"
           value={name}
           onChange={handleNameChange}
-          autoComplete="off"
         />
         <Input
           type="email"
@@ -112,9 +112,7 @@ const ProfilePage = () => {
           name="email"
           placeholder="E-mail"
           value={email}
-          defaultValue={user?.email}
           onChange={handleEmailChange}
-          autoComplete="off"
         />
         <Input
           type="text"
@@ -122,9 +120,7 @@ const ProfilePage = () => {
           name="password"
           placeholder="Пароль"
           value={password}
-          defaultValue={user?.password}
           onChange={handlePasswordChange}
-          autoComplete="off"
         />
         <div className={styles.buttonsContainer}>
           {
@@ -133,7 +129,10 @@ const ProfilePage = () => {
               <></>
               :
               <>
+                {/* Придется влепить пару игноров, потому что у кнопок нет пропса ClassName в теории, но он тут нужен, потому что их стилизирует */}
+                { /* @ts-ignore */}
                 <Button className={styles.button} onClick={resetForm} type="secondary" >Отмена</Button>
+                { /* @ts-ignore */}
                 <Button className={`${styles.button} ${styles.submitButton}`} type="primary" >Сохранить</Button>
               </>
           }

@@ -1,39 +1,42 @@
-import React from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
+import { TUserState } from '../../utils/types';
 import styles from './ForgotPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { forgotPassword, CLEAR_FORGOT_PASSWORD_STATE } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 
-const ForgotPasswordPage = () => {
-  const [email, setEmail] = React.useState('');
+const ForgotPasswordPage: FC = () => {
+  const [email, setEmail] = React.useState<string>('');
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useHistory<{ forgotPassword: true }>();
   const { forgot_password_success } = useSelector(
-    state => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
   React.useEffect(() => {
     if (forgot_password_success) {
-      history.replace({pathname: '/reset-password', state: { forgotPassword: true}})
+
+      history.replace({ pathname: '/reset-password', state: { forgotPassword: true } })
+      console.log(history)
       dispatch({ type: CLEAR_FORGOT_PASSWORD_STATE })
     }
   }, [history, forgot_password_success, dispatch])
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(forgotPassword(email));
   }
 
   if (getCookie('token')) {
     return (
-      <Redirect to='/'/>
+      <Redirect to='/' />
     )
   }
 

@@ -274,7 +274,6 @@ export function getUser() {
         })
       })
       .catch((err) => {
-        console.log('catch в экшнах')
         dispatch({
           type: GET_USER_FAILURE,
           authError: err

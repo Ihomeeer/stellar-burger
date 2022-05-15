@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { resetPassword, CLEAR_RESET_PASSWORD_STATE } from '../../services/actions/user';
@@ -13,11 +13,10 @@ const ResetPasswordPage: FC = () => {
   const [password, setPassword] = React.useState<string>('');
   const [token, setToken] = React.useState<string>('');
   const dispatch = useDispatch();
-  const history = useHistory<THistory>(); // --------------------------------------------------------------------------------------убрать any
+  const history = useHistory<THistory>();
   const { reset_password_success } = useSelector(
-    (state: RootStateOrAny):  TUserState => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
-  console.log(history)
 
   React.useEffect(() => {
     if (reset_password_success) {
@@ -34,7 +33,8 @@ const ResetPasswordPage: FC = () => {
     setPassword(e.target.value);
   }
 
-  const onSubmit = (): void => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
     dispatch(resetPassword(password, token));
   }
 
