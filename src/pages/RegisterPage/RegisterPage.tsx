@@ -1,41 +1,42 @@
-import React from 'react';
+import React, { FC, ChangeEvent, FormEvent } from 'react';
 import styles from './RegisterPage.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../services/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { CLEAR_REGISTRATION_STATE } from '../../services/actions/user';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
+import { TUserState, THistory } from '../../utils/types';
 
-const RegisterPage = () => {
+const RegisterPage: FC = () => {
   const dispatch = useDispatch();
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const history = useHistory();
+  const [name, setName] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+  const history = useHistory<THistory>();
   const { register_success, registerError } = useSelector(
-    state => state.user
+    (state: RootStateOrAny): TUserState => state.user
   );
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   }
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
-  const clearState = () => {
+  const clearState = (): void => {
     setEmail('');
     setName('');
     setPassword('');
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(register(name, email, password));
     clearState();
@@ -46,6 +47,7 @@ const RegisterPage = () => {
       history.replace({pathname: '/login'})
       dispatch({ type: CLEAR_REGISTRATION_STATE })
     }
+    // eslint-disable-next-line
   }, [history, register_success])
 
   return (

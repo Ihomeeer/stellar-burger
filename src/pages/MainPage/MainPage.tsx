@@ -7,7 +7,7 @@ import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import {
   SET_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
@@ -17,16 +17,17 @@ import {
   SET_ORDER_MODAL_INVISIBLE,
   placeOrder
 } from '../../services/actions/order';
+import { TBaseIngredient, TOrderState } from '../../utils/types'
 
 function MainPage() {
   const dispatch = useDispatch();
 
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
-    state => state.order
+    (state: RootStateOrAny): TOrderState => state.order
   );
 
   // открытие модалки с ингредиентом
-  const handleOpenIngredientModal = (currentIngredient) => {
+  const handleOpenIngredientModal = (currentIngredient: TBaseIngredient) => {
     dispatch({
       type: SET_CURRENT_INGREDIENT,
       item: currentIngredient
@@ -37,7 +38,7 @@ function MainPage() {
   }
 
   // открытие модалки с заказом
-  const handleOpenOrderModal = (info) => {
+  const handleOpenOrderModal = (info: string[]) => {
     dispatch(placeOrder(info, orderError))
   }
 

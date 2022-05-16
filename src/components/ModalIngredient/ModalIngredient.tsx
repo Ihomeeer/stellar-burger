@@ -1,19 +1,20 @@
 // модалка с инфой про ингредиент
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './ModalIngredient.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { SET_INGREDIENT_MODAL_VISIBLE } from '../../services/actions/currentIngredient';
+import { TCurrentIngredientState, TAllIngredientsState } from '../../utils/types';
 
-function ModalIngredient() {
+const ModalIngredient: FC = () => {
   const dispatch = useDispatch();
-  const { ingredientId } = useParams();
+  const { ingredientId } = useParams<{ ingredientId?: string }>();
 
   const { currentIngredient } = useSelector(
-    state => state.currentIngredient
+    (state: RootStateOrAny): TCurrentIngredientState => state.currentIngredient
   );
   const { ingredients } = useSelector(
-    state => state.allIngredients
+    (state: RootStateOrAny): TAllIngredientsState => state.allIngredients
   );
 
   const item = currentIngredient ?
@@ -29,6 +30,7 @@ function ModalIngredient() {
           type: SET_INGREDIENT_MODAL_VISIBLE
         })
       }
+      // eslint-disable-next-line
     }, [])
 
   return (

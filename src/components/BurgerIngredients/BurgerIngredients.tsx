@@ -1,34 +1,37 @@
 // Список ингредиентов для бургеров (секция слева)
+import { FC } from "react";
 import { useRef } from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { SET_CURRENT_TAB } from '../../services/actions/allIngredients';
+import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types';
 
-function BurgerIngredients({ openModal }) {
+const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
   const dispatch = useDispatch();
   const { ingredients, buns, sauces, mainIngredients, currentTab } = useSelector(
-    state => state.allIngredients
+    (state: RootStateOrAny): TAllIngredientsState => state.allIngredients
   );
 
   // Тут работа со вкладками ингредиентов --------------------------------------------------------------------------------------
   // Рефы для всех видов ингредиентов и общего их списка
   // Булки
-  const bunsRef = useRef(null);
+  const bunsRef = useRef<HTMLDivElement>(null!);
   // Соусы
-  const saucesRef = useRef(null);
+  const saucesRef = useRef<HTMLDivElement>(null!);
   // Основные ингредиенты
-  const mainIngredientsRef = useRef(null);
+  const mainIngredientsRef = useRef<HTMLDivElement>(null!);
   // Общий список
-  const refContainer = useRef(null);
+  const refContainer = useRef<HTMLDivElement>(null!);
 
   //Обработка нажатий на вкладки
-  const handleSelectTab = (ref, currentTab) => {
+  const handleSelectTab = (ref: { current: HTMLHeadingElement }, currentTab: string) => {
     // прыжок к нужному рефу
-    ref.current.scrollIntoView({ behavior: "smooth" });
-    handleTab(currentTab);
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+      handleTab(currentTab);
+    }
   }
 
   //Обработка скроллинга для активации актуальной вкладки
@@ -58,13 +61,12 @@ function BurgerIngredients({ openModal }) {
   }
 
   // Пробрасывание актуальной вкладки в хранилище
-  const handleTab = (tab) => {
+  const handleTab = (tab: string) => {
     dispatch({
       type: SET_CURRENT_TAB,
       currentTab: tab
     })
   }
-  // --------------------------------------------------------------------------------------
 
   return (
     <section className={styles.section}>
@@ -149,9 +151,5 @@ function BurgerIngredients({ openModal }) {
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  openModal: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

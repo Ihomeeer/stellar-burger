@@ -1,5 +1,7 @@
+import { TApiResponse } from './types';
+
 // проверка статуса промиса для экшенов
-export const checkStatus = (res) => {
+export const checkStatus = (res: TApiResponse) => {
   if (res.ok) {
     return res.json();
   }

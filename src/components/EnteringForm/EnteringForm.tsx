@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './EnteringForm.module.css';
+import { TEnteringForm } from '../../utils/types';
 
-const EnteringForm = ({ children, onSubmit, formTitle, buttonTitle }) => {
+const EnteringForm: FC<TEnteringForm> = ({ children, onSubmit, formTitle, buttonTitle }) => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={onSubmit}>
@@ -41,13 +41,6 @@ const EnteringForm = ({ children, onSubmit, formTitle, buttonTitle }) => {
       </form>
     </div>
   )
-}
-
-EnteringForm.propTypes = {
-  children: PropTypes.node.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  formTitle: PropTypes.string.isRequired,
-  buttonTitle: PropTypes.string.isRequired,
 }
 
 export default EnteringForm;
