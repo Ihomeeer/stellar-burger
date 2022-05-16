@@ -109,8 +109,8 @@ export function login(email, password) {
           authToken = res.accessToken.split('Bearer ')[1];
           refreshToken = res.refreshToken;
           if (authToken && refreshToken) {
-            setCookie('token', authToken);
-            setCookie('refreshToken', refreshToken);
+            setCookie('token', authToken, {path: '/'});
+            setCookie('refreshToken', refreshToken, {path: '/'});
           }
           dispatch({
             type: USER_LOGIN_SUCCESS,

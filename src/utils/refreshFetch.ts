@@ -25,7 +25,7 @@ export const refreshFetch: TRefreshFetch = async (url, options = {}) => {
     console.log(err)
     if (err === 'Ошибка 403. У вас недостаточно прав для просмотра содержимого') {
       const refreshData = await refreshToken();
-      setCookie('token', refreshData.accessToken.split('Bearer ')[1]);
+      setCookie('token', refreshData.accessToken.split('Bearer ')[1], {path: '/'});
       options.headers!.authorization = refreshData.accessToken;
       const res = await fetch(url, options)
       return await checkStatus(res);
