@@ -37,7 +37,7 @@ const getItemsFailedAction = (error: Promise<Error>): IGetItemsFailed => ({
   error: error
 })
 
-export function getAllItems() {
+export const getAllItems = () => {
   return function (dispatch: any) { // убрать any ------------------------------------------------------------
     fetch(`${baseURL}/ingredients`, {
       method: 'GET',

@@ -5,8 +5,7 @@ import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorIte
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../utils/constants';
-import { INCREASE_COUNTER } from '../../utils/constants';
+import { ADD_ITEM, DRAG_ARRAY, SET_BUN, INCREASE_COUNTER } from '../../utils/constants';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
 import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient, TBurgerConstructorState, TUserState } from '../../utils/types/types';
