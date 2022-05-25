@@ -1,11 +1,12 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
-import { TUserState } from '../../utils/types';
+import { TUserState } from '../../utils/types/types';
 import styles from './ForgotPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { forgotPassword, CLEAR_FORGOT_PASSWORD_STATE } from '../../services/actions/user';
+import { forgotPassword } from '../../services/actions/user';
+import { CLEAR_FORGOT_PASSWORD_STATE } from '../../utils/constants';
 import { getCookie } from '../../utils/cookie';
 
 const ForgotPasswordPage: FC = () => {

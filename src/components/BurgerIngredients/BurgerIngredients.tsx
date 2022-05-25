@@ -5,8 +5,8 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
-import { SET_CURRENT_TAB } from '../../services/actions/allIngredients';
-import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types';
+import { SET_CURRENT_TAB } from '../../utils/constants';
+import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types/types';
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
   const dispatch = useDispatch();

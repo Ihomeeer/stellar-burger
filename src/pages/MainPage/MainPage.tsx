@@ -11,13 +11,15 @@ import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import {
   SET_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
-} from '../../services/actions/currentIngredient';
+} from '../../utils/constants';
+import {
+  placeOrder
+} from '../../services/actions/order';
 import {
   DELETE_ORDER_NUMBER,
   SET_ORDER_MODAL_INVISIBLE,
-  placeOrder
-} from '../../services/actions/order';
-import { TBaseIngredient, TOrderState } from '../../utils/types'
+} from '../../utils/constants';
+import { TBaseIngredient, TOrderState } from '../../utils/types/types'
 
 function MainPage() {
   const dispatch = useDispatch();

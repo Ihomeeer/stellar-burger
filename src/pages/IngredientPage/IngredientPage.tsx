@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TAllIngredientsState, TBaseIngredient } from '../../utils/types';
+import { TAllIngredientsState, TBaseIngredient } from '../../utils/types/types';
 import styles from './IngredientPage.module.css';
 import { useSelector, RootStateOrAny } from 'react-redux';
 import { useParams } from 'react-router-dom';

@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
-import { TUserState, THistory, TLocation } from '../../utils/types';
+import { TUserState, THistory, TLocation } from '../../utils/types/types';
 import styles from './LoginPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';

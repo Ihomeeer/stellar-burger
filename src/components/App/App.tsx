@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TCurrentIngredientState, TUserState, TLocation, TFilterIngredients } from '../../utils/types';
+import { TCurrentIngredientState, TUserState, TLocation, TFilterIngredients } from '../../utils/types/types';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -11,7 +11,7 @@ import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
-import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../services/actions/currentIngredient';
+import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../utils/constants';
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________

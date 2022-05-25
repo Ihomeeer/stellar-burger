@@ -1,7 +1,7 @@
 // сюда впихивается все содержание модалки через компонент Modal, а еще тут всякие хэндлеры для закрытия модалок
 import { FC, MouseEvent } from 'react'
 import styles from './ModalOverlay.module.css'
-import { TModalOverlay } from '../../utils/types'
+import { TModalOverlay } from '../../utils/types/types'
 
 const ModalOverlay: FC<TModalOverlay> = ({ children, isModalVisible, closeModal }) => {
 

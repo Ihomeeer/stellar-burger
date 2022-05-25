@@ -27,7 +27,7 @@ import {
   SET_SESSION_TERMINATION_STATE,
   CLEAR_SESSION_TERMINATION_STATE,
   SET_LOGGING_IN
-} from '../actions/user';
+} from '../../utils/constants';
 
 const initialUserState = {
   user: {},

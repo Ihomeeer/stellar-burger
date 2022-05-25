@@ -4,9 +4,9 @@ import { useDrag, useDrop } from 'react-dnd';
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
-import { DELETE_ITEM } from '../../services/actions/constructorIngredients';
-import { DECREASE_COUNTER } from '../../services/actions/allIngredients';
-import { TBurgerConstructorItem, TConstructorIngredient } from '../../utils/types';
+import { DELETE_ITEM } from '../../utils/constants';
+import { DECREASE_COUNTER } from '../../utils/constants';
+import { TBurgerConstructorItem, TConstructorIngredient } from '../../utils/types/types';
 
 const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop, isBottom, isLocked, moveItem }) => {
   const dispatch = useDispatch();

@@ -157,7 +157,7 @@ export type TResponseHeaders = {
   authorization?: string;
 }
 
-export type TApiOptions =  {
+export type TApiOptions = {
   readonly method?: 'PATCH' | 'POST' | 'GET';
   headers?: TResponseHeaders;
   readonly body?: BodyInit | null | undefined;

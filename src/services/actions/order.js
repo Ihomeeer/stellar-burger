@@ -1,12 +1,13 @@
 import { baseURL } from '../../utils/constants';
 import { checkStatus } from '../../utils/checkStatus';
-import { CLEAR_INGREDIENTS } from './constructorIngredients';
-import { CLEAR_COUNTERS } from './allIngredients';
-export const ORDER_SUBMIT_SUCCESS = 'ORDER_SUBMIT_SUCCESS';
-export const ORDER_SUBMIT_FAILURE = 'ORDER_SUBMIT_FAILURE';
-export const DELETE_ORDER_NUMBER = 'DELETE_ORDER_NUMBER';
-export const SET_ORDER_MODAL_VISIBLE = 'SET_ORDER_MODAL_VISIBLE';
-export const SET_ORDER_MODAL_INVISIBLE = 'SET_ORDER_MODAL_INVISIBLE';
+import { CLEAR_INGREDIENTS } from '../../utils/constants';
+import { CLEAR_COUNTERS } from '../../utils/constants';
+import {
+  ORDER_SUBMIT_SUCCESS,
+  ORDER_SUBMIT_FAILURE,
+  SET_ORDER_MODAL_VISIBLE,
+} from '../../utils/constants';
+
 
 export function placeOrder(info, error) {
   return function (dispatch) {

@@ -4,7 +4,7 @@ import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from 'react-router-dom';
-import { TIngredientsItem } from '../../utils/types';
+import { TIngredientsItem } from '../../utils/types/types';
 
 const IngredientsItem: FC<TIngredientsItem> = ({ item, openModal }) => {
 

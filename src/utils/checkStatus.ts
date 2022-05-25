@@ -1,4 +1,4 @@
-import { TApiResponse } from './types';
+import { TApiResponse } from './types/types';
 
 // проверка статуса промиса для экшенов
 export const checkStatus = (res: TApiResponse) => {

@@ -4,9 +4,9 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../services/actions/user';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { CLEAR_REGISTRATION_STATE } from '../../services/actions/user';
+import { CLEAR_REGISTRATION_STATE } from '../../utils/constants';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
-import { TUserState, THistory } from '../../utils/types';
+import { TUserState, THistory } from '../../utils/types/types';
 
 const RegisterPage: FC = () => {
   const dispatch = useDispatch();

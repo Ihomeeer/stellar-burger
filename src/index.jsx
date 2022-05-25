@@ -18,7 +18,7 @@ const composeEnhancers =
 // расширение хранилища
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 // создание хранилища
-const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>

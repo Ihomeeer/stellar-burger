@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import styles from "./ModalOrder.module.css";
 import successIcon from "../../images/success.svg";
-import { TModalOrder } from '../../utils/types';
+import { TModalOrder } from '../../utils/types/types';
 
 const ModalOrder: FC<TModalOrder> = ({ orderNumber }) => {
 

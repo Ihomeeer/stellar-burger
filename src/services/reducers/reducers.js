@@ -8,31 +8,22 @@ import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,
   SET_CURRENT_TAB,
-  CLEAR_COUNTERS
-} from "../actions/allIngredients";
-
-import {
+  CLEAR_COUNTERS,
   ADD_ITEM,
   DELETE_ITEM,
   DRAG_ARRAY,
   SET_BUN,
-  CLEAR_INGREDIENTS
-} from '../actions/constructorIngredients';
-
-import {
+  CLEAR_INGREDIENTS,
   SET_CURRENT_INGREDIENT,
   DELETE_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
-  SET_INGREDIENT_MODAL_INVISIBLE
-} from '../actions/currentIngredient';
-
-import {
+  SET_INGREDIENT_MODAL_INVISIBLE,
   ORDER_SUBMIT_SUCCESS,
   ORDER_SUBMIT_FAILURE,
   DELETE_ORDER_NUMBER,
   SET_ORDER_MODAL_VISIBLE,
   SET_ORDER_MODAL_INVISIBLE
-} from '../actions/order';
+} from '../../utils/constants';
 
 const initialAllIngredientsState = {
   ingredients: [],

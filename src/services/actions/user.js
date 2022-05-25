@@ -2,43 +2,31 @@ import { baseURL } from '../../utils/constants';
 import { checkStatus } from '../../utils/checkStatus';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
 import { refreshFetch } from '../../utils/refreshFetch';
-
-export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
-export const USER_REGISTRATION_FAILURE = 'USER_REGISTRATION_FAILURE';
-export const SET_REGISTRATION_STATE = 'SET_REGISTRATION_STATE';
-export const CLEAR_REGISTRATION_STATE = 'CLEAR_REGISTRATION_STATE';
-
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
-export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
-export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
-export const CLEAR_LOGIN_STATE = 'CLEAR_LOGIN_STATE';
-
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_FAILURE = 'FORGOT_PASSWORD_FAILURE';
-export const SET_FORGOT_PASSWORD_STATE = 'SET_FORGOT_PASSWORD_STATE';
-export const CLEAR_FORGOT_PASSWORD_STATE = 'CLEAR_FORGOT_PASSWORD_STATE';
-
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
-export const SET_RESET_PASSWORD_STATE = 'SET_RESET_PASSWORD_STATE';
-export const CLEAR_RESET_PASSWORD_STATE = 'CLEAR_RESET_PASSWORD_STATE';
-
-export const SET_USER_STATE = "SET_USER_STATE";
-export const DELETE_USER_STATE = "DELETE_USER_STATE";
-export const SET_USER_LOGGED_IN_STATE = "SET_USER_LOGGED_IN_STATE";
-
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILURE = "GET_USER_FAILURE";
-
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
-export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
-
-export const SESSION_TERMINATION_SUCCESS = "SESSION_TERMINATION_SUCCESS";
-export const SESSION_TERMINATION_FAILURE = "SESSION_TERMINATION_FAILURE";
-export const SET_SESSION_TERMINATION_STATE = "SET_SESSION_TERMINATION_STATE";
-export const CLEAR_SESSION_TERMINATION_STATE = "CLEAR_SESSION_TERMINATION_STATE";
-
-export const SET_LOGGING_IN = "SET_LOGGING_IN";
+import {
+  USER_REGISTRATION_SUCCESS,
+  USER_REGISTRATION_FAILURE,
+  SET_REGISTRATION_STATE,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
+  SET_LOGIN_STATE,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILURE,
+  SET_FORGOT_PASSWORD_STATE,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+  SET_RESET_PASSWORD_STATE,
+  SET_USER_STATE,
+  DELETE_USER_STATE,
+  SET_USER_LOGGED_IN_STATE,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  SESSION_TERMINATION_SUCCESS,
+  SESSION_TERMINATION_FAILURE,
+  SET_SESSION_TERMINATION_STATE,
+  SET_LOGGING_IN,
+} from '../../utils/constants';
 
 
 // регистрация нового пользователя
@@ -109,8 +97,8 @@ export function login(email, password) {
           authToken = res.accessToken.split('Bearer ')[1];
           refreshToken = res.refreshToken;
           if (authToken && refreshToken) {
-            setCookie('token', authToken, {path: '/'});
-            setCookie('refreshToken', refreshToken, {path: '/'});
+            setCookie('token', authToken, { path: '/' });
+            setCookie('refreshToken', refreshToken, { path: '/' });
           }
           dispatch({
             type: USER_LOGIN_SUCCESS,
