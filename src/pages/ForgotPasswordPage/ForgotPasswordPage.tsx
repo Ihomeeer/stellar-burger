@@ -6,7 +6,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { forgotPassword } from '../../services/actions/user';
-import { CLEAR_FORGOT_PASSWORD_STATE } from '../../utils/constants';
+import { clearForgotPasswordStateAction } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 
 const ForgotPasswordPage: FC = () => {
@@ -19,10 +19,9 @@ const ForgotPasswordPage: FC = () => {
 
   React.useEffect(() => {
     if (forgot_password_success) {
-
       history.replace({ pathname: '/reset-password', state: { forgotPassword: true } })
       console.log(history)
-      dispatch({ type: CLEAR_FORGOT_PASSWORD_STATE })
+      dispatch(clearForgotPasswordStateAction())
     }
   }, [history, forgot_password_success, dispatch])
 

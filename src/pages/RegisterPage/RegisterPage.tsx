@@ -1,10 +1,9 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
 import styles from './RegisterPage.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { register } from '../../services/actions/user';
+import { register, clearRegistrationStateAction } from '../../services/actions/user';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { CLEAR_REGISTRATION_STATE } from '../../utils/constants';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { TUserState, THistory } from '../../utils/types/types';
 
@@ -45,7 +44,7 @@ const RegisterPage: FC = () => {
   React.useEffect(() => {
     if (register_success) {
       history.replace({pathname: '/login'})
-      dispatch({ type: CLEAR_REGISTRATION_STATE })
+      dispatch(clearRegistrationStateAction())
     }
     // eslint-disable-next-line
   }, [history, register_success])

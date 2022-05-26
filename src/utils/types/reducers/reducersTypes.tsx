@@ -1,7 +1,5 @@
 import { TBaseIngredient, TConstructorIngredient } from "../types";
 
-
-
 export type TInitialAllIngredientsState = {
   ingredients: TBaseIngredient[] | [];
   buns: TBaseIngredient[] | undefined;

@@ -25,12 +25,16 @@ import {
   IDeleteUserState,
   ISetSessionTerminationState,
   ISessionTerminationFailure,
+  IClearRegistrationState,
+  IClearForgotPasswordState,
+  IClearResetPasswordState,
+  IClearSessionTerminationState,
   TUser,
   TRegister,
   TLogin,
   TForgotPassword,
   TResetPassword,
-  TUpdateUser
+  TUpdateUser,
 } from '../../utils/types/actions/userTypes';
 import {
   baseURL,
@@ -57,8 +61,11 @@ import {
   SESSION_TERMINATION_FAILURE,
   SET_SESSION_TERMINATION_STATE,
   SET_LOGGING_IN,
+  CLEAR_REGISTRATION_STATE,
+  CLEAR_FORGOT_PASSWORD_STATE,
+  CLEAR_RESET_PASSWORD_STATE,
+  CLEAR_SESSION_TERMINATION_STATE
 } from '../../utils/constants';
-
 
 // регистрация
 const userRegistrationSuccessAction = (): IUserRegistrationSuccess => ({
@@ -106,7 +113,7 @@ const setUserLoggedInStateAction = (state: boolean): ISetUserLoggedInState => ({
 // забывание пароля
 const forgotPasswordSuccessAction = (): IForgotPasswordSuccess => ({
   type: FORGOT_PASSWORD_SUCCESS,
-  forgotPassowrdError: ""
+  error: ""
 });
 
 const setForgotPasswordStateAction = (state: boolean): IForgotPasswordState => ({
@@ -116,7 +123,7 @@ const setForgotPasswordStateAction = (state: boolean): IForgotPasswordState => (
 
 const forgotPasswordFailureAction = (error: Promise<Error>): IForgotPasswordFailure => ({
   type: FORGOT_PASSWORD_FAILURE,
-  forgotPassowrdError: error
+  error: error
 });
 
 // восстановление пароля
@@ -182,6 +189,22 @@ const setSessionTerminationStateAction = (state: boolean): ISetSessionTerminatio
 const sessionTerminationFailureAction = (error: Promise<Error>): ISessionTerminationFailure => ({
   type: SESSION_TERMINATION_FAILURE,
   deleteUserError: error
+});
+
+export const clearRegistrationStateAction = (): IClearRegistrationState => ({
+  type: CLEAR_REGISTRATION_STATE,
+});
+
+export const clearForgotPasswordStateAction = (): IClearForgotPasswordState => ({
+  type: CLEAR_FORGOT_PASSWORD_STATE,
+});
+
+export const clearResetPasswordStateAction = (): IClearResetPasswordState => ({
+  type: CLEAR_RESET_PASSWORD_STATE,
+});
+
+export const clearSessionTerminationStateAction = (): IClearSessionTerminationState => ({
+  type: CLEAR_SESSION_TERMINATION_STATE,
 });
 
 // регистрация нового пользователя

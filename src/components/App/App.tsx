@@ -11,9 +11,9 @@ import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
-import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../utils/constants';
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
+import { deleteCurrentIngredientAction, setIngredientModalInvisibleAction } from '../../services/actions/allIngredients';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
@@ -38,12 +38,8 @@ const ModalSwitch: FC = () => {
 
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
-    dispatch({
-      type: SET_INGREDIENT_MODAL_INVISIBLE,
-    })
-    dispatch({
-      type: DELETE_CURRENT_INGREDIENT
-    })
+    dispatch(setIngredientModalInvisibleAction())
+    dispatch(deleteCurrentIngredientAction())
     history.goBack()
   }
 

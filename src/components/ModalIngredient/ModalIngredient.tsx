@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import styles from './ModalIngredient.module.css';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { SET_INGREDIENT_MODAL_VISIBLE } from '../../utils/constants';
+import { setIngredientModalVisibleAction } from '../../services/actions/allIngredients';
 import { TCurrentIngredientState, TAllIngredientsState } from '../../utils/types/types';
 
 const ModalIngredient: FC = () => {
@@ -20,15 +20,12 @@ const ModalIngredient: FC = () => {
   const item = currentIngredient ?
     currentIngredient
     :
-    ingredients.filter(ingredient => ingredient._id === ingredientId)[0]
-    ;
+    ingredients.filter(ingredient => ingredient._id === ingredientId)[0];
 
   React.useEffect(
     () => {
       if (ingredientId !== '') {
-        dispatch({
-          type: SET_INGREDIENT_MODAL_VISIBLE
-        })
+        dispatch(setIngredientModalVisibleAction())
       }
       // eslint-disable-next-line
     }, [])

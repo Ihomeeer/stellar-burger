@@ -22,6 +22,10 @@ import {
   SESSION_TERMINATION_FAILURE,
   SET_SESSION_TERMINATION_STATE,
   SET_LOGGING_IN,
+  CLEAR_REGISTRATION_STATE,
+  CLEAR_FORGOT_PASSWORD_STATE,
+  CLEAR_RESET_PASSWORD_STATE,
+  CLEAR_SESSION_TERMINATION_STATE
 } from '../../constants';
 
 export type TRegister = (name: string, email: string, password: string) => void;
@@ -84,7 +88,7 @@ export interface ISetUserLoggedInState {
 
 export interface IForgotPasswordSuccess {
   readonly type: typeof FORGOT_PASSWORD_SUCCESS;
-  readonly forgotPassowrdError: string;
+  readonly error: string;
 };
 
 export interface IForgotPasswordState {
@@ -94,7 +98,7 @@ export interface IForgotPasswordState {
 
 export interface IForgotPasswordFailure {
   readonly type: typeof FORGOT_PASSWORD_FAILURE;
-  readonly forgotPassowrdError: Promise<Error>;
+  readonly error: Promise<Error>;
 };
 
 
@@ -136,29 +140,45 @@ export interface IUpdateUserSuccess {
 };
 
 export interface IUpdateUserFailure {
-  type: typeof UPDATE_USER_FAILURE;
-  updateError: Promise<Error>;
+  readonly type: typeof UPDATE_USER_FAILURE;
+  readonly updateError: Promise<Error>;
 };
 
 
 export interface ISessionTerminationSuccess {
-  type: typeof SESSION_TERMINATION_SUCCESS;
-  deleteUserError: string;
+  readonly type: typeof SESSION_TERMINATION_SUCCESS;
+  readonly deleteUserError: string;
 };
 
 export interface IDeleteUserState {
-  type: typeof DELETE_USER_STATE;
+  readonly type: typeof DELETE_USER_STATE;
   user: {};
 };
 
 export interface ISetSessionTerminationState {
-  type: typeof SET_SESSION_TERMINATION_STATE;
-  delete_user_success: boolean;
+  readonly type: typeof SET_SESSION_TERMINATION_STATE;
+  readonly delete_user_success: boolean;
 };
 
 export interface ISessionTerminationFailure {
-  type: typeof SESSION_TERMINATION_FAILURE;
-  deleteUserError: Promise<Error>;
+  readonly type: typeof SESSION_TERMINATION_FAILURE;
+  readonly deleteUserError: Promise<Error>;
+};
+
+export interface IClearRegistrationState {
+  readonly type: typeof CLEAR_REGISTRATION_STATE;
+};
+
+export interface IClearForgotPasswordState {
+  readonly type: typeof CLEAR_FORGOT_PASSWORD_STATE;
+};
+
+export interface IClearResetPasswordState {
+  readonly type: typeof CLEAR_RESET_PASSWORD_STATE;
+};
+
+export interface IClearSessionTerminationState {
+  readonly type: typeof CLEAR_SESSION_TERMINATION_STATE;
 };
 
 export type TUserTypes =
@@ -184,4 +204,8 @@ export type TUserTypes =
   | ISessionTerminationSuccess
   | IDeleteUserState
   | ISetSessionTerminationState
-  | ISessionTerminationFailure;
+  | ISessionTerminationFailure
+  | IClearRegistrationState
+  | IClearForgotPasswordState
+  | IClearResetPasswordState
+  | IClearSessionTerminationState;

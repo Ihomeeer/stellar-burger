@@ -11,13 +11,10 @@ import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import {
   placeOrder
 } from '../../services/actions/order';
-import {
-  SET_CURRENT_INGREDIENT,
-  SET_INGREDIENT_MODAL_VISIBLE,
-  DELETE_ORDER_NUMBER,
-  SET_ORDER_MODAL_INVISIBLE,
-} from '../../utils/constants';
-import { TBaseIngredient, TOrderState } from '../../utils/types/types'
+import { setIngredientModalVisibleAction } from '../../services/actions/allIngredients';
+import { TBaseIngredient, TOrderState } from '../../utils/types/types';
+import { setCurrentIngredientAction } from '../../services/actions/allIngredients';
+import { deleteOrderNumberAction, setOrderModalInvisibleAction } from '../../services/actions/order';
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -28,13 +25,8 @@ function MainPage() {
 
   // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient: TBaseIngredient) => {
-    dispatch({
-      type: SET_CURRENT_INGREDIENT,
-      item: currentIngredient
-    })
-    dispatch({
-      type: SET_INGREDIENT_MODAL_VISIBLE,
-    })
+    dispatch(setCurrentIngredientAction(currentIngredient))
+    dispatch(setIngredientModalVisibleAction())
   }
 
   // открытие модалки с заказом
@@ -44,12 +36,8 @@ function MainPage() {
 
   // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
-    dispatch({
-      type: SET_ORDER_MODAL_INVISIBLE
-    })
-    dispatch({
-      type: DELETE_ORDER_NUMBER
-    })
+    dispatch(setOrderModalInvisibleAction())
+    dispatch(deleteOrderNumberAction())
   }
 
   return (

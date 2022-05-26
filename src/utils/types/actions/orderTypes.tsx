@@ -4,6 +4,8 @@ import {
   ORDER_SUBMIT_SUCCESS,
   ORDER_SUBMIT_FAILURE,
   SET_ORDER_MODAL_VISIBLE,
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_INVISIBLE
 } from '../../constants';
 
 export type TPlaceOrder = (info: string[], error: string) => void;
@@ -30,9 +32,21 @@ export interface IOrderSubmitFailure {
   error: Promise<Error>;
 }
 
+export interface IDeleteOrderNumber {
+  readonly type: typeof DELETE_ORDER_NUMBER;
+};
+
+export interface ISetOrderModalInvisible {
+  readonly type: typeof SET_ORDER_MODAL_INVISIBLE;
+};
+
+
+
 export type TOrderTypes =
   | IOrderSubmitSuccess
   | ISetOrderModalVisible
   | IClearIngredients
   | IClearCounters
-  | IOrderSubmitFailure;
+  | IOrderSubmitFailure
+  | IDeleteOrderNumber
+  | ISetOrderModalInvisible;

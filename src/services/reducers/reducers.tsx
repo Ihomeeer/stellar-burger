@@ -32,6 +32,7 @@ import {
 } from '../../utils/types/reducers/reducersTypes';
 
 import { TAllIngredientsTypes } from '../../utils/types/actions/allIngredientsTypes';
+import { TOrderTypes } from '../../utils/types/actions/orderTypes';
 
 const initialAllIngredientsState: TInitialAllIngredientsState = {
   ingredients: [],
@@ -144,7 +145,7 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
   }
 }
 
-export const constructorIngredientsReducer = (state = initialConstructorState, action: any) => {
+export const constructorIngredientsReducer = (state = initialConstructorState, action: TAllIngredientsTypes) => {
   switch (action.type) {
     case ADD_ITEM: {
       const newItem = { ...action.item }
@@ -193,7 +194,7 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
   }
 }
 
-export const currentIngredientReducer = (state = initialCurrentIngrState, action: any) => {
+export const currentIngredientReducer = (state = initialCurrentIngrState, action: TAllIngredientsTypes) => {
   switch (action.type) {
     case SET_CURRENT_INGREDIENT: {
       return {
@@ -225,7 +226,7 @@ export const currentIngredientReducer = (state = initialCurrentIngrState, action
   }
 }
 
-export const orderReducer = (state = initialOrderState, action: any) => {
+export const orderReducer = (state = initialOrderState, action: TOrderTypes) => {
   switch (action.type) {
     case ORDER_SUBMIT_SUCCESS: {
       return {

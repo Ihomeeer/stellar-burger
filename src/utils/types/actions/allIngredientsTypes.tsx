@@ -10,10 +10,14 @@ import {
   SET_BUN,
   DRAG_ARRAY,
   DELETE_ITEM,
-  SET_CURRENT_TAB
+  SET_CURRENT_TAB,
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_INVISIBLE,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_CURRENT_INGREDIENT
 } from '../../constants';
 
-import { IClearCounters } from './orderTypes';
+import { IClearCounters, IClearIngredients } from './orderTypes';
 
 import { TBaseIngredient, TConstructorIngredient } from '../types';
 
@@ -79,12 +83,21 @@ export interface ISetCurrentTab {
   readonly currentTab: string;
 };
 
+export interface IDeleteCurrentIngredient {
+  readonly type: typeof DELETE_CURRENT_INGREDIENT;
+};
 
+export interface ISetIngredientModalInvisible {
+  readonly type: typeof SET_INGREDIENT_MODAL_INVISIBLE;
+};
+export interface ISetIngredientModalVisible {
+  readonly type: typeof SET_INGREDIENT_MODAL_VISIBLE;
+};
 
-
-
-
-
+export interface ISetCurrentIngredient{
+  readonly type: typeof SET_CURRENT_INGREDIENT;
+  readonly item: TBaseIngredient;
+};
 
 export type TAllIngredientsTypes =
   | IGetAllItems
@@ -99,4 +112,9 @@ export type TAllIngredientsTypes =
   | IDragArray
   | IDeleteItem
   | ISetCurrentTab
-  | IClearCounters;
+  | IClearCounters
+  | IClearIngredients
+  | IDeleteCurrentIngredient
+  | ISetIngredientModalInvisible
+  | ISetIngredientModalVisible
+  | ISetCurrentIngredient;

@@ -13,7 +13,11 @@ import {
   SET_BUN,
   DRAG_ARRAY,
   DELETE_ITEM,
-  SET_CURRENT_TAB
+  SET_CURRENT_TAB,
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_INVISIBLE,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_CURRENT_INGREDIENT
 } from '../../utils/constants';
 // import { store } from '../../index'
 import { TBaseIngredient, TConstructorIngredient } from '../../utils/types/types';
@@ -29,8 +33,17 @@ import {
   ISetBun,
   IDragArray,
   IDeleteItem,
-  ISetCurrentTab
+  ISetCurrentTab,
+  IDeleteCurrentIngredient,
+  ISetIngredientModalInvisible,
+  ISetIngredientModalVisible,
+  ISetCurrentIngredient
 } from '../../utils/types/actions/allIngredientsTypes';
+
+
+
+
+
 
 const getItemsSuccessAction = (data: TBaseIngredient[]): IGetAllItems => ({
   type: GET_ITEMS_SUCCESS,
@@ -92,8 +105,22 @@ export const setCurrentTabAction = (data: string): ISetCurrentTab => ({
   currentTab: data
 });
 
+export const deleteCurrentIngredientAction = (): IDeleteCurrentIngredient => ({
+  type: DELETE_CURRENT_INGREDIENT,
+});
 
+export const setIngredientModalInvisibleAction = (): ISetIngredientModalInvisible => ({
+  type: SET_INGREDIENT_MODAL_INVISIBLE,
+});
 
+export const setIngredientModalVisibleAction = (): ISetIngredientModalVisible => ({
+  type: SET_INGREDIENT_MODAL_VISIBLE,
+});
+
+export const setCurrentIngredientAction = (data: TBaseIngredient): ISetCurrentIngredient => ({
+    type: SET_CURRENT_INGREDIENT,
+    item: data
+});
 
 export const getAllItems = () => {
   return function (dispatch: any) { // убрать any ------------------------------------------------------------

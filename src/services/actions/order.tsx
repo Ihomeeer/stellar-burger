@@ -7,14 +7,21 @@ import {
   ORDER_SUBMIT_SUCCESS,
   ORDER_SUBMIT_FAILURE,
   SET_ORDER_MODAL_VISIBLE,
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_INVISIBLE
 } from '../../utils/constants';
 import {
   IOrderSubmitSuccess,
   ISetOrderModalVisible,
   IClearIngredients,
   IClearCounters,
-  IOrderSubmitFailure
+  IOrderSubmitFailure,
+  IDeleteOrderNumber,
+  ISetOrderModalInvisible
 } from '../../utils/types/actions/orderTypes';
+
+
+
 
 const orderSubmitSuccessAction = (number: number): IOrderSubmitSuccess => ({
   type: ORDER_SUBMIT_SUCCESS,
@@ -37,6 +44,15 @@ const orderSubmitFailureAction = (error: Promise<Error>): IOrderSubmitFailure =>
   type: ORDER_SUBMIT_FAILURE,
   error: error
 });
+
+export const deleteOrderNumberAction = (): IDeleteOrderNumber => ({
+  type: DELETE_ORDER_NUMBER,
+});
+
+export const setOrderModalInvisibleAction = (): ISetOrderModalInvisible => ({
+  type: SET_ORDER_MODAL_INVISIBLE
+});
+
 
 export const placeOrder: TPlaceOrder = (info, error) => {
   return function (dispatch: any) { // убрать any --------------------------------------------------------------------

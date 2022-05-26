@@ -11,7 +11,6 @@ const EnteringForm: FC<TEnteringForm> = ({ children, onSubmit, formTitle, button
         <h1 className="text text_type_main-medium mb-6">{formTitle}</h1>
         {children}
         <Button>{buttonTitle}</Button>
-
         {
           formTitle === "Вход"
             ?
