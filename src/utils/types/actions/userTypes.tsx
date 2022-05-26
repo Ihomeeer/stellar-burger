@@ -161,3 +161,27 @@ export interface ISessionTerminationFailure {
   deleteUserError: Promise<Error>;
 };
 
+export type TUserTypes =
+  | IUserRegistrationSuccess
+  | ISetRegistrationState
+  | IUserRegistrationFailure
+  | ISetLoggingIn
+  | IUserLoginSuccess
+  | IUserLoginFailure
+  | ISetLoginState
+  | ISetUserLoggedInState
+  | IForgotPasswordSuccess
+  | IForgotPasswordState
+  | IForgotPasswordFailure
+  | IResetPasswordSuccess
+  | IResetPasswordFailure
+  | IResetPasswordState
+  | IGetUserSuccess
+  | IGetUserFailure
+  | ISetUserState
+  | IUpdateUserSuccess
+  | IUpdateUserFailure
+  | ISessionTerminationSuccess
+  | IDeleteUserState
+  | ISetSessionTerminationState
+  | ISessionTerminationFailure;

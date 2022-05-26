@@ -54,7 +54,7 @@ export type TCurrentIngredientState = {
 export type TBaseIngredient = {
   readonly calories: number;
   readonly carbohydrates: number;
-  readonly counter: number;
+  counter: number;
   readonly fat: number;
   readonly image: string;
   readonly image_large: string;

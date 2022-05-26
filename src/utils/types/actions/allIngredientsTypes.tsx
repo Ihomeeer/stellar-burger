@@ -4,9 +4,18 @@ import {
   SET_BUNS,
   SET_SAUCES,
   SET_MAIN_INGREDIENTS,
+  ADD_ITEM,
+  INCREASE_COUNTER,
+  DECREASE_COUNTER,
+  SET_BUN,
+  DRAG_ARRAY,
+  DELETE_ITEM,
+  SET_CURRENT_TAB
 } from '../../constants';
 
-import { TBaseIngredient } from '../types';
+import { IClearCounters } from './orderTypes';
+
+import { TBaseIngredient, TConstructorIngredient } from '../types';
 
 export interface IGetAllItems {
   readonly type: typeof GET_ITEMS_SUCCESS;
@@ -30,7 +39,64 @@ export interface ISetSauces {
 
 export interface IGetItemsFailed {
   readonly type: typeof GET_ITEMS_FAILED;
-  error: Promise<Error>;
+  readonly error: Promise<Error>;
 }
 
+export interface IAddItem {
+  readonly type: typeof ADD_ITEM;
+  readonly item: TBaseIngredient;
+}
 
+export interface IIncreaseCounter {
+  readonly type: typeof INCREASE_COUNTER;
+  readonly item: TBaseIngredient;
+};
+
+export interface IDecreaseCounter {
+  readonly type: typeof DECREASE_COUNTER;
+  readonly item: TBaseIngredient;
+};
+
+export interface ISetBun {
+  readonly type: typeof SET_BUN;
+  readonly item: TBaseIngredient;
+};
+
+export interface IDragArray {
+  readonly type: typeof DRAG_ARRAY;
+  readonly ingredients: TConstructorIngredient[];
+};
+
+
+export interface IDeleteItem {
+  readonly type: typeof DELETE_ITEM;
+  readonly item: TConstructorIngredient;
+};
+
+
+export interface ISetCurrentTab {
+  readonly type: typeof SET_CURRENT_TAB;
+  readonly currentTab: string;
+};
+
+
+
+
+
+
+
+
+export type TAllIngredientsTypes =
+  | IGetAllItems
+  | ISetMainIngredients
+  | ISetBuns
+  | ISetSauces
+  | IGetItemsFailed
+  | IAddItem
+  | IIncreaseCounter
+  | IDecreaseCounter
+  | ISetBun
+  | IDragArray
+  | IDeleteItem
+  | ISetCurrentTab
+  | IClearCounters;

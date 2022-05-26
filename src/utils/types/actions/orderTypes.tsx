@@ -8,8 +8,6 @@ import {
 
 export type TPlaceOrder = (info: string[], error: string) => void;
 
-
-
 export interface IOrderSubmitSuccess {
   readonly type: typeof ORDER_SUBMIT_SUCCESS;
   readonly number: number;
@@ -32,3 +30,9 @@ export interface IOrderSubmitFailure {
   error: Promise<Error>;
 }
 
+export type TOrderTypes =
+  | IOrderSubmitSuccess
+  | ISetOrderModalVisible
+  | IClearIngredients
+  | IClearCounters
+  | IOrderSubmitFailure;

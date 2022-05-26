@@ -5,7 +5,7 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
-import { SET_CURRENT_TAB } from '../../utils/constants';
+import { setCurrentTabAction } from "../../services/actions/allIngredients";
 import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types/types';
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
@@ -62,10 +62,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
 
   // Пробрасывание актуальной вкладки в хранилище
   const handleTab = (tab: string) => {
-    dispatch({
-      type: SET_CURRENT_TAB,
-      currentTab: tab
-    })
+    dispatch(setCurrentTabAction(tab))
   }
 
   return (

@@ -5,10 +5,12 @@ import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorIte
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADD_ITEM, DRAG_ARRAY, SET_BUN, INCREASE_COUNTER } from '../../utils/constants';
+// import { DRAG_ARRAY, INCREASE_COUNTER } from '../../utils/constants';
+import { addItemAction, increaseCounterAction, setBunAction, dragArrayAction } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
 import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient, TBurgerConstructorState, TUserState } from '../../utils/types/types';
+
 
 
 const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
@@ -39,23 +41,11 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
       if (item.type !== 'bun') {
         const newItem = { ...item }
         newItem.uid = generateUid();
-        dispatch({
-          type: ADD_ITEM,
-          item: newItem
-        })
-        dispatch({
-          type: INCREASE_COUNTER,
-          item: item
-        })
+        dispatch(addItemAction(newItem))
+        dispatch(increaseCounterAction(item))
       } else {
-        dispatch({
-          type: SET_BUN,
-          item: item
-        })
-        dispatch({
-          type: INCREASE_COUNTER,
-          item: item
-        })
+        dispatch(setBunAction(item))
+        dispatch(increaseCounterAction(item))
       }
     }
   }
@@ -88,10 +78,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
       const modifiedItems = [...ingredients];
       modifiedItems.splice(dragIndex, 1);
       modifiedItems.splice(hoverIndex, 0, draggedItem);
-      dispatch({
-        type: DRAG_ARRAY,
-        ingredients: modifiedItems
-      })
+      dispatch(dragArrayAction(modifiedItems))
     } else {
       return
     }
