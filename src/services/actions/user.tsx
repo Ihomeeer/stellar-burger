@@ -1,6 +1,7 @@
 import { checkStatus } from '../../utils/checkStatus';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
 import { refreshFetch } from '../../utils/refreshFetch';
+import { AppDispatch, AppThunk } from '../../utils/types/types';
 import {
   IUserRegistrationSuccess,
   ISetRegistrationState,
@@ -209,7 +210,7 @@ export const clearSessionTerminationStateAction = (): IClearSessionTerminationSt
 
 // регистрация нового пользователя
 export const register: TRegister = (name, email, password) => {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/auth/register`, {
       method: "POST",
       headers: {
@@ -239,7 +240,7 @@ export const register: TRegister = (name, email, password) => {
 
 // логин существующего пользователя
 export const login: TLogin = (email, password) => {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     dispatch(setLoggingInAction(true))
     fetch(`${baseURL}/auth/login`, {
       method: "POST",
@@ -285,7 +286,7 @@ export const login: TLogin = (email, password) => {
 
 // восстановление пароля существующего пользователя (отправка кода на мыло)
 export const forgotPassword: TForgotPassword = (email) => {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/password-reset`, {
       method: "POST",
       headers: {
@@ -313,7 +314,7 @@ export const forgotPassword: TForgotPassword = (email) => {
 
 // восстановление пароля существующего пользователя (отправка нового пароля и кода из письма)
 export const resetPassword: TResetPassword = (password, token) => {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/password-reset/reset`, {
       method: "POST",
       headers: {
@@ -341,8 +342,8 @@ export const resetPassword: TResetPassword = (password, token) => {
 }
 
 // авторизация пользователя
-export function getUser() {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+export const getUser: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     dispatch(setLoggingInAction(true))
     refreshFetch(`${baseURL}/auth/user`, {
       method: "GET",
@@ -373,7 +374,7 @@ export function getUser() {
 
 // изменение данных пользователя
 export const updateUser: TUpdateUser = (userData) => {
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     refreshFetch(`${baseURL}/auth/user`, {
       method: "PATCH",
       headers: {
@@ -398,9 +399,9 @@ export const updateUser: TUpdateUser = (userData) => {
 }
 
 // завершение сеанса пользователя
-export const deleteUser = () => {
+export const deleteUser: AppThunk = () => {
   const refreshToken = getCookie('refreshToken');
-  return function (dispatch: any) {  // убрать any ------------------------------------------------
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/auth/logout`, {
       method: "POST",
       headers: {

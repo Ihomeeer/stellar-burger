@@ -2,14 +2,14 @@ import React, { FC, ChangeEvent, FormEvent } from 'react';
 import { TUserState } from '../../utils/types/types';
 import { NavLink } from 'react-router-dom';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
 import { deleteUser, clearSessionTerminationStateAction } from '../../services/actions/user';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ProfilePage: FC = () => {
   const { user } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   const dispatch = useDispatch();

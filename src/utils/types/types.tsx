@@ -1,7 +1,20 @@
 import { FormEvent } from 'react';
 import { Location } from "history";
+import { store } from '../../services/store';
+import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator } from 'redux';
+import { TAllIngredientsTypes } from '../types/actions/allIngredientsTypes';
+import { TOrderTypes } from '../types/actions/orderTypes';
+import { TUserTypes } from '../types/actions/userTypes';
 
 // ------------ Редакс-хранилище ------------
+type TApplicationActions = | TAllIngredientsTypes | TOrderTypes | TUserTypes;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
+>;
+
 export type TAllIngredientsState = {
   ingredients: TBaseIngredient[];
   buns: TBaseIngredient[];

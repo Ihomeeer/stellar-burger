@@ -3,7 +3,7 @@ import { TUserState } from '../../utils/types/types';
 import styles from './ForgotPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { Redirect, useHistory } from 'react-router-dom';
 import { forgotPassword } from '../../services/actions/user';
 import { clearForgotPasswordStateAction } from '../../services/actions/user';
@@ -14,7 +14,7 @@ const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory<{ forgotPassword: true }>();
   const { forgot_password_success } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   React.useEffect(() => {

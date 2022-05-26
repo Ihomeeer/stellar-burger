@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
 // import { DRAG_ARRAY, INCREASE_COUNTER } from '../../utils/constants';
 import { addItemAction, increaseCounterAction, setBunAction, dragArrayAction } from '../../services/actions/allIngredients';
@@ -17,10 +17,10 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
-    (state: RootStateOrAny): TBurgerConstructorState => state.burgerConstructor
+    (state): TBurgerConstructorState => state.burgerConstructor
   );
   const { isLoggedIn } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   // контейнер для приема ингредиентов

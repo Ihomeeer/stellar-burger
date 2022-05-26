@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent, FormEvent } from 'react';
 import styles from './RegisterPage.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register, clearRegistrationStateAction } from '../../services/actions/user';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { TUserState, THistory } from '../../utils/types/types';
@@ -14,7 +14,7 @@ const RegisterPage: FC = () => {
   const [password, setPassword] = React.useState<string>('');
   const history = useHistory<THistory>();
   const { register_success, registerError } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {

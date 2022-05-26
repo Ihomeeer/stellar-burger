@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TCurrentIngredientState, TUserState, TLocation, TFilterIngredients } from '../../utils/types/types';
+import { TCurrentIngredientState, TLocation, TFilterIngredients } from '../../utils/types/types';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -8,7 +8,7 @@ import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
 import { getAllItems } from '../../services/actions/allIngredients';
@@ -33,7 +33,7 @@ const ModalSwitch: FC = () => {
   const background = location.state && location.state.background;
 
   const { ingredientModalVisibility } = useSelector(
-    (state: RootStateOrAny): TCurrentIngredientState => state.currentIngredient
+    (state): TCurrentIngredientState => state.currentIngredient
   );
 
   // закрытие модалки с ингредиентом
@@ -95,7 +95,7 @@ const ModalSwitch: FC = () => {
 const App: FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state )  => state.user
   );
 
 

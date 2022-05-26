@@ -40,8 +40,6 @@ export interface ISetOrderModalInvisible {
   readonly type: typeof SET_ORDER_MODAL_INVISIBLE;
 };
 
-
-
 export type TOrderTypes =
   | IOrderSubmitSuccess
   | ISetOrderModalVisible

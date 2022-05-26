@@ -1,5 +1,6 @@
 import { checkStatus } from '../../utils/checkStatus';
 import { TPlaceOrder } from '../../utils/types/actions/orderTypes';
+import { AppDispatch } from '../../utils/types/types';
 import {
   baseURL,
   CLEAR_INGREDIENTS,
@@ -19,9 +20,6 @@ import {
   IDeleteOrderNumber,
   ISetOrderModalInvisible
 } from '../../utils/types/actions/orderTypes';
-
-
-
 
 const orderSubmitSuccessAction = (number: number): IOrderSubmitSuccess => ({
   type: ORDER_SUBMIT_SUCCESS,
@@ -53,9 +51,8 @@ export const setOrderModalInvisibleAction = (): ISetOrderModalInvisible => ({
   type: SET_ORDER_MODAL_INVISIBLE
 });
 
-
 export const placeOrder: TPlaceOrder = (info, error) => {
-  return function (dispatch: any) { // убрать any --------------------------------------------------------------------
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/orders`, {
       method: 'POST',
       headers: {

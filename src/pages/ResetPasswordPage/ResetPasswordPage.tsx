@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
 import { resetPassword, clearResetPasswordStateAction } from '../../services/actions/user';
 import styles from './ResetPasswordPage.module.css';
@@ -15,7 +15,7 @@ const ResetPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory<THistory>();
   const { reset_password_success } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   React.useEffect(() => {

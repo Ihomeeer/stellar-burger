@@ -1,6 +1,8 @@
 import { baseURL } from '../../utils/constants';
 import { filterIngredients } from '../../components/App/App';
 import { checkStatus } from '../../utils/checkStatus';
+import { TBaseIngredient, TConstructorIngredient } from '../../utils/types/types';
+import { AppDispatch, AppThunk } from '../../utils/types/types';
 import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
@@ -19,8 +21,7 @@ import {
   SET_INGREDIENT_MODAL_VISIBLE,
   SET_CURRENT_INGREDIENT
 } from '../../utils/constants';
-// import { store } from '../../index'
-import { TBaseIngredient, TConstructorIngredient } from '../../utils/types/types';
+
 import {
   IGetAllItems,
   ISetMainIngredients,
@@ -39,11 +40,6 @@ import {
   ISetIngredientModalVisible,
   ISetCurrentIngredient
 } from '../../utils/types/actions/allIngredientsTypes';
-
-
-
-
-
 
 const getItemsSuccessAction = (data: TBaseIngredient[]): IGetAllItems => ({
   type: GET_ITEMS_SUCCESS,
@@ -122,8 +118,8 @@ export const setCurrentIngredientAction = (data: TBaseIngredient): ISetCurrentIn
     item: data
 });
 
-export const getAllItems = () => {
-  return function (dispatch: any) { // убрать any ------------------------------------------------------------
+export const getAllItems: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     fetch(`${baseURL}/ingredients`, {
       method: 'GET',
       headers: {

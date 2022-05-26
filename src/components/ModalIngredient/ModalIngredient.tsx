@@ -1,7 +1,7 @@
 // модалка с инфой про ингредиент
 import React, { FC } from 'react';
 import styles from './ModalIngredient.module.css';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useParams } from 'react-router-dom';
 import { setIngredientModalVisibleAction } from '../../services/actions/allIngredients';
 import { TCurrentIngredientState, TAllIngredientsState } from '../../utils/types/types';
@@ -11,10 +11,10 @@ const ModalIngredient: FC = () => {
   const { ingredientId } = useParams<{ ingredientId?: string }>();
 
   const { currentIngredient } = useSelector(
-    (state: RootStateOrAny): TCurrentIngredientState => state.currentIngredient
+    (state): TCurrentIngredientState => state.currentIngredient
   );
   const { ingredients } = useSelector(
-    (state: RootStateOrAny): TAllIngredientsState => state.allIngredients
+    (state): TAllIngredientsState => state.allIngredients
   );
 
   const item = currentIngredient ?
