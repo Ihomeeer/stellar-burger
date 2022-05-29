@@ -19,7 +19,10 @@ import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
+import { FeedPage } from '../../pages/FeedPage/FeedPage';
 import { getCookie } from '../../utils/cookie';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 // фильтр ингредиентов по типу
 export const filterIngredients: TFilterIngredients = (array, type) => {
@@ -68,6 +71,9 @@ const ModalSwitch: FC = () => {
         <Route path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
         </Route>
+        <Route path="/feed" exact={true}>
+          <FeedPage />
+        </Route>
         <Route path="*">
           <NotFoundPage />
         </Route>
@@ -95,7 +101,7 @@ const ModalSwitch: FC = () => {
 const App: FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(
-    (state )  => state.user
+    (state) => state.user
   );
 
 
@@ -107,6 +113,7 @@ const App: FC = () => {
   }, [])
 
   React.useEffect(() => {
+    moment.locale('ru');
     dispatch(getAllItems());
     // eslint-disable-next-line
   }, [])

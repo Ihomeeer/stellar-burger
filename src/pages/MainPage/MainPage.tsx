@@ -7,7 +7,7 @@ import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import {
   placeOrder
 } from '../../services/actions/order';
@@ -20,7 +20,7 @@ function MainPage() {
   const dispatch = useDispatch();
 
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
-    (state: RootStateOrAny): TOrderState => state.order
+    (state): TOrderState => state.order
   );
 
   // открытие модалки с ингредиентом
