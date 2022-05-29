@@ -1,0 +1,23 @@
+.section {
+  width: 580px;
+  height: 626px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listsContainer {
+  border: 1px solid red;
+  width: 100%;
+  min-height: 206px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ordersContainer {
+  width: 272px;
+  min-height: 206px;
+}

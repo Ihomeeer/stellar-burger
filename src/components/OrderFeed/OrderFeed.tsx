@@ -4,7 +4,6 @@ import { OrderCard } from '../OrderCard/OrderCard';
 import styles from './OrderFeed.module.css';
 
 export const OrderFeed: any = (props: any) => {
-  // console.log(props)
   return (
     <section className={styles.section}>
       {

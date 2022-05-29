@@ -48,9 +48,6 @@ export const OrderCard: any = (props: any) => {
       :
       null
 
-
-
-
   return (
     <div className={`${props.isPersonalOrders ? styles.cardLarge : styles.cardSmall} ${styles.card}`}>
       <div className={`${styles.orderNumberContainer} mb-6`}>
@@ -70,7 +67,7 @@ export const OrderCard: any = (props: any) => {
           {
             slicedIdArray &&
             slicedIdArray.map((item: any) => {
-              const current = ingredients.find(ingr => ingr._id === item)
+              const current = ingredients.find(ingredient => ingredient._id === item)
               return (
                 <li className={styles.item} key={generateUid()}>
                   <img className={styles.image} src={current!.image_mobile} alt={current!.name} />

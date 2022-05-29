@@ -526,7 +526,7 @@ export const responseData = {
           "ingredients": [
             "60d3b41abdacab0026a733c7"
           ],
-          "status": "done",
+          "status": "pending",
           "name": "Флюоресцентный бургер",
           "createdAt": "2022-02-02T17:50:51.425Z",
           "updatedAt": "2022-02-02T17:50:51.674Z",
@@ -548,7 +548,7 @@ export const responseData = {
           "ingredients": [
             "60d3b41abdacab0026a733c7"
           ],
-          "status": "done",
+          "status": "pending",
           "name": "Флюоресцентный бургер",
           "createdAt": "2022-02-02T17:47:00.940Z",
           "updatedAt": "2022-02-02T17:47:01.198Z",
@@ -579,7 +579,7 @@ export const responseData = {
             "60d3b41abdacab0026a733cd",
             "60d3b41abdacab0026a733cc"
           ],
-          "status": "done",
+          "status": "pending",
           "name": "Space spicy флюоресцентный бургер",
           "createdAt": "2022-02-02T17:36:34.407Z",
           "updatedAt": "2022-02-02T17:36:34.678Z",
@@ -628,7 +628,7 @@ export const responseData = {
             "60d3b41abdacab0026a733c7",
             "60d3b41abdacab0026a733cd"
           ],
-          "status": "done",
+          "status": "pending",
           "name": "Space флюоресцентный бургер",
           "createdAt": "2022-02-02T16:19:36.960Z",
           "updatedAt": "2022-02-02T16:19:37.152Z",
@@ -654,7 +654,7 @@ export const responseData = {
             "60d3b41abdacab0026a733cc",
             "60d3b41abdacab0026a733d1"
           ],
-          "status": "done",
+          "status": "pending",
           "name": "Spicy флюоресцентный фалленианский бургер",
           "createdAt": "2022-02-02T16:04:05.449Z",
           "updatedAt": "2022-02-02T16:04:05.704Z",
