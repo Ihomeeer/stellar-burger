@@ -9,7 +9,6 @@ import { TModal } from '../../utils/types/types';
 const modalRoot = document.getElementById('modal');
 
 const Modal: FC<TModal> = ({ children, title, isModalVisible, isModalOrderInfo, closeModal }) => {
-
   // закрытие по клику на esc
   const modalEscPressHandler = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {

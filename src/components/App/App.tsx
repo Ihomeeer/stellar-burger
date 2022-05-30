@@ -80,7 +80,7 @@ const ModalSwitch: FC = () => {
       </Switch>
 
       {/* Show the modal when a background page is set */}
-      {background &&
+      {background && background.pathname === "/" &&
         <Route
           path="/ingredients/:ingredientId"
           children={
