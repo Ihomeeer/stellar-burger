@@ -8,7 +8,7 @@ import { TModal } from '../../utils/types/types';
 
 const modalRoot = document.getElementById('modal');
 
-const Modal: FC<TModal> = ({ children, title, isModalVisible, closeModal }) => {
+const Modal: FC<TModal> = ({ children, title, isModalVisible, isModalOrderInfo, closeModal }) => {
 
   // закрытие по клику на esc
   const modalEscPressHandler = (e: KeyboardEvent) => {
@@ -37,7 +37,7 @@ const Modal: FC<TModal> = ({ children, title, isModalVisible, closeModal }) => {
               <button className={styles.closeButton} onClick={closeModal}>
                 <CloseIcon type="primary" />
               </button>
-              <h2 className={`${styles.title} text text_type_main-large`}>{title && title}</h2>
+              <h2 className={`${styles.title} text  ${isModalOrderInfo ? 'text_type_digits-medium' :'text_type_main-large' }`}>{title && title}</h2>
             </>
             :
             <button className={styles.closeButton} onClick={closeModal}>

@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderName {
+  width: 640px;
+  height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.list {
+  width: 640px;
+  height: 312px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.status {
+  width: 640px;
+  height: 24px;
+  color: #00CCCC;
+}
+
+.listTitle {
+  width: 640px;
+  height: 30px;
+  margin-top: 60px;
+}
+
+.statusContainer {
+  width: 640px;
+  height: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.currencyContainer {
+  display: flex;
+  flex-direction: row;
+  min-width: 84px;
+}
+
+/* кастомизация скролла */
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: #9a9ac7;
+}

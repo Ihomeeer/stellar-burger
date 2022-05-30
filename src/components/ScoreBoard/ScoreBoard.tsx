@@ -23,13 +23,13 @@ export const ScoreBoard: any = (props: any) => {
       <div className={styles.listsContainer}>
         <div className={styles.ordersContainer}>
           <h3 className={`${styles.header} text text_type_main-medium mb-6`}>Готовы:</h3>
-          <ul className={styles.list}>
+          <ul className={`${styles.list} ${styles.doneList}`}>
             {
               doneOrders !== null &&
               doneOrders.map((item: any) => {
                 return (
                   <li key={item}>
-                    <p>{item}</p>
+                    <p className={`text text_type_digits-default`}>{item}</p>
                   </li>
                 )
               })
@@ -46,7 +46,7 @@ export const ScoreBoard: any = (props: any) => {
               pendingOrders.map((item: any) => {
                 return (
                   <li key={item}>
-                    <p>{item}</p>
+                    <p className={`text text_type_digits-default`}>{item}</p>
                   </li>
                 )
               })
@@ -55,14 +55,14 @@ export const ScoreBoard: any = (props: any) => {
         </div>
       </div>
 
-      <div className={styles.dataContainer}>
-        <h3 className={styles.header}>Выполнено за все время:</h3>
-        <p className={styles.number}>{props.data.total}</p>
+      <div className={`${styles.dataContainer} mt-15`}>
+        <h3 className={`${styles.header} text text_type_main-medium`}>Выполнено за все время:</h3>
+        <p className={`${styles.number} text text_type_digits-large`}>{props.data.total}</p>
       </div>
 
       <div className={styles.dataContainer}>
-        <h3 className={styles.header}>Выполнено за сегодня:</h3>
-        <p className={styles.number}>{props.data.totalToday}</p>
+        <h3 className={`${styles.header} text text_type_main-medium`}>Выполнено за сегодня:</h3>
+        <p className={`${styles.number} text text_type_digits-large`}>{props.data.totalToday}</p>
       </div>
 
     </section>
