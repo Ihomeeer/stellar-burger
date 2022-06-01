@@ -1,5 +1,6 @@
 export type TWSState = {
   wsConnected: boolean;
-  data: {};
-  error?: Event;
+  responseData: any;
+  wsError?: Event;
+  orderFeedModalVisibility: boolean
 }

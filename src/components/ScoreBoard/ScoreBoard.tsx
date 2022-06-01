@@ -8,8 +8,6 @@ export const ScoreBoard: any = (props: any) => {
   let doneOrders: any = null;
   let pendingOrders: any = null;
 
-
-
   const formatOrders = () => {
     doneOrders = props.data.orders.filter((item: any) => item.status === "done").map((item: any) => item.number).slice(0, 10);
     pendingOrders = props.data.orders.filter((item: any) => item.status === "pending").map((item: any) => item.number).slice(0, 10);

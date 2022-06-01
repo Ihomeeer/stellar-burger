@@ -40,6 +40,9 @@ function MainPage() {
     dispatch(deleteOrderNumberAction())
   }
 
+  // открытие модалки с деталями заказа
+
+
   return (
     <>
       <div className={styles.sectionContainer}>

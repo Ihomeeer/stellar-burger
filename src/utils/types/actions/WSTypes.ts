@@ -4,20 +4,20 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  WS_CONNECTION_START_P,
-  WS_CONNECTION_SUCCESS_P,
-  WS_CONNECTION_ERROR_P,
-  WS_CONNECTION_CLOSED_P,
-  WS_GET_MESSAGE_P,
+  // WS_CONNECTION_START_P,
+  // WS_CONNECTION_SUCCESS_P,
+  // WS_CONNECTION_ERROR_P,
+  // WS_CONNECTION_CLOSED_P,
+  // WS_GET_MESSAGE_P,
 } from '../../constants';
-import { TResponseData, TBaseIngredient } from '../types';
+import { TResponseData } from '../types';
 
-export type wsActions = {
-  wsInit: typeof WS_CONNECTION_START | typeof WS_CONNECTION_START_P,
-  onOpen: typeof WS_CONNECTION_SUCCESS | typeof WS_CONNECTION_SUCCESS_P,
-  onClose: typeof WS_CONNECTION_CLOSED | typeof WS_CONNECTION_ERROR_P,
-  onError: typeof WS_CONNECTION_ERROR | typeof WS_CONNECTION_CLOSED_P,
-  onMessage: typeof WS_GET_MESSAGE | typeof WS_GET_MESSAGE_P,
+export type TWsActions = {
+  wsInit: typeof WS_CONNECTION_START,
+  onOpen: typeof WS_CONNECTION_SUCCESS,
+  onClose: typeof WS_CONNECTION_CLOSED,
+  onError: typeof WS_CONNECTION_ERROR,
+  onMessage: typeof WS_GET_MESSAGE,
 }
 
 export interface IWSConnectionStartAction {
@@ -38,8 +38,7 @@ export interface IWSConnectionClosedAction {
 
 export interface IWSGetMessageAction {
   readonly type: typeof WS_GET_MESSAGE,
-  readonly responceData: TResponseData,
-  readonly ingredients: ReadonlyArray<TBaseIngredient>
+  readonly responseData: TResponseData,
 }
 
 export type TWSTypes =
