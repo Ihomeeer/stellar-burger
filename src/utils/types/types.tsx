@@ -6,9 +6,10 @@ import { Action, ActionCreator } from 'redux';
 import { TAllIngredientsTypes } from '../types/actions/allIngredientsTypes';
 import { TOrderTypes } from '../types/actions/orderTypes';
 import { TUserTypes } from '../types/actions/userTypes';
+import { TWSTypes } from './actions/WSTypes';
 
 // ------------ Редакс-хранилище ------------
-type TApplicationActions = | TAllIngredientsTypes | TOrderTypes | TUserTypes;
+export type TApplicationActions = | TAllIngredientsTypes | TOrderTypes | TUserTypes | TWSTypes;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ActionCreator<
@@ -200,3 +201,22 @@ export type TGetCookie = (name: string) => string | undefined;
 export type TDeleteCookie = (name: string) => void;
 
 export type TSetCookie = (name: string, value: string, props?: TCookieProps) => void;
+
+
+//  ------------ WebSocket  ------------
+
+export type TResponseData = {
+  orders: ReadonlyArray<TResponseOrderItem>;
+  total: number;
+  totalToday: number;
+}
+
+export type TResponseOrderItem = {
+  ingredients: ReadonlyArray<string>;
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}
