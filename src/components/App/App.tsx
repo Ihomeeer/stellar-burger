@@ -123,7 +123,9 @@ const ModalSwitch: FC = () => {
                 isModalVisible={orderFeedModalVisibility}
                 closeModal={handleCloseOrderFeedModal}
               >
-                <ModalOrderInfo />
+                <ModalOrderInfo
+                isPage={false}
+                />
               </Modal>
             }
           />

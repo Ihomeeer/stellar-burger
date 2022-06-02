@@ -10,9 +10,10 @@ import { v4 as generateUid } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
 import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
+import { WSConnectionStartAction } from "../../services/actions/wsActions";
+import { getUser } from "../../services/actions/user";
 
-
-export const ModalOrderInfo: any = (urlId: any) => {
+export const ModalOrderInfo: any = (isPage: any) => {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients
@@ -24,44 +25,23 @@ export const ModalOrderInfo: any = (urlId: any) => {
 
   const { id } = useParams<{ id?: string }>();
 
-  // React.useEffect(
-  //   () => {
+  React.useEffect(() => {
+    dispatch(getUser());
+    dispatch(WSConnectionStartAction());
+  }, [dispatch]);
 
-  //     if (id !== '') {
-  //       console.log(id)
-  //       console.log('if')
-  //       order = responseData && responseData.orders.find((item: any) => item._id === id)
-  //       dispatch(setFeedModalVisibilityAction(true));
-  //     }
-  //     // eslint-disable-next-line
-  //   }, [])
+  React.useEffect(
+    () => {
 
-
-
-  let order = currentFeedId ? responseData && responseData.orders.find((item: any) => item._id === currentFeedId) : urlId ? urlId && responseData && responseData.orders.find((item: any) => item._id === urlId.urlId) : null;
+      if (id !== '') {
+        dispatch(setFeedModalVisibilityAction(true));
+      }
+      // eslint-disable-next-line
+    }, [])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  let order = currentFeedId ? responseData && responseData.orders.find((item: any) => item._id === currentFeedId) : id ? id && responseData && responseData.orders.find((item: any) => item._id === id) : null;
 
 
 
@@ -107,7 +87,7 @@ export const ModalOrderInfo: any = (urlId: any) => {
         order
         &&
         <>
-        <h2 className={`${styles.id} ${styles.idModal} ${urlId.urlId ? styles.pageId : ''} text text_type_digits-medium`}>#{order && order.number}</h2>
+        <h2 className={`${styles.id} ${isPage.isPage ? styles.pageId : styles.idModal} text text_type_digits-medium`}>#{order && order.number}</h2>
           <h3 className={`${styles.orderName} text text_type_main-medium`}>{order.name}</h3>
           <p className={`${styles.status} text text_type_main-small mt-2`}>{localizedStatus}</p>
           <p className={`${styles.listTitle} text text_type_main-medium mb-6`}>Состав:</p>
