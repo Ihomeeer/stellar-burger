@@ -5,13 +5,16 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
+  WS_GET_CURRENTFEEDID,
+  SET_FEED_MODAL_VISIBILITY
 } from '../../utils/constants';
 
 const initialWSState: TWSState = {
   wsConnected: false,
   responseData: null,
   wsError: undefined,
-  orderFeedModalVisibility: false
+  orderFeedModalVisibility: false,
+  currentFeedId: null,
 };
 
 export const wsReducer = (state: TWSState = initialWSState, action: TWSTypes) => {
@@ -35,6 +38,18 @@ export const wsReducer = (state: TWSState = initialWSState, action: TWSTypes) =>
       return {
         ...state,
         responseData: action.responseData
+      }
+    case WS_GET_CURRENTFEEDID:
+      return {
+        ...state,
+        currentFeedId: action.currentFeedId
+      }
+    case SET_FEED_MODAL_VISIBILITY:
+      return {
+        ...state,
+        orderFeedModalVisibility: action.orderFeedModalVisibility,
+        currentFeedId: null
+
       }
     default:
       return state;

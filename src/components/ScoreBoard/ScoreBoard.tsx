@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import React from 'react';
-import { OrderCard } from '../OrderCard/OrderCard';
 import styles from './ScoreBoard.module.css';
 import { v4 as generateUid } from 'uuid';
 

@@ -1,15 +1,9 @@
 import React, { FC } from 'react';
 import styles from './ModalOrderCard.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OrderFeed } from '../../components/OrderFeed/OrderFeed';
-import { ScoreBoard } from '../../components/ScoreBoard/ScoreBoard';
-import { responseData } from '../../utils/data';
-import { useSelector } from '../../services/hooks';
-import { TAllIngredientsState } from '../../utils/types/types';
-import { v4 as generateUid } from 'uuid';
-import { produceWithPatches } from 'immer';
 
 export const ModalOrderCard = (props: any) => {
+
   return (
     <div className={`${styles.card} mb-4`}>
       <div className={`${styles.imageContainer} mr-3`}>

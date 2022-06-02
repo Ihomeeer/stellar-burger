@@ -4,6 +4,8 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
+  WS_GET_CURRENTFEEDID,
+  SET_FEED_MODAL_VISIBILITY,
   // WS_CONNECTION_START_P,
   // WS_CONNECTION_SUCCESS_P,
   // WS_CONNECTION_ERROR_P,
@@ -41,10 +43,22 @@ export interface IWSGetMessageAction {
   readonly responseData: TResponseData,
 }
 
+export interface IGetCurrentFeedId {
+  readonly type: typeof WS_GET_CURRENTFEEDID,
+  readonly currentFeedId: string,
+}
+
+export interface IsetFeedModalVisibility {
+  readonly type: typeof SET_FEED_MODAL_VISIBILITY,
+  readonly orderFeedModalVisibility: boolean
+}
+
 export type TWSTypes =
   | IWSConnectionStartAction
   | IWSConnectionSuccessAction
   | IWSConnectionErrorAction
   | IWSConnectionClosedAction
-  | IWSGetMessageAction;
+  | IWSGetMessageAction
+  | IGetCurrentFeedId
+  | IsetFeedModalVisibility;
 

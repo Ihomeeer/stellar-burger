@@ -1,6 +1,7 @@
 import { checkStatus } from '../../utils/checkStatus';
 import { TPlaceOrder } from '../../utils/types/actions/orderTypes';
 import { AppDispatch } from '../../utils/types/types';
+import { getCookie } from '../../utils/cookie';
 import {
   baseURL,
   CLEAR_INGREDIENTS,
@@ -56,7 +57,8 @@ export const placeOrder: TPlaceOrder = (info, error) => {
     fetch(`${baseURL}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${getCookie('token')}`
       },
       body: JSON.stringify({
         "ingredients": info

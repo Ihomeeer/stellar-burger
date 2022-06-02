@@ -14,11 +14,11 @@ import {
   WS_GET_MESSAGE,
 } from '../utils/constants';
 
-export const wsActions: TWsActions = {
+
+const wsActions: TWsActions = {
   wsInit: WS_CONNECTION_START,
   // wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
-  // wsClose: WS_CONNECTION_END,
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_MESSAGE,

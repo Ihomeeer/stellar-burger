@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { TCurrentIngredientState, TLocation, TFilterIngredients } from '../../utils/types/types';
+import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -11,9 +12,11 @@ import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { useDispatch, useSelector } from '../../services/hooks';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
+import { ModalOrderInfo } from '../ModalOrderInfo/ModalOrderInfo';
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
 import { deleteCurrentIngredientAction, setIngredientModalInvisibleAction } from '../../services/actions/allIngredients';
+import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
@@ -39,10 +42,20 @@ const ModalSwitch: FC = () => {
     (state): TCurrentIngredientState => state.currentIngredient
   );
 
+  const { orderFeedModalVisibility } = useSelector(
+    (state): TWSState => state.ws
+  );
+
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
     dispatch(setIngredientModalInvisibleAction())
     dispatch(deleteCurrentIngredientAction())
+    history.goBack()
+  }
+
+  // закрытие модалки с деталями заказа из ленты
+  const handleCloseOrderFeedModal = () => {
+    dispatch(setFeedModalVisibilityAction(false))
     history.goBack()
   }
 
@@ -74,25 +87,58 @@ const ModalSwitch: FC = () => {
         <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
+
+        <Route
+            path="/feed/:id"
+            children={
+              <Modal
+                title='111'
+                isModalVisible={orderFeedModalVisibility}
+                isModalOrderInfo={true}
+                closeModal={handleCloseOrderFeedModal}
+              >
+                <ModalOrderInfo />
+              </Modal>
+            }
+          />
         <Route path="*">
           <NotFoundPage />
         </Route>
       </Switch>
 
       {/* Show the modal when a background page is set */}
-      {background && background.pathname === "/" &&
-        <Route
-          path="/ingredients/:ingredientId"
-          children={
-            <Modal
-              title="Детали ингредиента"
-              isModalVisible={ingredientModalVisibility}
-              closeModal={handleCloseIngredientModal}
-            >
-              <ModalIngredient />
-            </Modal>
-          }
-        />
+      {background &&
+        <>
+          <Route
+            path="/ingredients/:ingredientId"
+            children={
+              <Modal
+                title="Детали ингредиента"
+                isModalVisible={ingredientModalVisibility}
+                closeModal={handleCloseIngredientModal}
+              >
+                <ModalIngredient />
+              </Modal>
+            }
+          />
+
+          <Route
+            path="/feed/:id"
+            children={
+              <Modal
+                title='111'
+                isModalVisible={orderFeedModalVisibility}
+                isModalOrderInfo={true}
+                closeModal={handleCloseOrderFeedModal}
+              >
+                <ModalOrderInfo />
+              </Modal>
+            }
+          />
+
+        </>
+
+
       }
     </div>
   );

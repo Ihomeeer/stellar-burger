@@ -1,18 +1,6 @@
 import { TWSTypes } from './types/actions/WSTypes';
 import { TWsActions } from './types/actions/WSTypes';
 import type { Middleware, MiddlewareAPI } from 'redux';
-// import {
-//   // WS_CONNECTION_CLOSED,
-//   // WS_CONNECTION_ERROR,
-//   // WS_CONNECTION_START,
-//   // WS_CONNECTION_SUCCESS,
-//   // WS_GET_MESSAGE,
-//   // WS_CONNECTION_CLOSED_P,
-//   // WS_CONNECTION_ERROR_P,
-//   // WS_CONNECTION_START_P,
-//   // WS_CONNECTION_SUCCESS_P,
-//   // WS_GET_MESSAGE_P
-// } from './constants';
 import { AppDispatch, RootState } from './types/types';
 import { getCookie } from './cookie';
 
@@ -22,7 +10,8 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions, authorize
 
     return next => (action: TWSTypes) => {
       const { dispatch } = store;
-      const { type } = action;
+
+      const { type } = action!;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {

@@ -270,16 +270,16 @@ export const login: TLogin = (email, password) => {
         }
       })
       .then(() => {
-        dispatch(dispatch(setLoggingInAction(false)))
+        dispatch(setLoggingInAction(false))
       })
       .catch((err) => {
         dispatch(userLoginFailureAction(err))
         dispatch(setLoginStateAction(false))
-        dispatch(dispatch(setLoggingInAction(false)))
+        dispatch(setLoggingInAction(false))
         console.log(err);
       })
       .finally(() => {
-        dispatch(dispatch(setLoggingInAction(false)))
+        dispatch(setLoggingInAction(false))
       })
   }
 }
@@ -335,7 +335,7 @@ export const resetPassword: TResetPassword = (password, token) => {
       })
       .catch((err) => {
         dispatch(resetPasswordFailureAction(err))
-        dispatch(dispatch(setResetPasswordStateAction(false)))
+        dispatch(setResetPasswordStateAction(false))
         console.log(err);
       })
   }
