@@ -7,9 +7,13 @@ import { useSelector } from '../../services/hooks';
 import { TAllIngredientsState } from '../../utils/types/types';
 import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 import { v4 as generateUid } from 'uuid';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from '../../services/hooks';
+import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 
 
-export const ModalOrderInfo = () => {
+export const ModalOrderInfo: any = (urlId: any) => {
+  const dispatch = useDispatch();
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients
   );
@@ -18,11 +22,76 @@ export const ModalOrderInfo = () => {
     (state): TWSState => state.ws
   );
 
-  const order = responseData && responseData.orders.find((item: any) => item._id === currentFeedId);
+  const { id } = useParams<{ id?: string }>();
+
+  // React.useEffect(
+  //   () => {
+
+  //     if (id !== '') {
+  //       console.log(id)
+  //       console.log('if')
+  //       order = responseData && responseData.orders.find((item: any) => item._id === id)
+  //       dispatch(setFeedModalVisibilityAction(true));
+  //     }
+  //     // eslint-disable-next-line
+  //   }, [])
+
+
+
+  let order = currentFeedId ? responseData && responseData.orders.find((item: any) => item._id === currentFeedId) : urlId ? urlId && responseData && responseData.orders.find((item: any) => item._id === urlId.urlId) : null;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const sortIngredients = (array: any) => {
+    let data: any = [];
+    array.map((item: string) => {
+      let amount = order.ingredients.filter((ingredient: string) => ingredient === item).length;
+      let itemData = { item, amount }
+      let repeatedData = data.filter((dataItem: any) => dataItem.item === itemData.item).length;
+      if (repeatedData === 0) {
+        data.push(itemData)
+      }
+    })
+    return data;
+  }
+
+  const modalIngredientsArray = order && order.ingredients && sortIngredients (order.ingredients);
+
+  const localizedStatus: string =
+    order && order.status === "done"
+      ? "Выполнен"
+      : order && order.status === "pending"
+        ? "Готовится"
+        : order && order.status === "created"
+          ? "Создан"
+          : "";
 
   const totalPrice = useMemo(() => {
     let total = 0;
-    order.ingredients.map((el: any) => {
+    order && order.ingredients.map((el: any) => {
       const orderedItems = ingredients.find((data) => data._id === el);
       if (orderedItems) {
         total += orderedItems.price || 0;
@@ -30,7 +99,7 @@ export const ModalOrderInfo = () => {
       return total;
     });
     return total;
-  }, [order.ingredients, ingredients]);
+  }, [order && order.ingredients, ingredients]);
 
   return (
     <div className={styles.container}>
@@ -38,21 +107,22 @@ export const ModalOrderInfo = () => {
         order
         &&
         <>
+        <h2 className={`${styles.id} ${styles.idModal} ${urlId.urlId ? styles.pageId : ''} text text_type_digits-medium`}>#{order && order.number}</h2>
           <h3 className={`${styles.orderName} text text_type_main-medium`}>{order.name}</h3>
-          <p className={`${styles.status} text text_type_main-small mt-2`}>{order.status}</p>
+          <p className={`${styles.status} text text_type_main-small mt-2`}>{localizedStatus}</p>
           <p className={`${styles.listTitle} text text_type_main-medium mb-6`}>Состав:</p>
           <ul className={styles.list}>
             {
-              order.items &&
-              order.items.map((item: any) => {
-                const current = ingredients.find(ingredient => ingredient._id === item._id);
-                const amount = order.items.filter((ingredient: { _id: any; }) => ingredient._id === item._id).length;
+              order.ingredients && ingredients && modalIngredientsArray &&
+              modalIngredientsArray.map((item: any) => {
+                const current = ingredients.find(ingredient => ingredient._id === item.item);
+                const amount = item.amount;
                 return (
                   <li className={styles.item} key={generateUid()}>
                     <ModalOrderCard
                       item={current}
                       amount={amount}
-                      currency={totalPrice}
+                      currency={current!.price}
                     />
                   </li>
                 )

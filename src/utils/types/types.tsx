@@ -137,7 +137,6 @@ export type TModalOrder = {
 // Modal
 export type TModal = TModalOverlay & {
   title?: string;
-  isModalOrderInfo?: boolean;
 }
 
 

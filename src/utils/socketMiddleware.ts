@@ -19,25 +19,25 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions, authorize
         const token = authorizedRequest ? `?token=${getCookie('accessToken')}` : '';
         // если токен есть, то прилепится к URL
         socket = new WebSocket(`${wsUrl}${token}`);
-        console.log('старт блядского ВебСокета')
+        console.log('ws start')
       }
 
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = () => {
-          console.log("open session ws");
+          console.log('ws open');
           dispatch({ type: onOpen });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = () => {
-          console.log("there is an ws error");
+          console.log('ws error');
           dispatch({ type: onError });
         };
 
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = event => {
-          console.log("ws message");
+          console.log('ws data transfer');
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
@@ -46,7 +46,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions, authorize
 
         // функция, которая вызывается при закрытии соединения
         socket.onclose = () => {
-          console.log('закрывай говно')
+          console.log('ws closed')
           dispatch({ type: onClose });
         };
       }

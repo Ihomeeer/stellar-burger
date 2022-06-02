@@ -28,3 +28,9 @@
 .section::-webkit-scrollbar-thumb:hover {
   background: #9a9ac7;
 }
+
+.link {
+  text-decoration: none;
+  outline: none;
+  color: white;
+}

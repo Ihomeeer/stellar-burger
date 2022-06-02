@@ -13,6 +13,7 @@ const ModalIngredient: FC = () => {
   const { currentIngredient } = useSelector(
     (state): TCurrentIngredientState => state.currentIngredient
   );
+
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients
   );

@@ -23,6 +23,7 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { FeedPage } from '../../pages/FeedPage/FeedPage';
+import { OrderDetailsPage } from '../../pages/OrderDetailsPage/OrderDetailsPage';
 import { getCookie } from '../../utils/cookie';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -89,18 +90,11 @@ const ModalSwitch: FC = () => {
         </Route>
 
         <Route
-            path="/feed/:id"
-            children={
-              <Modal
-                title='111'
-                isModalVisible={orderFeedModalVisibility}
-                isModalOrderInfo={true}
-                closeModal={handleCloseOrderFeedModal}
-              >
-                <ModalOrderInfo />
-              </Modal>
-            }
-          />
+          path="/feed/:id" exact={true}>
+          <OrderDetailsPage />
+        </Route>
+
+
         <Route path="*">
           <NotFoundPage />
         </Route>
@@ -108,7 +102,7 @@ const ModalSwitch: FC = () => {
 
       {/* Show the modal when a background page is set */}
       {background &&
-        <>
+        <Switch>
           <Route
             path="/ingredients/:ingredientId"
             children={
@@ -126,9 +120,7 @@ const ModalSwitch: FC = () => {
             path="/feed/:id"
             children={
               <Modal
-                title='111'
                 isModalVisible={orderFeedModalVisibility}
-                isModalOrderInfo={true}
                 closeModal={handleCloseOrderFeedModal}
               >
                 <ModalOrderInfo />
@@ -136,7 +128,7 @@ const ModalSwitch: FC = () => {
             }
           />
 
-        </>
+        </Switch>
 
 
       }

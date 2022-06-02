@@ -7,9 +7,11 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { v4 as generateUid } from 'uuid';
 import { dateCalc } from '../../utils/dateCalc';
 import { useDispatch } from '../../services/hooks';
+
 import { getCurrentFeedIdAction, setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 
 export const OrderCard: any = (props: any) => {
+
   const dispatch = useDispatch();
 
   const slicedIdArray =
@@ -24,7 +26,6 @@ export const OrderCard: any = (props: any) => {
   );
 
   const currentOrderHandler = (id: string): void => {
-    console.log('click')
     dispatch(setFeedModalVisibilityAction(true));
     dispatch(getCurrentFeedIdAction(id));
   }

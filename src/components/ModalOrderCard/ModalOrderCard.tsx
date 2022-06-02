@@ -5,7 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 export const ModalOrderCard = (props: any) => {
 
   return (
-    <div className={`${styles.card} mb-4`}>
+    <div className={`${styles.card}`}>
       <div className={`${styles.imageContainer} mr-3`}>
         <img className={styles.image} src={props.item.image_mobile} alt={props.item.name} />
       </div>
