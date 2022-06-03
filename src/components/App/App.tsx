@@ -88,7 +88,6 @@ const ModalSwitch: FC = () => {
         <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
-
         <Route
           path="/feed/:id" exact={true}>
           <OrderDetailsPage />

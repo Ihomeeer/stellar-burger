@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
 import { TUserState } from '../../utils/types/types';
-import { NavLink } from 'react-router-dom';
+import { ProfileNavigationBar } from '../../components/ProfileNavigationBar/ProfileNavigationBar';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateUser } from '../../services/actions/user';
 import styles from './ProfilePage.module.css';
@@ -70,30 +70,13 @@ const ProfilePage: FC = () => {
     }
   }
 
-  const handleExit = () => {
-    dispatch(deleteUser());
-    dispatch(clearSessionTerminationStateAction())
-  }
+
 
   return (
     <section className={styles.section}>
-      <nav className={styles.navBar}>
-        <NavLink to="/profile" className={styles.navLink} activeClassName={styles.navLinkActive}>
-          Профиль
-        </NavLink>
-
-        <NavLink to="/profile/orders" className={styles.navLink} activeClassName={styles.navLinkActive}>
-          История заказов
-        </NavLink>
-
-        <NavLink to="/login" className={styles.navLink} activeClassName={styles.navLinkActive} onClick={handleExit}>
-          Выход
-        </NavLink>
-
-        <p className={`text_type_main-default text_color_inactive mt-20 ${styles.hint}`}>
-          В этом разделе вы можете <br /> изменить свои персональные данные
-        </p>
-      </nav>
+      <ProfileNavigationBar
+        hint='В этом разделе вы можете изменить свои персональные данные'
+      />
       <form className={styles.inputsForm} autoComplete="off" onSubmit={handleSubmit}>
         <Input
           type="text"
