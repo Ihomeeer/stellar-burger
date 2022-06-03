@@ -21,6 +21,7 @@ import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
+import { ProfilePersonalData } from '../ProfilePersonalData/ProfilePersonalData';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { FeedPage } from '../../pages/FeedPage/FeedPage';
 import { OrderDetailsPage } from '../../pages/OrderDetailsPage/OrderDetailsPage';
@@ -68,7 +69,11 @@ const ModalSwitch: FC = () => {
           <MainPage />
         </Route>
         <ProtectedRoute path="/profile" exact={true}>
-          <ProfilePage />
+          <ProfilePage
+            hint='В этом разделе вы можете изменить свои персональные данные'
+          >
+            <ProfilePersonalData />
+          </ProfilePage>
         </ProtectedRoute>
         <Route path="/login" exact={true}>
           <LoginPage />
@@ -123,7 +128,7 @@ const ModalSwitch: FC = () => {
                 closeModal={handleCloseOrderFeedModal}
               >
                 <ModalOrderInfo
-                isPage={false}
+                  isPage={false}
                 />
               </Modal>
             }

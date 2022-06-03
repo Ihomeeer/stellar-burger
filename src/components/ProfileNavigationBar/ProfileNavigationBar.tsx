@@ -1,8 +1,7 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './ProfileNavigationBar.module.css';
 import { deleteUser, clearSessionTerminationStateAction } from '../../services/actions/user';
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch } from '../../services/hooks';
 
 
 
@@ -30,7 +29,7 @@ export const ProfileNavigationBar: any = (props: any) => {
       </NavLink>
 
       <p className={`text_type_main-default text_color_inactive mt-20 ${styles.hint}`}>
-         {props.hint}
+        {props.hint}
       </p>
     </nav>
   )

@@ -139,6 +139,11 @@ export type TModal = TModalOverlay & {
   title?: string;
 }
 
+// ------------ Профиль ------------
+// ProfilePage
+export type TProfilePage = {
+  hint: string;
+}
 
 // ------------ Навигация ------------
 // History
