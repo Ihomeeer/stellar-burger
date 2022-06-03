@@ -70,12 +70,6 @@ const ModalSwitch: FC = () => {
           <MainPage />
         </Route>
 
-
-
-
-
-
-
         <ProtectedRoute path="/profile" exact={true}>
           <ProfilePage
             hint='В этом разделе вы можете изменить свои персональные данные'
@@ -93,37 +87,28 @@ const ModalSwitch: FC = () => {
         </ProtectedRoute>
 
         <ProtectedRoute path="/profile/orders/:id" exact={true}>
-          <IngredientPage />
+          <OrderDetailsPage />
         </ProtectedRoute>
-
-
-
-
-
-
-
-
-
-
-
 
         <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
+
         <Route path="/register" exact={true}>
           <RegisterPage />
         </Route>
+
         <Route path="/forgot-password" exact={true}>
           <ForgotPasswordPage />
         </Route>
+
         <Route path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </Route>
+
         <Route path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
         </Route>
-
-
 
         <Route path="/feed" exact={true}>
           <FeedPage />
@@ -134,10 +119,6 @@ const ModalSwitch: FC = () => {
           <OrderDetailsPage />
         </Route>
 
-
-
-
-
         <Route path="*">
           <NotFoundPage />
         </Route>
@@ -146,6 +127,7 @@ const ModalSwitch: FC = () => {
       {/* Show the modal when a background page is set */}
       {background &&
         <Switch>
+
           <Route
             path="/ingredients/:ingredientId"
             children={
@@ -187,8 +169,6 @@ const ModalSwitch: FC = () => {
           </Route>
 
         </Switch>
-
-
       }
     </div>
   );
