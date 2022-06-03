@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from '../../services/hooks';
 import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
   const dispatch = useDispatch();
 
   const { wsConnected, responseData } = useSelector(
@@ -29,6 +29,7 @@ export const FeedPage = () => {
           <>
             <OrderFeed
               data={responseData.orders}
+              pathname='/feed/'
             />
             <ScoreBoard
               data={responseData}

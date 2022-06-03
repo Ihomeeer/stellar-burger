@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
 import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 import { WSConnectionStartAction } from "../../services/actions/wsActions";
-import { getUser } from "../../services/actions/user";
 
 export const ModalOrderInfo: any = (isPage: any) => {
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ export const ModalOrderInfo: any = (isPage: any) => {
   const { id } = useParams<{ id?: string }>();
 
   React.useEffect(() => {
-    dispatch(getUser());
     dispatch(WSConnectionStartAction());
   }, [dispatch]);
 

@@ -16,7 +16,7 @@ export const ProfileNavigationBar: any = (props: any) => {
   const dispatch = useDispatch();
   return (
     <nav className={styles.navBar}>
-      <NavLink to="/profile" className={styles.navLink} activeClassName={styles.navLinkActive}>
+      <NavLink to="/profile" className={styles.navLink} activeClassName={styles.navLinkActive} exact={true}>
         Профиль
       </NavLink>
 

@@ -24,6 +24,7 @@ import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import { ProfilePersonalData } from '../ProfilePersonalData/ProfilePersonalData';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { FeedPage } from '../../pages/FeedPage/FeedPage';
+import { PersonalFeed } from '../PersonalFeed/PersonalFeed';
 import { OrderDetailsPage } from '../../pages/OrderDetailsPage/OrderDetailsPage';
 import { getCookie } from '../../utils/cookie';
 import moment from 'moment';
@@ -68,6 +69,13 @@ const ModalSwitch: FC = () => {
         <Route path="/" exact={true}>
           <MainPage />
         </Route>
+
+
+
+
+
+
+
         <ProtectedRoute path="/profile" exact={true}>
           <ProfilePage
             hint='В этом разделе вы можете изменить свои персональные данные'
@@ -75,6 +83,30 @@ const ModalSwitch: FC = () => {
             <ProfilePersonalData />
           </ProfilePage>
         </ProtectedRoute>
+
+        <ProtectedRoute path="/profile/orders" exact={true}>
+          <ProfilePage
+            hint='В этом разделе вы можете просмотреть свою историю заказов'
+          >
+            <PersonalFeed />
+          </ProfilePage>
+        </ProtectedRoute>
+
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+          <IngredientPage />
+        </ProtectedRoute>
+
+
+
+
+
+
+
+
+
+
+
+
         <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
@@ -90,13 +122,20 @@ const ModalSwitch: FC = () => {
         <Route path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
         </Route>
+
+
+
         <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
+
         <Route
           path="/feed/:id" exact={true}>
           <OrderDetailsPage />
         </Route>
+
+
+
 
 
         <Route path="*">
@@ -133,6 +172,19 @@ const ModalSwitch: FC = () => {
               </Modal>
             }
           />
+
+          <Route
+            path="/profile/orders/:id"
+          >
+            <Modal
+              isModalVisible={orderFeedModalVisibility}
+              closeModal={handleCloseOrderFeedModal}
+            >
+              <ModalOrderInfo
+                isPage={false}
+              />
+            </Modal>
+          </Route>
 
         </Switch>
 
