@@ -19,10 +19,10 @@ import {
 } from '../../utils/constants';
 
 
-export const WSConnectionStartAction = (token?: string): IWSConnectionStartAction => {
+export const WSConnectionStartAction = (payload?: string): IWSConnectionStartAction => {
   return {
     type: WS_CONNECTION_START,
-    payload: { token },
+    payload: payload
   }
 };
 

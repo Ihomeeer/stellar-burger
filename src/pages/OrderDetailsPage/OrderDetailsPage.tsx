@@ -1,8 +1,6 @@
 import React from "react";
 import { useDispatch } from "../../services/hooks";
 import { ModalOrderInfo } from "../../components/ModalOrderInfo/ModalOrderInfo";
-
-import { useParams } from 'react-router-dom';
 import styles from './OrderDetailsPage.module.css';
 import { WSConnectionStartAction, WSConnectionClosedAction } from "../../services/actions/wsActions";
 
@@ -12,12 +10,12 @@ const dispatch = useDispatch();
 
   React.useEffect(() => {
     console.log('start modal')
-    dispatch(WSConnectionStartAction());
+    dispatch(WSConnectionStartAction('/all'));
   return() => {
     console.log('return modal')
     dispatch(WSConnectionClosedAction());
   }
-}, [])
+}, [dispatch])
 
   return (
     <div className={styles.section}>

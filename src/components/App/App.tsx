@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { TCurrentIngredientState, TLocation, TFilterIngredients } from '../../utils/types/types';
-import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
+import { TLocation, TFilterIngredients } from '../../utils/types/types';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -42,11 +41,11 @@ const ModalSwitch: FC = () => {
   const background = location.state && location.state.background;
 
   const { ingredientModalVisibility } = useSelector(
-    (state): TCurrentIngredientState => state.currentIngredient
+    (state) => state.currentIngredient
   );
 
   const { orderFeedModalVisibility } = useSelector(
-    (state): TWSState => state.ws
+    (state) => state.ws
   );
 
   // закрытие модалки с ингредиентом

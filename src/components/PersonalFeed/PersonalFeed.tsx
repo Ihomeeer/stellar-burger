@@ -18,7 +18,7 @@ export const PersonalFeed: FC = () => {
     return () => {
       dispatch(WSConnectionClosedAction())
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <>

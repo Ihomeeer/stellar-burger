@@ -1,7 +1,6 @@
 export const baseURL = 'https://norma.nomoreparties.space/api';
 export const wsFeedUrl = 'wss://norma.nomoreparties.space/orders';
 
-
 export const GET_ITEMS_SUCCESS: 'GET_ITEMS_SUCCESS' = 'GET_ITEMS_SUCCESS';
 export const GET_ITEMS_FAILED: 'GET_ITEMS_FAILED' = 'GET_ITEMS_FAILED';
 export const SET_BUNS: 'SET_BUNS' = 'SET_BUNS';

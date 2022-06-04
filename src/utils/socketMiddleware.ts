@@ -13,14 +13,15 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middlewa
       const { type, payload } = action;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
-      if (type === wsInit && payload?.token) {
+      if (type === wsInit && payload.toString().includes(`${getCookie('token')}`)) {
         socket = new WebSocket(
           `${wsUrl}?token=${getCookie('token')
             ?.split("Bearer ")
             .join("")}`
         );
       } else if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}/all`);
+        const endpoint = payload;
+        socket = new WebSocket(`${wsUrl}${endpoint}`);
       }
 
       if (socket) {
