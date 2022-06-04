@@ -35,9 +35,11 @@ export const WSConnectionErrorAction = (): IWSConnectionErrorAction => ({
   type: WS_CONNECTION_ERROR
 });
 
-export const WSConnectionClosedAction = (): IWSConnectionClosedAction => ({
-  type: WS_CONNECTION_CLOSED
-});
+export const WSConnectionClosedAction = (): IWSConnectionClosedAction => {
+  return {
+    type: WS_CONNECTION_CLOSED,
+  }
+};
 
 export const WSGetMessageAction = (responseData: TResponseData): IWSGetMessageAction => ({
   type: WS_GET_MESSAGE,

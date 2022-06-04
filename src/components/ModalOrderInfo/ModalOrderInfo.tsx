@@ -10,7 +10,7 @@ import { v4 as generateUid } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
 import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
-import { WSConnectionStartAction } from "../../services/actions/wsActions";
+import { WSConnectionStartAction, WSConnectionClosedAction } from "../../services/actions/wsActions";
 
 export const ModalOrderInfo: any = (isPage: any) => {
   const dispatch = useDispatch();
@@ -24,9 +24,14 @@ export const ModalOrderInfo: any = (isPage: any) => {
 
   const { id } = useParams<{ id?: string }>();
 
-  React.useEffect(() => {
-    dispatch(WSConnectionStartAction());
-  }, [dispatch]);
+//   React.useEffect(() => {
+//     console.log('start modal')
+//     dispatch(WSConnectionStartAction());
+//   return() => {
+//     console.log('return modal')
+//     dispatch(WSConnectionClosedAction());
+//   }
+// }, [])
 
   React.useEffect(
     () => {

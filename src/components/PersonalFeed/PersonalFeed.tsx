@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { OrderFeed } from '../../components/OrderFeed/OrderFeed';
-import { WSConnectionStartAction } from '../../services/actions/wsActions';
+import { WSConnectionStartAction, WSConnectionClosedAction } from '../../services/actions/wsActions';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 import { getCookie } from '../../utils/cookie';
@@ -13,10 +13,14 @@ export const PersonalFeed: FC = () => {
   );
 
   React.useEffect(() => {
-    if (!wsConnected) {
-      dispatch(WSConnectionStartAction(getCookie('token') as string));
-    }
-  }, [wsConnected, dispatch])
+    dispatch(WSConnectionClosedAction())
+    console.log('start personalfeed with token')
+    dispatch(WSConnectionStartAction(getCookie('token') as string));
+  return() => {
+    console.log('return personalfeed with token')
+    dispatch(WSConnectionClosedAction())
+  }
+}, [])
 
   return (
     <>

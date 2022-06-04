@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from './FeedPage.module.css';
 import { OrderFeed } from '../../components/OrderFeed/OrderFeed';
 import { ScoreBoard } from '../../components/ScoreBoard/ScoreBoard';
-import { WSConnectionStartAction } from '../../services/actions/wsActions';
+import { WSConnectionStartAction, WSConnectionClosedAction } from '../../services/actions/wsActions';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 
@@ -15,10 +15,13 @@ export const FeedPage: FC = () => {
   );
 
   React.useEffect(() => {
-    if (!wsConnected) {
+      console.log('start feedpage')
       dispatch(WSConnectionStartAction());
+    return() => {
+      console.log('return feedpage')
+      dispatch(WSConnectionClosedAction());
     }
-  }, [wsConnected, dispatch])
+  }, [])
 
   return (
     <section className={styles.page}>

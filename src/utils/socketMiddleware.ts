@@ -45,15 +45,17 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middlewa
           const { success, ...restParsedData } = parsedData;
           dispatch({ type: onMessage, responseData: restParsedData });
         };
+        if (onClose && type === onClose && socket) {
+          console.log('ws closed');
+          socket.close();
 
-        // функция, которая вызывается при закрытии соединения
-        socket.onclose = () => {
-          console.log('ws closed')
+          socket = null;
           dispatch({ type: onClose });
-        };
+        }
       }
-
       next(action);
     };
   }) as Middleware;
 }
+
+

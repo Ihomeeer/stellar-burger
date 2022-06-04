@@ -6,11 +6,6 @@ import {
   WS_GET_MESSAGE,
   WS_GET_CURRENTFEEDID,
   SET_FEED_MODAL_VISIBILITY,
-  // WS_CONNECTION_START_P,
-  // WS_CONNECTION_SUCCESS_P,
-  // WS_CONNECTION_ERROR_P,
-  // WS_CONNECTION_CLOSED_P,
-  // WS_GET_MESSAGE_P,
 } from '../../constants';
 import { TResponseData } from '../types';
 
