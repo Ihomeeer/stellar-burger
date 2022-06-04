@@ -33,6 +33,7 @@ export const FeedPage: FC = () => {
             <OrderFeed
               data={responseData.orders}
               pathname='/feed/'
+              isFeed={true}
             />
             <ScoreBoard
               data={responseData}

@@ -8,7 +8,7 @@ import { getCookie } from '../../utils/cookie';
 export const PersonalFeed: FC = () => {
   const dispatch = useDispatch();
 
-  const { wsConnected, responseData } = useSelector(
+  const { responseData } = useSelector(
     (state): TWSState => state.ws
   );
 
@@ -29,6 +29,7 @@ export const PersonalFeed: FC = () => {
         <OrderFeed
           data={responseData.orders}
           pathname='orders/'
+          isFeed={false}
         />
       }
     </>

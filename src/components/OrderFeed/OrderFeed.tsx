@@ -7,16 +7,11 @@ import styles from './OrderFeed.module.css';
 export const OrderFeed: any = (props: any) => {
   const location = useLocation<Location>();
 
+  console.log(props.isFeed)
+
   return (
-    <section className={`${styles.section} ${props.isFeed ? styles.personalSection : ''}`}>
-      {
-        props.isFeed
-          ?
-          <h2 className={styles.header}>Лента заказов</h2>
-          :
-          null
-      }
-      <ul className={styles.list}>
+    <section className={`${styles.section}`}>
+      <ul className={`${styles.list} ${!props.isFeed && styles.listPersonal}`}>
         {
           props.data && props.data.map(function (item: any) {
             return (

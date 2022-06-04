@@ -15,6 +15,11 @@
   list-style-type: none;
 }
 
+.listPersonal {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 /* кастомизация скролла */
 
 .section::-webkit-scrollbar {
