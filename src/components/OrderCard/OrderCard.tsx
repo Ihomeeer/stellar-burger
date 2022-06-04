@@ -19,7 +19,7 @@ export const OrderCard: any = (props: any) => {
       ?
       props.order.ingredients
       :
-      props.order.ingredients.slice(0, 5)
+      props.order.ingredients.slice(0, 5);
 
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients

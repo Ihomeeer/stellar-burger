@@ -15,10 +15,8 @@ export const FeedPage: FC = () => {
   );
 
   React.useEffect(() => {
-      console.log('start feedpage')
       dispatch(WSConnectionStartAction());
     return() => {
-      console.log('return feedpage')
       dispatch(WSConnectionClosedAction());
     }
   }, [])

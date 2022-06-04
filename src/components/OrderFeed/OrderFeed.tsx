@@ -7,8 +7,6 @@ import styles from './OrderFeed.module.css';
 export const OrderFeed: any = (props: any) => {
   const location = useLocation<Location>();
 
-  console.log(props.isFeed)
-
   return (
     <section className={`${styles.section}`}>
       <ul className={`${styles.list} ${!props.isFeed && styles.listPersonal}`}>

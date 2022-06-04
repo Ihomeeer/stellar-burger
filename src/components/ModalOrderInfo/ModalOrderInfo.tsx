@@ -10,10 +10,12 @@ import { v4 as generateUid } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
 import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
-import { WSConnectionStartAction, WSConnectionClosedAction } from "../../services/actions/wsActions";
+import { TModalOrderInfo, TResponseOrderItem, TIngredientsQtyData, TIngredientsQtyItem } from '../../utils/types/types';
 
-export const ModalOrderInfo: any = (isPage: any) => {
+export const ModalOrderInfo: FC<TModalOrderInfo> = (isPage) => {
+
   const dispatch = useDispatch();
+
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients
   );
@@ -24,36 +26,21 @@ export const ModalOrderInfo: any = (isPage: any) => {
 
   const { id } = useParams<{ id?: string }>();
 
-//   React.useEffect(() => {
-//     console.log('start modal')
-//     dispatch(WSConnectionStartAction());
-//   return() => {
-//     console.log('return modal')
-//     dispatch(WSConnectionClosedAction());
-//   }
-// }, [])
+  React.useEffect(() => {
+    if (id !== '') {
+      dispatch(setFeedModalVisibilityAction(true));
+    }
+    // eslint-disable-next-line
+  }, [])
 
-  React.useEffect(
-    () => {
+  let order = currentFeedId ? responseData && responseData.orders.find((item: TResponseOrderItem) => item._id === currentFeedId) : id ? id && responseData && responseData.orders.find((item: TResponseOrderItem) => item._id === id) : null;
 
-      if (id !== '') {
-        dispatch(setFeedModalVisibilityAction(true));
-      }
-      // eslint-disable-next-line
-    }, [])
-
-
-
-  let order = currentFeedId ? responseData && responseData.orders.find((item: any) => item._id === currentFeedId) : id ? id && responseData && responseData.orders.find((item: any) => item._id === id) : null;
-
-
-
-  const sortIngredients = (array: any) => {
-    let data: any = [];
+  const sortIngredients = (array: string[]) => {
+    let data: TIngredientsQtyData = [];
     array.map((item: string) => {
-      let amount = order.ingredients.filter((ingredient: string) => ingredient === item).length;
+      let amount: number = order.ingredients.filter((ingredient: string) => ingredient === item).length;
       let itemData = { item, amount }
-      let repeatedData = data.filter((dataItem: any) => dataItem.item === itemData.item).length;
+      let repeatedData = data.filter((dataItem: TIngredientsQtyItem) => dataItem.item === itemData.item).length;
       if (repeatedData === 0) {
         data.push(itemData)
       }
@@ -61,7 +48,7 @@ export const ModalOrderInfo: any = (isPage: any) => {
     return data;
   }
 
-  const modalIngredientsArray = order && order.ingredients && sortIngredients (order.ingredients);
+  const modalIngredientsArray = order && order.ingredients && sortIngredients(order.ingredients);
 
   const localizedStatus: string =
     order && order.status === "done"
@@ -74,7 +61,7 @@ export const ModalOrderInfo: any = (isPage: any) => {
 
   const totalPrice = useMemo(() => {
     let total = 0;
-    order && order.ingredients.map((el: any) => {
+    order && order.ingredients.map((el: string) => {
       const orderedItems = ingredients.find((data) => data._id === el);
       if (orderedItems) {
         total += orderedItems.price || 0;
@@ -90,14 +77,14 @@ export const ModalOrderInfo: any = (isPage: any) => {
         order
         &&
         <>
-        <h2 className={`${styles.id} ${isPage.isPage ? styles.pageId : styles.idModal} text text_type_digits-medium`}>#{order && order.number}</h2>
+          <h2 className={`${styles.id} ${isPage.isPage ? styles.pageId : styles.idModal} text text_type_digits-medium`}>#{order && order.number}</h2>
           <h3 className={`${styles.orderName} text text_type_main-medium`}>{order.name}</h3>
           <p className={`${styles.status} text text_type_main-small mt-2`}>{localizedStatus}</p>
           <p className={`${styles.listTitle} text text_type_main-medium mb-6`}>Состав:</p>
           <ul className={styles.list}>
             {
               order.ingredients && ingredients && modalIngredientsArray &&
-              modalIngredientsArray.map((item: any) => {
+              modalIngredientsArray.map((item: TIngredientsQtyItem) => {
                 const current = ingredients.find(ingredient => ingredient._id === item.item);
                 const amount = item.amount;
                 return (

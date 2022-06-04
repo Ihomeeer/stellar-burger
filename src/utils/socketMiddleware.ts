@@ -27,26 +27,26 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middlewa
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = () => {
-          console.log('ws open');
+          // console.log('ws open');
           dispatch({ type: onOpen });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = () => {
-          console.log('ws error');
+          // console.log('ws error');
           dispatch({ type: onError });
         };
 
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = event => {
-          console.log('ws data transfer');
+          // console.log('ws data transfer');
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
           dispatch({ type: onMessage, responseData: restParsedData });
         };
         if (onClose && type === onClose && socket) {
-          console.log('ws closed');
+          // console.log('ws closed');
           socket.close();
 
           socket = null;

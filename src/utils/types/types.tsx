@@ -90,6 +90,13 @@ export type TEnteringForm = {
   buttonTitle: string;
 }
 
+// Массив с ингредиентами и их количеством для модалок заказов
+export type TIngredientsQtyItem = {
+  item: string;
+  amount: number;
+}
+export type TIngredientsQtyData = TIngredientsQtyItem[];
+
 
 // ------------ Ингредиенты ------------
 export type TBurgerIngredients = {
@@ -138,6 +145,19 @@ export type TModalOrder = {
 export type TModal = TModalOverlay & {
   title?: string;
 }
+
+export type TModalOrderCard = {
+  item: TConstructorIngredient | undefined;
+  amount: number;
+  currency: number;
+}
+
+export type TModalOrderInfo = {
+  isPage: boolean;
+
+}
+
+
 
 // ------------ Профиль ------------
 // ProfilePage
