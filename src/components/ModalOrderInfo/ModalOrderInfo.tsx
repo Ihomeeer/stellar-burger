@@ -20,7 +20,7 @@ export const ModalOrderInfo: FC<TModalOrderInfo> = (isPage) => {
     (state): TAllIngredientsState => state.allIngredients
   );
 
-  const { currentFeedId, responseData } = useSelector(
+  const { responseData } = useSelector(
     (state): TWSState => state.ws
   );
 
@@ -33,7 +33,7 @@ export const ModalOrderInfo: FC<TModalOrderInfo> = (isPage) => {
     // eslint-disable-next-line
   }, [])
 
-  let order = currentFeedId ? responseData && responseData.orders.find((item: TResponseOrderItem) => item._id === currentFeedId) : id ? id && responseData && responseData.orders.find((item: TResponseOrderItem) => item._id === id) : null;
+  let order = id ? id && responseData && responseData.orders.find((item: TResponseOrderItem) => item._id === id) : null;
 
   const sortIngredients = (array: string[]) => {
     let data: TIngredientsQtyData = [];

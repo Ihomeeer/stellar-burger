@@ -154,8 +154,8 @@ const ModalSwitch: FC = () => {
             }
           />
 
-          <Route
-            path="/profile/orders/:id"
+          <ProtectedRoute
+            path="/profile/orders/:id" exact={true}
           >
             <Modal
               isModalVisible={orderFeedModalVisibility}
@@ -165,7 +165,7 @@ const ModalSwitch: FC = () => {
                 isPage={false}
               />
             </Modal>
-          </Route>
+          </ProtectedRoute>
 
         </Switch>
       }
