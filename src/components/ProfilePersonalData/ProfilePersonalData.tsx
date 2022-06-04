@@ -6,7 +6,7 @@ import { updateUser } from '../../services/actions/user';
 import { useDispatch, useSelector } from '../../services/hooks';
 
 
-export const ProfilePersonalData = () => {
+export const ProfilePersonalData: FC = () => {
 
   const { user } = useSelector(
     (state): TUserState => state.user
@@ -69,7 +69,6 @@ export const ProfilePersonalData = () => {
       setButtonsDisabled(true);
     }
   }
-
 
   return (
     <form className={styles.inputsForm} autoComplete="off" onSubmit={handleSubmit}>

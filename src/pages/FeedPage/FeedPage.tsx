@@ -10,7 +10,7 @@ import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
 export const FeedPage: FC = () => {
   const dispatch = useDispatch();
 
-  const { wsConnected, responseData } = useSelector(
+  const { responseData } = useSelector(
     (state): TWSState => state.ws
   );
 
@@ -19,7 +19,7 @@ export const FeedPage: FC = () => {
     return() => {
       dispatch(WSConnectionClosedAction());
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <section className={styles.page}>

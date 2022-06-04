@@ -37,7 +37,7 @@ export const ModalOrderInfo: FC<TModalOrderInfo> = (isPage) => {
 
   const sortIngredients = (array: string[]) => {
     let data: TIngredientsQtyData = [];
-    array.map((item: string) => {
+    array.forEach((item: string) => {
       let amount: number = order.ingredients.filter((ingredient: string) => ingredient === item).length;
       let itemData = { item, amount }
       let repeatedData = data.filter((dataItem: TIngredientsQtyItem) => dataItem.item === itemData.item).length;
@@ -69,7 +69,7 @@ export const ModalOrderInfo: FC<TModalOrderInfo> = (isPage) => {
       return total;
     });
     return total;
-  }, [order && order.ingredients, ingredients]);
+  }, [ingredients, order]);
 
   return (
     <div className={styles.container}>

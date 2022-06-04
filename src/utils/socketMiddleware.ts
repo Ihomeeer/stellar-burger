@@ -10,7 +10,6 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middlewa
 
     return next => (action: TWSTypes) => {
       const { dispatch } = store;
-      // @ts-ignore
       const { type, payload } = action;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
