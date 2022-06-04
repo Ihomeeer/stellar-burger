@@ -9,10 +9,8 @@ export const OrderDetailsPage = () => {
 const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log('start modal')
     dispatch(WSConnectionStartAction('/all'));
   return() => {
-    console.log('return modal')
     dispatch(WSConnectionClosedAction());
   }
 }, [dispatch])

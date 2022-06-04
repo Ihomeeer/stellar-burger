@@ -21,7 +21,6 @@ const LoginPage: FC = () => {
   React.useEffect(() => {
     if (isLoggedIn) {
       if (location?.state?.from?.pathname) {
-        console.log(location?.state?.from?.pathname)
         history.replace({ pathname: location?.state?.from?.pathname })
       } else {
         history.replace({ pathname: "/" })
