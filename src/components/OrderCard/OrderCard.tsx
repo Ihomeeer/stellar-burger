@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC, MouseEvent, useMemo  } from 'react';
+import { FC, useMemo } from 'react';
 import styles from './OrderCard.module.css';
 import { useSelector } from '../../services/hooks';
 import { TAllIngredientsState } from '../../utils/types/types';
@@ -7,19 +6,20 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { v4 as generateUid } from 'uuid';
 import { dateCalc } from '../../utils/dateCalc';
 import { useDispatch } from '../../services/hooks';
+import { TOrderCard } from '../../utils/types/types';
 
 import { getCurrentFeedIdAction, setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 
-export const OrderCard: any = (props: any) => {
+export const OrderCard: FC<TOrderCard> = ({ order, isPersonalOrders }) => {
 
   const dispatch = useDispatch();
 
   const slicedIdArray =
-    props.order.ingredients.length < 5
+    order.ingredients.length < 5
       ?
-      props.order.ingredients
+      order.ingredients
       :
-      props.order.ingredients.slice(0, 5);
+      order.ingredients.slice(0, 5);
 
   const { ingredients } = useSelector(
     (state): TAllIngredientsState => state.allIngredients
@@ -31,17 +31,17 @@ export const OrderCard: any = (props: any) => {
   }
 
   const localizedStatus: string =
-    props.order.status === "done"
+    order.status === "done"
       ? "Выполнен"
-      : props.order.status === "pending"
+      : order.status === "pending"
         ? "Готовится"
-        : props.order.status === "created"
+        : order.status === "created"
           ? "Создан"
           : "";
 
   const totalPrice = useMemo(() => {
     let total = 0;
-    props.order.ingredients.map((el: any) => {
+    order.ingredients.map((el: string) => {
       const orderedItems = ingredients.find((data) => data._id === el);
       if (orderedItems) {
         total += orderedItems.price || 0;
@@ -49,27 +49,27 @@ export const OrderCard: any = (props: any) => {
       return total;
     });
     return total;
-  }, [props.order.ingredients, ingredients]);
+  }, [order.ingredients, ingredients]);
 
 
   const sliceHandler =
-    props.order.ingredients &&
-      props.order.ingredients.slice(5).length !== 0
+    order.ingredients &&
+      order.ingredients.slice(5).length !== 0
       ?
-      props.order.ingredients.slice(5).length
+      order.ingredients.slice(5).length
       :
       null
 
   return (
-    <div className={styles.cardContainer} onClick={() => { currentOrderHandler(props.order._id) }}>
-      <div className={`${props.isPersonalOrders ? styles.cardLarge : styles.cardSmall} ${styles.card}`}>
+    <div className={styles.cardContainer} onClick={() => { currentOrderHandler(order._id) }}>
+      <div className={`${isPersonalOrders ? styles.cardLarge : styles.cardSmall} ${styles.card}`}>
         <div className={`${styles.orderNumberContainer} mb-6`}>
-          <p className={`${styles.orderNumber} text text_type_digits-default`}>#{props.order.number}</p>
-          <p className={`${styles.createdAt} text text_type_main-default text_color_inactive`}>{dateCalc(props.order.createdAt)}</p>
+          <p className={`${styles.orderNumber} text text_type_digits-default`}>#{order.number}</p>
+          <p className={`${styles.createdAt} text text_type_main-default text_color_inactive`}>{dateCalc(order.createdAt)}</p>
         </div>
-        <p className={`${styles.name} text text_type_main-medium`}>{props.order.name}</p>
+        <p className={`${styles.name} text text_type_main-medium`}>{order.name}</p>
         {
-          props.isPersonalOrders
+          isPersonalOrders
             ?
             <p className={`${styles.status} text text_type_main-small mt-2`}>{localizedStatus}</p>
             :
@@ -79,7 +79,7 @@ export const OrderCard: any = (props: any) => {
           <ul className={styles.ingredientsContainer}>
             {
               slicedIdArray && ingredients &&
-              slicedIdArray.map((item: any) => {
+              slicedIdArray.map((item: string) => {
                 const current = ingredients.find(ingredient => ingredient._id === item)
                 return (
                   <li className={styles.item} key={generateUid()}>

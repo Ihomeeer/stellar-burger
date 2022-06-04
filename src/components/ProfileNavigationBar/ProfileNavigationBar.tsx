@@ -1,11 +1,13 @@
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './ProfileNavigationBar.module.css';
 import { deleteUser, clearSessionTerminationStateAction } from '../../services/actions/user';
 import { useDispatch } from '../../services/hooks';
+import { TProfileNavigationBar } from '../../utils/types/types';
 
 
 
-export const ProfileNavigationBar: any = (props: any) => {
+export const ProfileNavigationBar: FC<TProfileNavigationBar> = ({ hint }) => {
 
 
   const handleExit = () => {
@@ -29,7 +31,7 @@ export const ProfileNavigationBar: any = (props: any) => {
       </NavLink>
 
       <p className={`text_type_main-default text_color_inactive mt-20 ${styles.hint}`}>
-        {props.hint}
+        {hint}
       </p>
     </nav>
   )

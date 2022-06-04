@@ -14,10 +14,8 @@ export const PersonalFeed: FC = () => {
 
   React.useEffect(() => {
     dispatch(WSConnectionClosedAction())
-    console.log('start personalfeed with token')
     dispatch(WSConnectionStartAction(getCookie('token') as string));
     return () => {
-      console.log('return personalfeed with token')
       dispatch(WSConnectionClosedAction())
     }
   }, [])

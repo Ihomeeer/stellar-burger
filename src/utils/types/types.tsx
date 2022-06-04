@@ -97,6 +97,18 @@ export type TIngredientsQtyItem = {
 }
 export type TIngredientsQtyData = TIngredientsQtyItem[];
 
+// компонент навменю из профиля
+export type TProfileNavigationBar = {
+  readonly hint: string
+}
+
+// компонент общей статистики из ленты заказов
+export type TScoreBoard = {
+  readonly data: TResponseData;
+
+}
+
+
 
 // ------------ Ингредиенты ------------
 export type TBurgerIngredients = {
@@ -146,15 +158,27 @@ export type TModal = TModalOverlay & {
   title?: string;
 }
 
+
+// ------------ Модалки с инфой о заказах------------
 export type TModalOrderCard = {
-  item: TConstructorIngredient | undefined;
-  amount: number;
-  currency: number;
+  readonly item: TConstructorIngredient | undefined;
+  readonly amount: number;
+  readonly currency: number;
 }
 
 export type TModalOrderInfo = {
-  isPage: boolean;
+  readonly isPage: boolean;
+}
 
+export type TOrderCard = {
+  readonly order: TResponseOrderItem;
+  readonly isPersonalOrders?: boolean;
+}
+
+export type TOrderFeed = {
+  readonly data: TResponseOrderItem[];
+  readonly pathname: string;
+  readonly isFeed: boolean;
 }
 
 
