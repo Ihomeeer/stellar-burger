@@ -3,7 +3,7 @@ import { OrderFeed } from '../../components/OrderFeed/OrderFeed';
 import { WSConnectionStartAction } from '../../services/actions/wsActions';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { TWSState } from '../../utils/types/reducers/WSReducerTypes';
-import styles from './PersonalFeed.module.css';
+import { getCookie } from '../../utils/cookie';
 
 export const PersonalFeed: FC = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const PersonalFeed: FC = () => {
 
   React.useEffect(() => {
     if (!wsConnected) {
-      dispatch(WSConnectionStartAction());
+      dispatch(WSConnectionStartAction(getCookie('token') as string));
     }
   }, [wsConnected, dispatch])
 
@@ -30,3 +30,5 @@ export const PersonalFeed: FC = () => {
     </>
   )
 }
+
+// видимо, вся проблема в непонятных коннектах к вебсокету, коннекты происходят не тогда, когда надо

@@ -23,7 +23,8 @@ export type TWsActions = {
 }
 
 export interface IWSConnectionStartAction {
-  readonly type: typeof WS_CONNECTION_START
+  readonly type: typeof WS_CONNECTION_START,
+  payload?: any,
 }
 
 export interface IWSConnectionSuccessAction {
@@ -35,7 +36,7 @@ export interface IWSConnectionErrorAction {
 }
 
 export interface IWSConnectionClosedAction {
-  readonly type: typeof WS_CONNECTION_CLOSED
+  readonly type: typeof WS_CONNECTION_CLOSED,
 }
 
 export interface IWSGetMessageAction {

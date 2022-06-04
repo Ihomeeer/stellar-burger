@@ -16,17 +16,16 @@ import {
   WS_GET_MESSAGE,
   WS_GET_CURRENTFEEDID,
   SET_FEED_MODAL_VISIBILITY,
-  // WS_CONNECTION_START_P,
-  // WS_CONNECTION_SUCCESS_P,
-  // WS_CONNECTION_ERROR_P,
-  // WS_CONNECTION_CLOSED_P,
-  // WS_GET_MESSAGE_P,
 } from '../../utils/constants';
 
 
-export const WSConnectionStartAction = (): IWSConnectionStartAction => ({
-  type: WS_CONNECTION_START
-});
+export const WSConnectionStartAction = (token?: string): IWSConnectionStartAction => {
+  return {
+    type: WS_CONNECTION_START,
+    payload: { token },
+  }
+};
+
 
 export const WSConnectionSuccessAction = (): IWSConnectionSuccessAction => ({
   type: WS_CONNECTION_SUCCESS
@@ -40,7 +39,7 @@ export const WSConnectionClosedAction = (): IWSConnectionClosedAction => ({
   type: WS_CONNECTION_CLOSED
 });
 
-export const WSGetMessageAction = (responseData: TResponseData ): IWSGetMessageAction => ({
+export const WSGetMessageAction = (responseData: TResponseData): IWSGetMessageAction => ({
   type: WS_GET_MESSAGE,
   responseData: responseData
 });

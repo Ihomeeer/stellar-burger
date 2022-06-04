@@ -1,6 +1,5 @@
 export const baseURL = 'https://norma.nomoreparties.space/api';
-export const wsFeedUrl = 'wss://norma.nomoreparties.space/orders/all';
-export const wsPersonalFeedUrl = 'wss://norma.nomoreparties.space/orders';
+export const wsFeedUrl = 'wss://norma.nomoreparties.space/orders';
 
 
 export const GET_ITEMS_SUCCESS: 'GET_ITEMS_SUCCESS' = 'GET_ITEMS_SUCCESS';
@@ -85,13 +84,3 @@ export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSE
 export const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
 export const SET_FEED_MODAL_VISIBILITY: 'SET_FEED_MODAL_VISIBILITY' = 'SET_FEED_MODAL_VISIBILITY';
 export const WS_GET_CURRENTFEEDID: 'WS_GET_CURRENTFEEDID' = 'WS_GET_CURRENTFEEDID';
-
-
-
-
-export const WS_CONNECTION_START_P: 'WS_CONNECTION_START_P' = 'WS_CONNECTION_START_P';
-export const WS_CONNECTION_SUCCESS_P: 'WS_CONNECTION_SUCCESS_P' = 'WS_CONNECTION_SUCCESS_P';
-export const WS_CONNECTION_ERROR_P: 'WS_CONNECTION_ERROR_P' = 'WS_CONNECTION_ERROR_P';
-export const WS_CONNECTION_CLOSED_P: 'WS_CONNECTION_CLOSED_P' = 'WS_CONNECTION_CLOSED_P';
-export const WS_GET_MESSAGE_P: 'WS_GET_MESSAGE_P' = 'WS_GET_MESSAGE_P';
-export const SET_FEED_MODAL_VISIBILITY_P: 'SET_FEED_MODAL_VISIBILITY_P' = 'SET_FEED_MODAL_VISIBILITY_P';

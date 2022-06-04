@@ -4,22 +4,24 @@ import type { Middleware, MiddlewareAPI } from 'redux';
 import { AppDispatch, RootState } from './types/types';
 import { getCookie } from './cookie';
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWsActions, authorizedRequest: boolean = false): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return next => (action: TWSTypes) => {
       const { dispatch } = store;
-
-      const { type } = action!;
+      // @ts-ignore
+      const { type, payload } = action;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
-      if (type === wsInit) {
-        // объект класса WebSocket
-        const token = authorizedRequest ? `?token=${getCookie('accessToken')}` : '';
-        // если токен есть, то прилепится к URL
-        socket = new WebSocket(`${wsUrl}${token}`);
-        console.log('ws start')
+      if (type === wsInit && payload?.token) {
+        socket = new WebSocket(
+          `${wsUrl}?token=${getCookie('token')
+            ?.split("Bearer ")
+            .join("")}`
+        );
+      } else if (type === wsInit) {
+        socket = new WebSocket(`${wsUrl}/all`);
       }
 
       if (socket) {
