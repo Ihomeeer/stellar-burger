@@ -16,11 +16,11 @@ export const PersonalFeed: FC = () => {
     dispatch(WSConnectionClosedAction())
     console.log('start personalfeed with token')
     dispatch(WSConnectionStartAction(getCookie('token') as string));
-  return() => {
-    console.log('return personalfeed with token')
-    dispatch(WSConnectionClosedAction())
-  }
-}, [])
+    return () => {
+      console.log('return personalfeed with token')
+      dispatch(WSConnectionClosedAction())
+    }
+  }, [])
 
   return (
     <>
