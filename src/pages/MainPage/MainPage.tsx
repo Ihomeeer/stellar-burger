@@ -7,34 +7,26 @@ import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //ИМПОРТЫ ДЛЯ РЕДАКСА___________________________________________________________________________________
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import {
-  SET_CURRENT_INGREDIENT,
-  SET_INGREDIENT_MODAL_VISIBLE,
-} from '../../services/actions/currentIngredient';
-import {
-  DELETE_ORDER_NUMBER,
-  SET_ORDER_MODAL_INVISIBLE,
   placeOrder
 } from '../../services/actions/order';
-import { TBaseIngredient, TOrderState } from '../../utils/types'
+import { setIngredientModalVisibleAction } from '../../services/actions/allIngredients';
+import { TBaseIngredient, TOrderState } from '../../utils/types/types';
+import { setCurrentIngredientAction } from '../../services/actions/allIngredients';
+import { deleteOrderNumberAction, setOrderModalInvisibleAction } from '../../services/actions/order';
 
 function MainPage() {
   const dispatch = useDispatch();
 
   const { orderNumber, orderError, orderModalVisibility } = useSelector(
-    (state: RootStateOrAny): TOrderState => state.order
+    (state): TOrderState => state.order
   );
 
   // открытие модалки с ингредиентом
   const handleOpenIngredientModal = (currentIngredient: TBaseIngredient) => {
-    dispatch({
-      type: SET_CURRENT_INGREDIENT,
-      item: currentIngredient
-    })
-    dispatch({
-      type: SET_INGREDIENT_MODAL_VISIBLE,
-    })
+    dispatch(setCurrentIngredientAction(currentIngredient))
+    dispatch(setIngredientModalVisibleAction())
   }
 
   // открытие модалки с заказом
@@ -44,12 +36,8 @@ function MainPage() {
 
   // закрытие модалки с заказом
   const handleCloseOrderModal = () => {
-    dispatch({
-      type: SET_ORDER_MODAL_INVISIBLE
-    })
-    dispatch({
-      type: DELETE_ORDER_NUMBER
-    })
+    dispatch(setOrderModalInvisibleAction())
+    dispatch(deleteOrderNumberAction())
   }
 
   return (

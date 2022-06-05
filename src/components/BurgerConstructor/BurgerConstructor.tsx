@@ -3,23 +3,24 @@ import React, { FC } from 'react';
 import styles from './BurgerConstructor.module.css';
 import BurgerConstructorItem from "../BurgerConstructorItem/BurgerConstructorItem";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
-import { ADD_ITEM, DRAG_ARRAY, SET_BUN } from '../../services/actions/constructorIngredients';
-import { INCREASE_COUNTER } from '../../services/actions/allIngredients';
+// import { DRAG_ARRAY, INCREASE_COUNTER } from '../../utils/constants';
+import { addItemAction, increaseCounterAction, setBunAction, dragArrayAction } from '../../services/actions/allIngredients';
 import { useDrop } from 'react-dnd';
 import { v4 as generateUid } from 'uuid';
-import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient, TBurgerConstructorState, TUserState } from '../../utils/types';
+import { TBurgerConstructor, TConstructorIngredient, TBurgerConstructorItem, TBaseIngredient, TBurgerConstructorState, TUserState } from '../../utils/types/types';
+
 
 
 const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { bun, ingredients } = useSelector(
-    (state: RootStateOrAny): TBurgerConstructorState => state.burgerConstructor
+    (state): TBurgerConstructorState => state.burgerConstructor
   );
   const { isLoggedIn } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   // контейнер для приема ингредиентов
@@ -40,23 +41,11 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
       if (item.type !== 'bun') {
         const newItem = { ...item }
         newItem.uid = generateUid();
-        dispatch({
-          type: ADD_ITEM,
-          item: newItem
-        })
-        dispatch({
-          type: INCREASE_COUNTER,
-          item: item
-        })
+        dispatch(addItemAction(newItem))
+        dispatch(increaseCounterAction(item))
       } else {
-        dispatch({
-          type: SET_BUN,
-          item: item
-        })
-        dispatch({
-          type: INCREASE_COUNTER,
-          item: item
-        })
+        dispatch(setBunAction(item))
+        dispatch(increaseCounterAction(item))
       }
     }
   }
@@ -89,10 +78,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ openModal }) => {
       const modifiedItems = [...ingredients];
       modifiedItems.splice(dragIndex, 1);
       modifiedItems.splice(hoverIndex, 0, draggedItem);
-      dispatch({
-        type: DRAG_ARRAY,
-        ingredients: modifiedItems
-      })
+      dispatch(dragArrayAction(modifiedItems))
     } else {
       return
     }

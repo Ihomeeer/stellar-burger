@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './EnteringForm.module.css';
-import { TEnteringForm } from '../../utils/types';
+import { TEnteringForm } from '../../utils/types/types';
 
 const EnteringForm: FC<TEnteringForm> = ({ children, onSubmit, formTitle, buttonTitle }) => {
   return (
@@ -11,7 +11,6 @@ const EnteringForm: FC<TEnteringForm> = ({ children, onSubmit, formTitle, button
         <h1 className="text text_type_main-medium mb-6">{formTitle}</h1>
         {children}
         <Button>{buttonTitle}</Button>
-
         {
           formTitle === "Вход"
             ?

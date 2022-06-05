@@ -1,7 +1,21 @@
 import { FormEvent } from 'react';
 import { Location } from "history";
+import { store } from '../../services/store';
+import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator } from 'redux';
+import { TAllIngredientsTypes } from '../types/actions/allIngredientsTypes';
+import { TOrderTypes } from '../types/actions/orderTypes';
+import { TUserTypes } from '../types/actions/userTypes';
+import { TWSTypes } from './actions/WSTypes';
 
 // ------------ Редакс-хранилище ------------
+export type TApplicationActions = | TAllIngredientsTypes | TOrderTypes | TUserTypes | TWSTypes;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
+>;
+
 export type TAllIngredientsState = {
   ingredients: TBaseIngredient[];
   buns: TBaseIngredient[];
@@ -54,7 +68,7 @@ export type TCurrentIngredientState = {
 export type TBaseIngredient = {
   readonly calories: number;
   readonly carbohydrates: number;
-  readonly counter: number;
+  counter: number;
   readonly fat: number;
   readonly image: string;
   readonly image_large: string;
@@ -75,6 +89,25 @@ export type TEnteringForm = {
   formTitle: string;
   buttonTitle: string;
 }
+
+// Массив с ингредиентами и их количеством для модалок заказов
+export type TIngredientsQtyItem = {
+  item: string;
+  amount: number;
+}
+export type TIngredientsQtyData = TIngredientsQtyItem[];
+
+// компонент навменю из профиля
+export type TProfileNavigationBar = {
+  readonly hint: string
+}
+
+// компонент общей статистики из ленты заказов
+export type TScoreBoard = {
+  readonly data: TResponseData;
+
+}
+
 
 
 // ------------ Ингредиенты ------------
@@ -126,6 +159,36 @@ export type TModal = TModalOverlay & {
 }
 
 
+// ------------ Модалки с инфой о заказах------------
+export type TModalOrderCard = {
+  readonly item: TConstructorIngredient | undefined;
+  readonly amount: number;
+  readonly currency: number;
+}
+
+export type TModalOrderInfo = {
+  readonly isPage: boolean;
+}
+
+export type TOrderCard = {
+  readonly order: TResponseOrderItem;
+  readonly isPersonalOrders?: boolean;
+}
+
+export type TOrderFeed = {
+  readonly data: TResponseOrderItem[];
+  readonly pathname: string;
+  readonly isFeed: boolean;
+}
+
+
+
+// ------------ Профиль ------------
+// ProfilePage
+export type TProfilePage = {
+  hint: string;
+}
+
 // ------------ Навигация ------------
 // History
 export type THistory = History & {
@@ -157,7 +220,7 @@ export type TResponseHeaders = {
   authorization?: string;
 }
 
-export type TApiOptions =  {
+export type TApiOptions = {
   readonly method?: 'PATCH' | 'POST' | 'GET';
   headers?: TResponseHeaders;
   readonly body?: BodyInit | null | undefined;
@@ -186,3 +249,22 @@ export type TGetCookie = (name: string) => string | undefined;
 export type TDeleteCookie = (name: string) => void;
 
 export type TSetCookie = (name: string, value: string, props?: TCookieProps) => void;
+
+
+//  ------------ WebSocket  ------------
+
+export type TResponseData = {
+  orders: ReadonlyArray<TResponseOrderItem>;
+  total: number;
+  totalToday: number;
+}
+
+export type TResponseOrderItem = {
+  ingredients: ReadonlyArray<string>;
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}

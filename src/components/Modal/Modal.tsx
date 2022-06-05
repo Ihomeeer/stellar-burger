@@ -4,12 +4,11 @@ import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TModal } from '../../utils/types';
+import { TModal } from '../../utils/types/types';
 
 const modalRoot = document.getElementById('modal');
 
 const Modal: FC<TModal> = ({ children, title, isModalVisible, closeModal }) => {
-
   // закрытие по клику на esc
   const modalEscPressHandler = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -37,7 +36,7 @@ const Modal: FC<TModal> = ({ children, title, isModalVisible, closeModal }) => {
               <button className={styles.closeButton} onClick={closeModal}>
                 <CloseIcon type="primary" />
               </button>
-              <h2 className={`${styles.title} text text_type_main-large`}>{title && title}</h2>
+              <h2 className={`${styles.title} text 'text_type_main-large'`}>{title && title}</h2>
             </>
             :
             <button className={styles.closeButton} onClick={closeModal}>

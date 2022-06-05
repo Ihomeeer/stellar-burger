@@ -1,10 +1,10 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
-import { TUserState, THistory, TLocation } from '../../utils/types';
+import { TUserState, THistory, TLocation } from '../../utils/types/types';
 import styles from './LoginPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/user';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useLocation, useHistory } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ const LoginPage: FC = () => {
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const { isLoggedIn, loginError } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   React.useEffect(() => {

@@ -1,7 +1,7 @@
 import { checkStatus } from "./checkStatus";
 import { baseURL } from "./constants";
 import { getCookie, setCookie } from "./cookie";
-import { TRefreshFetch } from "./types";
+import { TRefreshFetch } from "./types/types";
 
 const refreshToken = () => {
   return fetch(`${baseURL}/auth/token`, {

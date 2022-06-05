@@ -3,10 +3,9 @@ import { useRef, FC } from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import styles from './BurgerConstructorItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
-import { DELETE_ITEM } from '../../services/actions/constructorIngredients';
-import { DECREASE_COUNTER } from '../../services/actions/allIngredients';
-import { TBurgerConstructorItem, TConstructorIngredient } from '../../utils/types';
+import { useDispatch } from '../../services/hooks';
+import { TBurgerConstructorItem, TConstructorIngredient } from '../../utils/types/types';
+import { deleteItemAction, decreaseCounterAction } from "../../services/actions/allIngredients";
 
 const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop, isBottom, isLocked, moveItem }) => {
   const dispatch = useDispatch();
@@ -62,14 +61,8 @@ const BurgerConstructorItem: FC<TBurgerConstructorItem> = ({ item, index, isTop,
 
   // удаление ингредиента из конструктора
   const handleDelete = (item: TConstructorIngredient) => {
-    dispatch({
-      type: DELETE_ITEM,
-      item: item
-    })
-    dispatch({
-      type: DECREASE_COUNTER,
-      item: item
-    })
+    dispatch(deleteItemAction(item))
+    dispatch(decreaseCounterAction(item))
   }
 
   return (

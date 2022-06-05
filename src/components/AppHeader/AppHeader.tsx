@@ -17,7 +17,7 @@ function AppHeader() {
               </NavLink>
             </li>
             <li className={`${appHeaderStyles.listElement}`}>
-              <NavLink exact to="/11" className={`${appHeaderStyles.navLink} pt-4 pb-4 pr-5 pl-5`} activeClassName={appHeaderStyles.navLinkActive}>
+              <NavLink exact to="/feed" className={`${appHeaderStyles.navLink} pt-4 pb-4 pr-5 pl-5`} activeClassName={appHeaderStyles.navLinkActive}>
                 <ListIcon type='secondary' />
                 <p className="text text_type_main-default">Лента заказов</p>
               </NavLink>

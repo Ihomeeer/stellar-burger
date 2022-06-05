@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { TAllIngredientsState, TBaseIngredient } from '../../utils/types';
+import { TAllIngredientsState, TBaseIngredient } from '../../utils/types/types';
 import styles from './IngredientPage.module.css';
-import { useSelector, RootStateOrAny } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { useParams } from 'react-router-dom';
 
 const IngredientPage: FC = () => {
   const { ingredientId } = useParams<{ ingredientId?: string }>()
 
   const { ingredients } = useSelector(
-    (state: RootStateOrAny): TAllIngredientsState => state.allIngredients
+    (state): TAllIngredientsState => state.allIngredients
   );
 
   const item: TBaseIngredient = ingredients.filter(ingredient => ingredient._id === ingredientId)[0];

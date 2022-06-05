@@ -1,0 +1,45 @@
+.section {
+  width: 640px;
+  height: 920px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  list-style: none;
+}
+
+.personalSection {
+  width: 844px;
+}
+
+.list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.listPersonal {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* кастомизация скролла */
+
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.section::-webkit-scrollbar-thumb:hover {
+  background: #9a9ac7;
+}
+
+.link {
+  text-decoration: none;
+  outline: none;
+  color: white;
+}

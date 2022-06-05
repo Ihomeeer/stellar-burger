@@ -4,14 +4,14 @@ import { useRef } from "react";
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
-import { SET_CURRENT_TAB } from '../../services/actions/allIngredients';
-import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { setCurrentTabAction } from "../../services/actions/allIngredients";
+import { TBurgerIngredients, TAllIngredientsState } from '../../utils/types/types';
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
   const dispatch = useDispatch();
   const { ingredients, buns, sauces, mainIngredients, currentTab } = useSelector(
-    (state: RootStateOrAny): TAllIngredientsState => state.allIngredients
+    (state): TAllIngredientsState => state.allIngredients
   );
 
   // Тут работа со вкладками ингредиентов --------------------------------------------------------------------------------------
@@ -62,10 +62,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ openModal }) => {
 
   // Пробрасывание актуальной вкладки в хранилище
   const handleTab = (tab: string) => {
-    dispatch({
-      type: SET_CURRENT_TAB,
-      currentTab: tab
-    })
+    dispatch(setCurrentTabAction(tab))
   }
 
   return (

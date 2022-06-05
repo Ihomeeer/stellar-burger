@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TCurrentIngredientState, TUserState, TLocation, TFilterIngredients } from '../../utils/types';
+import { TLocation, TFilterIngredients } from '../../utils/types/types';
 import appStyles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import MainPage from '../../pages/MainPage/MainPage';
@@ -8,18 +8,26 @@ import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPasswordPage from '../../pages/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from '../../pages/ResetPasswordPage/ResetPasswordPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import Modal from '../Modal/Modal';
 import ModalIngredient from '../ModalIngredient/ModalIngredient';
-import { SET_INGREDIENT_MODAL_INVISIBLE, DELETE_CURRENT_INGREDIENT } from '../../services/actions/currentIngredient';
+import { ModalOrderInfo } from '../ModalOrderInfo/ModalOrderInfo';
 import { getAllItems } from '../../services/actions/allIngredients';
 import { getUser } from '../../services/actions/user';
+import { deleteCurrentIngredientAction, setIngredientModalInvisibleAction } from '../../services/actions/allIngredients';
+import { setFeedModalVisibilityAction } from '../../services/actions/wsActions';
 //ИМПОРТЫ ДЛЯ РОУТИНГА___________________________________________________________________________________
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
+import { ProfilePersonalData } from '../ProfilePersonalData/ProfilePersonalData';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
+import { FeedPage } from '../../pages/FeedPage/FeedPage';
+import { PersonalFeed } from '../PersonalFeed/PersonalFeed';
+import { OrderDetailsPage } from '../../pages/OrderDetailsPage/OrderDetailsPage';
 import { getCookie } from '../../utils/cookie';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 // фильтр ингредиентов по типу
 export const filterIngredients: TFilterIngredients = (array, type) => {
@@ -33,17 +41,23 @@ const ModalSwitch: FC = () => {
   const background = location.state && location.state.background;
 
   const { ingredientModalVisibility } = useSelector(
-    (state: RootStateOrAny): TCurrentIngredientState => state.currentIngredient
+    (state) => state.currentIngredient
+  );
+
+  const { orderFeedModalVisibility } = useSelector(
+    (state) => state.ws
   );
 
   // закрытие модалки с ингредиентом
   const handleCloseIngredientModal = () => {
-    dispatch({
-      type: SET_INGREDIENT_MODAL_INVISIBLE,
-    })
-    dispatch({
-      type: DELETE_CURRENT_INGREDIENT
-    })
+    dispatch(setIngredientModalInvisibleAction())
+    dispatch(deleteCurrentIngredientAction())
+    history.goBack()
+  }
+
+  // закрытие модалки с деталями заказа из ленты
+  const handleCloseOrderFeedModal = () => {
+    dispatch(setFeedModalVisibilityAction(false))
     history.goBack()
   }
 
@@ -54,24 +68,56 @@ const ModalSwitch: FC = () => {
         <Route path="/" exact={true}>
           <MainPage />
         </Route>
+
         <ProtectedRoute path="/profile" exact={true}>
-          <ProfilePage />
+          <ProfilePage
+            hint='В этом разделе вы можете изменить свои персональные данные'
+          >
+            <ProfilePersonalData />
+          </ProfilePage>
         </ProtectedRoute>
+
+        <ProtectedRoute path="/profile/orders" exact={true}>
+          <ProfilePage
+            hint='В этом разделе вы можете просмотреть свою историю заказов'
+          >
+            <PersonalFeed />
+          </ProfilePage>
+        </ProtectedRoute>
+
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+          <OrderDetailsPage />
+        </ProtectedRoute>
+
         <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
+
         <Route path="/register" exact={true}>
           <RegisterPage />
         </Route>
+
         <Route path="/forgot-password" exact={true}>
           <ForgotPasswordPage />
         </Route>
+
         <Route path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </Route>
+
         <Route path="/ingredients/:ingredientId" exact={true}>
           <IngredientPage />
         </Route>
+
+        <Route path="/feed" exact={true}>
+          <FeedPage />
+        </Route>
+
+        <Route
+          path="/feed/:id" exact={true}>
+          <OrderDetailsPage />
+        </Route>
+
         <Route path="*">
           <NotFoundPage />
         </Route>
@@ -79,18 +125,49 @@ const ModalSwitch: FC = () => {
 
       {/* Show the modal when a background page is set */}
       {background &&
-        <Route
-          path="/ingredients/:ingredientId"
-          children={
+        <Switch>
+
+          <Route
+            path="/ingredients/:ingredientId"
+            children={
+              <Modal
+                title="Детали ингредиента"
+                isModalVisible={ingredientModalVisibility}
+                closeModal={handleCloseIngredientModal}
+              >
+                <ModalIngredient />
+              </Modal>
+            }
+          />
+
+          <Route
+            path="/feed/:id"
+            children={
+              <Modal
+                isModalVisible={orderFeedModalVisibility}
+                closeModal={handleCloseOrderFeedModal}
+              >
+                <ModalOrderInfo
+                  isPage={false}
+                />
+              </Modal>
+            }
+          />
+
+          <ProtectedRoute
+            path="/profile/orders/:id" exact={true}
+          >
             <Modal
-              title="Детали ингредиента"
-              isModalVisible={ingredientModalVisibility}
-              closeModal={handleCloseIngredientModal}
+              isModalVisible={orderFeedModalVisibility}
+              closeModal={handleCloseOrderFeedModal}
             >
-              <ModalIngredient />
+              <ModalOrderInfo
+                isPage={false}
+              />
             </Modal>
-          }
-        />
+          </ProtectedRoute>
+
+        </Switch>
       }
     </div>
   );
@@ -99,7 +176,7 @@ const ModalSwitch: FC = () => {
 const App: FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state) => state.user
   );
 
 
@@ -111,6 +188,7 @@ const App: FC = () => {
   }, [])
 
   React.useEffect(() => {
+    moment.locale('ru');
     dispatch(getAllItems());
     // eslint-disable-next-line
   }, [])

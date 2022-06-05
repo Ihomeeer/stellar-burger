@@ -6,7 +6,6 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   SET_LOGIN_STATE,
-  CLEAR_LOGIN_STATE,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAILURE,
   SET_FORGOT_PASSWORD_STATE,
@@ -27,7 +26,10 @@ import {
   SET_SESSION_TERMINATION_STATE,
   CLEAR_SESSION_TERMINATION_STATE,
   SET_LOGGING_IN
-} from '../actions/user';
+} from '../../utils/constants';
+
+import { TInitialUserState } from '../../utils/types/reducers/userReducerTypes';
+import { TUserTypes } from '../../utils/types/actions/userTypes';
 
 const initialUserState = {
   user: {},
@@ -47,7 +49,7 @@ const initialUserState = {
   delete_user_success: false
 }
 
-export const userReducer = (state = initialUserState, action) => {
+export const userReducer = (state: TInitialUserState = initialUserState, action: TUserTypes) => {
   switch (action.type) {
     case USER_REGISTRATION_SUCCESS: {
       return {
@@ -92,13 +94,6 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         login_success: action.login_success
-      }
-    }
-    case CLEAR_LOGIN_STATE: {
-      return {
-        ...state,
-        loginError: "",
-        login_success: false
       }
     }
     case FORGOT_PASSWORD_SUCCESS: {

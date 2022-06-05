@@ -1,11 +1,11 @@
 import React, { FC, ChangeEvent, FormEvent } from 'react';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
-import { resetPassword, CLEAR_RESET_PASSWORD_STATE } from '../../services/actions/user';
+import { resetPassword, clearResetPasswordStateAction } from '../../services/actions/user';
 import styles from './ResetPasswordPage.module.css';
 import EnteringForm from '../../components/EnteringForm/EnteringForm';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TUserState, THistory } from '../../utils/types';
+import { TUserState, THistory } from '../../utils/types/types';
 
 
 const ResetPasswordPage: FC = () => {
@@ -15,13 +15,13 @@ const ResetPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory<THistory>();
   const { reset_password_success } = useSelector(
-    (state: RootStateOrAny): TUserState => state.user
+    (state): TUserState => state.user
   );
 
   React.useEffect(() => {
     if (reset_password_success) {
       history.replace({ pathname: '/login' })
-      dispatch({ type: CLEAR_RESET_PASSWORD_STATE })
+      dispatch(clearResetPasswordStateAction())
     }
   }, [history, reset_password_success, dispatch])
 

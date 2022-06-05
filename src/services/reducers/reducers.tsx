@@ -1,4 +1,3 @@
-
 import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
@@ -8,58 +7,59 @@ import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,
   SET_CURRENT_TAB,
-  CLEAR_COUNTERS
-} from "../actions/allIngredients";
-
-import {
+  CLEAR_COUNTERS,
   ADD_ITEM,
   DELETE_ITEM,
   DRAG_ARRAY,
   SET_BUN,
-  CLEAR_INGREDIENTS
-} from '../actions/constructorIngredients';
-
-import {
+  CLEAR_INGREDIENTS,
   SET_CURRENT_INGREDIENT,
   DELETE_CURRENT_INGREDIENT,
   SET_INGREDIENT_MODAL_VISIBLE,
-  SET_INGREDIENT_MODAL_INVISIBLE
-} from '../actions/currentIngredient';
-
-import {
+  SET_INGREDIENT_MODAL_INVISIBLE,
   ORDER_SUBMIT_SUCCESS,
   ORDER_SUBMIT_FAILURE,
   DELETE_ORDER_NUMBER,
   SET_ORDER_MODAL_VISIBLE,
   SET_ORDER_MODAL_INVISIBLE
-} from '../actions/order';
+} from '../../utils/constants';
 
-const initialAllIngredientsState = {
+import {
+  TInitialAllIngredientsState,
+  TInitialConstructorState,
+  TInitialCurrentIngrState,
+  TInitialOrderState,
+} from '../../utils/types/reducers/reducersTypes';
+
+import { TAllIngredientsTypes } from '../../utils/types/actions/allIngredientsTypes';
+import { TOrderTypes } from '../../utils/types/actions/orderTypes';
+
+const initialAllIngredientsState: TInitialAllIngredientsState = {
   ingredients: [],
-  buns: '',
-  sauces: '',
-  mainIngredients: '',
+  buns: undefined,
+  sauces: undefined,
+  mainIngredients: undefined,
   allIngredientsError: '',
   currentTab: 'buns'
 }
 
-const initialConstructorState = {
-  bun: '',
+const initialConstructorState: TInitialConstructorState = {
+  bun: undefined,
   ingredients: []
 }
 
-const initialCurrentIngrState = {
-  currentIngredient: '',
+const initialCurrentIngrState: TInitialCurrentIngrState = {
+  currentIngredient: undefined,
   ingredientModalVisibility: false
 }
 
-const initialOrderState = {
+const initialOrderState: TInitialOrderState = {
   orderNumber: null,
   orderError: '',
   orderModalVisibility: false
 }
 
-export const allIngredientsReducer = (state = initialAllIngredientsState, action) => {
+export const allIngredientsReducer = (state = initialAllIngredientsState, action: TAllIngredientsTypes) => {
   switch (action.type) {
     case GET_ITEMS_SUCCESS: {
       return {
@@ -99,7 +99,7 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
       })
       if (action.item.type === 'bun') {
         // выпиливание остальных булок
-        newState.buns.map((bun) => {
+        newState!.buns!.map((bun) => {
           return bun.counter = 0
         });
         // 2, потому что булки всегда парные
@@ -145,24 +145,24 @@ export const allIngredientsReducer = (state = initialAllIngredientsState, action
   }
 }
 
-export const constructorIngredientsReducer = (state = initialConstructorState, action) => {
+export const constructorIngredientsReducer = (state = initialConstructorState, action: TAllIngredientsTypes) => {
   switch (action.type) {
     case ADD_ITEM: {
       const newItem = { ...action.item }
       return {
         ...state,
-        ingredients: [...state.ingredients, newItem]
+        ingredients: [...state.ingredients!, newItem]
       }
     }
     case DELETE_ITEM: {
       const modifiedState = { ...state };
-      const item = state.ingredients.filter(item => item.uid === action.item.uid);
-      const itemIndex = state.ingredients.indexOf(item[0]);
+      const item = state.ingredients!.filter(item => item.uid === action.item.uid);
+      const itemIndex = state.ingredients!.indexOf(item[0]);
       if (itemIndex !== -1) {
-        modifiedState.ingredients.splice(itemIndex, 1);
+        modifiedState.ingredients!.splice(itemIndex, 1);
         return {
           ...state,
-          ingredients: [...modifiedState.ingredients]
+          ingredients: [...modifiedState.ingredients!]
         }
       }
       else {
@@ -194,7 +194,7 @@ export const constructorIngredientsReducer = (state = initialConstructorState, a
   }
 }
 
-export const currentIngredientReducer = (state = initialCurrentIngrState, action) => {
+export const currentIngredientReducer = (state = initialCurrentIngrState, action: TAllIngredientsTypes) => {
   switch (action.type) {
     case SET_CURRENT_INGREDIENT: {
       return {
@@ -226,7 +226,7 @@ export const currentIngredientReducer = (state = initialCurrentIngrState, action
   }
 }
 
-export const orderReducer = (state = initialOrderState, action) => {
+export const orderReducer = (state = initialOrderState, action: TOrderTypes) => {
   switch (action.type) {
     case ORDER_SUBMIT_SUCCESS: {
       return {

@@ -1,4 +1,4 @@
-import { TGetCookie, TDeleteCookie, TSetCookie } from "./types";
+import { TGetCookie, TDeleteCookie, TSetCookie } from "./types/types";
 
 export const setCookie: TSetCookie = (name, value, props) => {
   props = props || {};
