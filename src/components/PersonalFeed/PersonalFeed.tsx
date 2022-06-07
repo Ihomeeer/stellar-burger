@@ -13,8 +13,11 @@ export const PersonalFeed: FC = () => {
   );
 
   React.useEffect(() => {
-    dispatch(WSConnectionClosedAction())
-    dispatch(WSConnectionStartAction(getCookie('token') as string));
+    if (getCookie('token')) {
+      dispatch(WSConnectionStartAction(getCookie('token') as string));
+    } else {
+      dispatch(WSConnectionClosedAction())
+    }
     return () => {
       dispatch(WSConnectionClosedAction())
     }

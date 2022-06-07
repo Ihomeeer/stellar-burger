@@ -20,7 +20,6 @@ const ForgotPasswordPage: FC = () => {
   React.useEffect(() => {
     if (forgot_password_success) {
       history.replace({ pathname: '/reset-password', state: { forgotPassword: true } })
-      console.log(history)
       dispatch(clearForgotPasswordStateAction())
     }
   }, [history, forgot_password_success, dispatch])
