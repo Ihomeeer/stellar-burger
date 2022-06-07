@@ -13,11 +13,7 @@ export const PersonalFeed: FC = () => {
   );
 
   React.useEffect(() => {
-    if (getCookie('token')) {
-      dispatch(WSConnectionStartAction(getCookie('token') as string));
-    } else {
-      dispatch(WSConnectionClosedAction())
-    }
+    dispatch(WSConnectionStartAction(getCookie('token') as string));
     return () => {
       dispatch(WSConnectionClosedAction())
     }
@@ -36,5 +32,3 @@ export const PersonalFeed: FC = () => {
     </>
   )
 }
-
-// видимо, вся проблема в непонятных коннектах к вебсокету, коннекты происходят не тогда, когда надо
