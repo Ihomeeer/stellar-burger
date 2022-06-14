@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { allIngredientsReducer, constructorIngredientsReducer, currentIngredientReducer, orderReducer } from './reducers';
+import { allIngredientsReducer, constructorIngredientsReducer, currentIngredientReducer, orderReducer } from './mainReducer/reducers';
 import { userReducer } from './userReducer';
 import { wsReducer } from './WSReducer';
 
