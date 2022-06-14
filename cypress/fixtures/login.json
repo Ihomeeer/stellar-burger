@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNjNkNjE2YTRiOTM0MDAxZDU4Y2RlYyIsImlhdCI6MTY1NTIzNzgyMywiZXhwIjoxNjU1MjM5MDIzfQ.k8ZgcjnKWyxCCMvFVAi-BfB1WPRJ9zeP9L4HhqLGEp0",
+  "refreshToken": "cb6e60b12e81be6711ab8afa2a3d2c758e22f90d35c658b6d783a8a363cd1555ca540bebf08e857f",
+  "user": {
+    "email": "mihailkirichkov@yandex.ru",
+    "name": "testUser24345"
+  }
+}
