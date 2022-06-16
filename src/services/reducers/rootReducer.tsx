@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { allIngredientsReducer, constructorIngredientsReducer, currentIngredientReducer, orderReducer } from './mainReducer/reducers';
 import { userReducer } from './userReducer';
-import { wsReducer } from './WSReducer';
+import { wsReducer } from './WSReducer/WSReducer';
 
 
 // Корневой редьюсер

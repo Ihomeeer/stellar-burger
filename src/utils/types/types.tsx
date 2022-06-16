@@ -254,7 +254,7 @@ export type TSetCookie = (name: string, value: string, props?: TCookieProps) => 
 //  ------------ WebSocket  ------------
 
 export type TResponseData = {
-  orders: ReadonlyArray<TResponseOrderItem>;
+  orders: ReadonlyArray<TWSOrders>;
   total: number;
   totalToday: number;
 }
@@ -268,3 +268,8 @@ export type TResponseOrderItem = {
   updatedAt: string;
   name: string;
 }
+
+export type TWSOrders = TResponseOrderItem & {
+  owner?: object;
+  price?: number;
+};
