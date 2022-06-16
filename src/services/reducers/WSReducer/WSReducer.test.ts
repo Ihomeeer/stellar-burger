@@ -11,6 +11,8 @@ import {
 
 import { TWSTypes } from '../../../utils/types/actions/WSTypes';
 
+import * as actions from '../../actions/wsActions';
+
 const responseData: TResponseData = {
   "orders": [
     {
@@ -72,72 +74,52 @@ describe("websocket reducer", () => {
   });
 
   it("should handle WS_CONNECTION_SUCCESS", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: WS_CONNECTION_SUCCESS,
-      })
-    ).toEqual({
-      ...initialWSState,
-      wsConnected: true,
-    });
+    const expectedAction = {
+      type: WS_CONNECTION_SUCCESS
+    }
+    expect(actions.WSConnectionSuccessAction()).toEqual(expectedAction);
   });
 
   it("should handle WS_CONNECTION_ERROR", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: WS_CONNECTION_ERROR,
-      })
-    ).toEqual({
-      ...initialWSState,
-      wsConnected: false,
-    });
+    const expectedAction = {
+      type: WS_CONNECTION_ERROR
+    }
+    expect(actions.WSConnectionErrorAction()).toEqual(expectedAction);
   });
 
   it("should handle WS_CONNECTION_CLOSED", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: WS_CONNECTION_CLOSED,
-      })
-    ).toEqual({
-      ...initialWSState,
-      wsConnected: false,
-    });
+    const expectedAction = {
+      type: WS_CONNECTION_CLOSED
+    }
+    expect(actions.WSConnectionClosedAction()).toEqual(expectedAction);
   });
 
   it("should handle WS_GET_MESSAGE", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: WS_GET_MESSAGE,
-        responseData: responseData
-      })
-    ).toEqual({
-      ...initialWSState,
+    const expectedAction = {
+      type: WS_GET_MESSAGE,
       responseData: responseData
-    });
+    }
+    expect(actions.WSGetMessageAction(responseData)).toEqual(expectedAction);
   });
 
   it("should handle WS_GET_CURRENTFEEDID", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: WS_GET_CURRENTFEEDID,
-        currentFeedId: '62aaf6c9fa747e001bd52a36'
-      })
-    ).toEqual({
-      ...initialWSState,
+    const expectedAction = {
+      type: WS_GET_CURRENTFEEDID,
       currentFeedId: '62aaf6c9fa747e001bd52a36'
-    });
+    }
+    expect(actions.getCurrentFeedIdAction('62aaf6c9fa747e001bd52a36')).toEqual(expectedAction);
   });
 
   it("should handle SET_FEED_MODAL_VISIBILITY", () => {
-    expect(
-      wsReducer(initialWSState, {
-        type: SET_FEED_MODAL_VISIBILITY,
-        orderFeedModalVisibility: true,
-      })
-    ).toEqual({
-      ...initialWSState,
+    const expectedActionTrue = {
+      type: SET_FEED_MODAL_VISIBILITY,
       orderFeedModalVisibility: true,
-      currentFeedId: null,
-    });
+    }
+    const expectedActionFalse = {
+      type: SET_FEED_MODAL_VISIBILITY,
+      orderFeedModalVisibility: false,
+    }
+    expect(actions.setFeedModalVisibilityAction(true)).toEqual(expectedActionTrue);
+    expect(actions.setFeedModalVisibilityAction(false)).toEqual(expectedActionFalse);
   });
 });
