@@ -22,19 +22,19 @@ import {
   DELETE_ORDER_NUMBER,
   SET_ORDER_MODAL_VISIBLE,
   SET_ORDER_MODAL_INVISIBLE
-} from '../../utils/constants';
+} from '../../../utils/constants';
 
 import {
   TInitialAllIngredientsState,
   TInitialConstructorState,
   TInitialCurrentIngrState,
   TInitialOrderState,
-} from '../../utils/types/reducers/reducersTypes';
+} from '../../../utils/types/reducers/reducersTypes';
 
-import { TAllIngredientsTypes } from '../../utils/types/actions/allIngredientsTypes';
-import { TOrderTypes } from '../../utils/types/actions/orderTypes';
+import { TAllIngredientsTypes } from '../../../utils/types/actions/allIngredientsTypes';
+import { TOrderTypes } from '../../../utils/types/actions/orderTypes';
 
-const initialAllIngredientsState: TInitialAllIngredientsState = {
+export const initialAllIngredientsState: TInitialAllIngredientsState = {
   ingredients: [],
   buns: undefined,
   sauces: undefined,
@@ -43,17 +43,17 @@ const initialAllIngredientsState: TInitialAllIngredientsState = {
   currentTab: 'buns'
 }
 
-const initialConstructorState: TInitialConstructorState = {
+export const initialConstructorState: TInitialConstructorState = {
   bun: undefined,
   ingredients: []
 }
 
-const initialCurrentIngrState: TInitialCurrentIngrState = {
+export const initialCurrentIngrState: TInitialCurrentIngrState = {
   currentIngredient: undefined,
   ingredientModalVisibility: false
 }
 
-const initialOrderState: TInitialOrderState = {
+export const initialOrderState: TInitialOrderState = {
   orderNumber: null,
   orderError: '',
   orderModalVisibility: false

@@ -22,24 +22,24 @@ import {
   ISetOrderModalInvisible
 } from '../../utils/types/actions/orderTypes';
 
-const orderSubmitSuccessAction = (number: number): IOrderSubmitSuccess => ({
+export const orderSubmitSuccessAction = (number: number): IOrderSubmitSuccess => ({
   type: ORDER_SUBMIT_SUCCESS,
   number: number
 });
 
-const setOrderModalVisibleAction = (): ISetOrderModalVisible => ({
+export const setOrderModalVisibleAction = (): ISetOrderModalVisible => ({
   type: SET_ORDER_MODAL_VISIBLE,
 });
 
-const clearIngredientsAction = (): IClearIngredients => ({
+export const clearIngredientsAction = (): IClearIngredients => ({
   type: CLEAR_INGREDIENTS,
 });
 
-const clearCountersAction = (): IClearCounters => ({
+export const clearCountersAction = (): IClearCounters => ({
   type: CLEAR_COUNTERS,
 });
 
-const orderSubmitFailureAction = (error: Promise<Error>): IOrderSubmitFailure => ({
+export const orderSubmitFailureAction = (error: Promise<Error>): IOrderSubmitFailure => ({
   type: ORDER_SUBMIT_FAILURE,
   error: error
 });

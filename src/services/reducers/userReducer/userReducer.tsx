@@ -26,12 +26,12 @@ import {
   SET_SESSION_TERMINATION_STATE,
   CLEAR_SESSION_TERMINATION_STATE,
   SET_LOGGING_IN
-} from '../../utils/constants';
+} from '../../../utils/constants';
 
-import { TInitialUserState } from '../../utils/types/reducers/userReducerTypes';
-import { TUserTypes } from '../../utils/types/actions/userTypes';
+import { TInitialUserState } from '../../../utils/types/reducers/userReducerTypes';
+import { TUserTypes } from '../../../utils/types/actions/userTypes';
 
-const initialUserState = {
+export const initialUserState = {
   user: {},
   isLoggedIn: false,
   loggingIn: true,
