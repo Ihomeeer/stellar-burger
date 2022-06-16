@@ -1,296 +1,248 @@
-export {}
+import { TAllIngredientsTypes } from '../../../utils/types/actions/allIngredientsTypes';
+import * as actions from '../../actions/allIngredients';
+import * as orderActions from '../../actions/order';
+import { TOrderTypes } from '../../../utils/types/actions/orderTypes';
+import {
+  GET_ITEMS_SUCCESS,
+  GET_ITEMS_FAILED,
+  SET_BUNS,
+  SET_SAUCES,
+  SET_MAIN_INGREDIENTS,
+  INCREASE_COUNTER,
+  DECREASE_COUNTER,
+  SET_CURRENT_TAB,
+  ADD_ITEM,
+  DELETE_ITEM,
+  DRAG_ARRAY,
+  SET_BUN,
+  SET_CURRENT_INGREDIENT,
+  DELETE_CURRENT_INGREDIENT,
+  SET_INGREDIENT_MODAL_VISIBLE,
+  SET_INGREDIENT_MODAL_INVISIBLE,
+  ORDER_SUBMIT_SUCCESS,
+  DELETE_ORDER_NUMBER,
+  SET_ORDER_MODAL_VISIBLE,
+  SET_ORDER_MODAL_INVISIBLE
+} from '../../../utils/constants';
+import {
+  initialAllIngredientsState,
+  initialConstructorState,
+  initialCurrentIngrState,
+  initialOrderState,
+  allIngredientsReducer,
+  constructorIngredientsReducer,
+  currentIngredientReducer,
+  orderReducer
+} from './reducers';
 
-// import {
-//   GET_ITEMS_SUCCESS,
-//   GET_ITEMS_FAILED,
-//   SET_BUNS,
-//   SET_SAUCES,
-//   SET_MAIN_INGREDIENTS,
-//   INCREASE_COUNTER,
-//   DECREASE_COUNTER,
-//   SET_CURRENT_TAB,
-//   CLEAR_COUNTERS,
-//   ADD_ITEM,
-//   DELETE_ITEM,
-//   DRAG_ARRAY,
-//   SET_BUN,
-//   CLEAR_INGREDIENTS,
-//   SET_CURRENT_INGREDIENT,
-//   DELETE_CURRENT_INGREDIENT,
-//   SET_INGREDIENT_MODAL_VISIBLE,
-//   SET_INGREDIENT_MODAL_INVISIBLE,
-//   ORDER_SUBMIT_SUCCESS,
-//   ORDER_SUBMIT_FAILURE,
-//   DELETE_ORDER_NUMBER,
-//   SET_ORDER_MODAL_VISIBLE,
-//   SET_ORDER_MODAL_INVISIBLE
-// } from '../../../utils/constants';
+const ingredientsData = [
+  {
+    _id: '60d3b41abdacab0026a733c6',
+    name: 'Краторная булка N-200i',
+    type: 'bun',
+    proteins: 80,
+    fat: 24,
+    carbohydrates: 53,
+    calories: 420,
+    price: 1255,
+    image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+    image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+    image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+    __v: 0,
+    counter: 0
+  },
+  {
+    _id: '60d3b41abdacab0026a733c7',
+    name: 'Флюоресцентная булка R2-D3',
+    type: 'bun',
+    proteins: 44,
+    fat: 26,
+    carbohydrates: 85,
+    calories: 643,
+    price: 988,
+    image: 'https://code.s3.yandex.net/react/code/bun-01.png',
+    image_mobile: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
+    image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png',
+    __v: 0,
+    counter: 0
+  }
+];
 
-// import {
-//   TInitialAllIngredientsState,
-//   TInitialConstructorState,
-//   TInitialCurrentIngrState,
-//   TInitialOrderState,
-// } from '../../../utils/types/reducers/reducersTypes';
+describe('allIngredients reducer', () => {
+  it('should return the initial state of allIngredientsReducer state', () => {
+    expect(allIngredientsReducer(undefined, {} as TAllIngredientsTypes)).toEqual(initialAllIngredientsState)
+  });
 
-// import { TAllIngredientsTypes } from '../../../utils/types/actions/allIngredientsTypes';
-// import { TOrderTypes } from '../../../utils/types/actions/orderTypes';
+  it("should handle GET_ITEMS_SUCCESS", () => {
+    const expectedAction = {
+      type: GET_ITEMS_SUCCESS,
+      items: ingredientsData
+    }
+    expect(actions.getItemsSuccessAction(ingredientsData)).toEqual(expectedAction);
+  });
 
-// import { allIngredientsReducer } from './reducers';
-// import { TBaseIngredient } from '../../../utils/types/types';
+  it("should handle GET_ITEMS_FAILED", () => {
+    const expectedAction = {
+      type: GET_ITEMS_FAILED,
+      error: 'ошибка'
+    }
+       // @ts-ignore
+    expect(actions.getItemsFailedAction('ошибка')).toEqual(expectedAction);
+  });
 
+  it("should handle SET_BUNS", () => {
+    const expectedAction = {
+      type: SET_BUNS,
+      items: ingredientsData
+    }
+    expect(actions.setBunsAction(ingredientsData)).toEqual(expectedAction);
+  });
 
-// describe('allIngredients reducer', () => {
-//   it('should return the initial allIngredientsReducer state', () => {
-//     expect(allIngredientsReducer(undefined, {} as TAllIngredientsTypes)).toEqual([
-//       {
-//         ingredients: [],
-//         buns: undefined,
-//         sauces: undefined,
-//         mainIngredients: undefined,
-//         allIngredientsError: '',
-//         currentTab: 'buns'
-//       }
-//     ])
-//   })
+  it("should handle SET_SAUCES", () => {
+    const expectedAction = {
+      type: SET_SAUCES,
+      items: ingredientsData
+    }
+    expect(actions.setSaucesAction(ingredientsData)).toEqual(expectedAction);
+  });
 
-//   it('should handle CREATE_ORDER_REQUEST', () => {
-//     const action: TAllIngredientsTypes = {
-//       type: GET_ITEMS_SUCCESS,
-//       items: TBaseIngredient[]
-//     };
+  it("should handle SET_MAIN_INGREDIENTS", () => {
+    const expectedAction = {
+      type: SET_MAIN_INGREDIENTS,
+      items: ingredientsData
+    }
+    expect(actions.setMainIngredientsAction(ingredientsData)).toEqual(expectedAction);
+  });
 
-//     expect(allIngredientsReducer(undefined, action)).toEqual({
-//       items: action.items,
-//       allIngredientsError: ''
-//     });
-//   });
+  it("should handle INCREASE_COUNTER", () => {
+    const expectedAction = {
+      type: INCREASE_COUNTER,
+      item: ingredientsData[0]
+    }
+    expect(actions.increaseCounterAction(ingredientsData[0])).toEqual(expectedAction);
+  });
 
-// })
+  it("should handle DECREASE_COUNTER", () => {
+    const expectedAction = {
+      type: DECREASE_COUNTER,
+      item: ingredientsData[0]
+    }
+    expect(actions.decreaseCounterAction(ingredientsData[0])).toEqual(expectedAction);
+  });
 
+  it("should handle SET_CURRENT_TAB", () => {
+    const expectedAction = {
+      type: SET_CURRENT_TAB,
+      currentTab: 'соусы'
+    }
+    expect(actions.setCurrentTabAction('соусы')).toEqual(expectedAction);
+  });
+});
 
+describe('constructorIngredients reducer', () => {
+  it('should return the initial state of constructorIngredientsReducer state', () => {
+    expect(constructorIngredientsReducer(undefined, {} as TAllIngredientsTypes)).toEqual(initialConstructorState)
+  });
 
-//     case GET_ITEMS_SUCCESS: {
-//   return {
-//     ...state,
-//     ingredients: action.items,
-//     allIngredientsError: ''
-//   }
-// }
+  it("should handle ADD_ITEM", () => {
+    const expectedAction = {
+      type: ADD_ITEM,
+      item: ingredientsData[0]
+    }
+    expect(actions.addItemAction(ingredientsData[0])).toEqual(expectedAction);
+  });
 
+  it("should handle DELETE_ITEM", () => {
+    const expectedAction = {
+      type: DELETE_ITEM,
+      item: ingredientsData[0]
+    }
+    expect(actions.deleteItemAction(ingredientsData[0])).toEqual(expectedAction);
+  });
 
+  it("should handle DRAG_ARRAY", () => {
+    const expectedAction = {
+      type: DRAG_ARRAY,
+      ingredients: ingredientsData
+    }
+    expect(actions.dragArrayAction(ingredientsData)).toEqual(expectedAction);
+  });
 
-// describe('reducer order', () => {
-//   it('should return the initial state', () => {
-//     expect(reducer(undefined, {} as TOrderActionTypes)).toEqual({
-//       currentOrder: null,
-//       isCreating: false,
-//       error: null,
-//     });
-//   });
+  it("should handle SET_BUN", () => {
+    const expectedAction = {
+      type: SET_BUN,
+      item: ingredientsData[0]
+    }
+    expect(actions.setBunAction(ingredientsData[0])).toEqual(expectedAction);
+  });
+});
 
-//   it('should handle CREATE_ORDER_REQUEST', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.CREATE_ORDER_REQUEST,
-//     };
+describe('currentIngredient reducer', () => {
+  it('should return the initial state of currentIngredientReducer state', () => {
+    expect(currentIngredientReducer(undefined, {} as TAllIngredientsTypes)).toEqual(initialCurrentIngrState)
+  });
 
-//     expect(reducer(undefined, action)).toEqual({
-//       currentOrder: null,
-//       isCreating: true,
-//       error: null,
-//     });
-//   });
+  it("should handle SET_CURRENT_INGREDIENT", () => {
+    const expectedAction = {
+      type: SET_CURRENT_INGREDIENT,
+      item: ingredientsData[0]
+    }
+    expect(actions.setCurrentIngredientAction(ingredientsData[0])).toEqual(expectedAction);
+  });
 
-//   it('should handle CREATE_ORDER_CANCEL', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.CREATE_ORDER_CANCEL,
-//     };
+  it("should handle DELETE_CURRENT_INGREDIENT", () => {
+    const expectedAction = {
+      type: DELETE_CURRENT_INGREDIENT
+    }
+    expect(actions.deleteCurrentIngredientAction()).toEqual(expectedAction);
+  });
 
-//     const state = {
-//       currentOrder: null,
-//       isCreating: true,
-//       error: null,
-//     };
+  it("should handle SET_INGREDIENT_MODAL_VISIBLE", () => {
+    const expectedAction = {
+      type: SET_INGREDIENT_MODAL_VISIBLE,
+    }
+    expect(actions.setIngredientModalVisibleAction()).toEqual(expectedAction);
+  });
 
-//     expect(reducer(state, action)).toEqual({
-//       currentOrder: null,
-//       isCreating: false,
-//       error: null,
-//     });
-//   });
+  it("should handle SET_INGREDIENT_MODAL_INVISIBLE", () => {
+    const expectedAction = {
+      type: SET_INGREDIENT_MODAL_INVISIBLE,
+    }
+    expect(actions.setIngredientModalInvisibleAction()).toEqual(expectedAction);
+  });
+});
 
-//   it('should handle CREATE_ORDER_SUCCESS', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.CREATE_ORDER_SUCCESS,
-//     };
+describe('order reducer', () => {
+  it('should return the initial state of currentIngredientReducer state', () => {
+    expect(orderReducer(undefined, {} as TOrderTypes)).toEqual(initialOrderState)
+  });
 
-//     const state = {
-//       currentOrder: null,
-//       isCreating: true,
-//       error: null,
-//     };
+  it("should handle ORDER_SUBMIT_SUCCESS", () => {
+    const expectedAction = {
+      type: ORDER_SUBMIT_SUCCESS,
+      number: 12345
+    }
+    expect(orderActions.orderSubmitSuccessAction(12345)).toEqual(expectedAction);
+  });
 
-//     expect(reducer(state, action)).toEqual({
-//       currentOrder: null,
-//       isCreating: false,
-//       error: null,
-//     });
-//   });
+  it("should handle DELETE_ORDER_NUMBER", () => {
+    const expectedAction = {
+      type: DELETE_ORDER_NUMBER
+    }
+    expect(orderActions.deleteOrderNumberAction()).toEqual(expectedAction);
+  });
 
-//   it('should handle CREATE_ORDER_ERROR', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.CREATE_ORDER_ERROR,
-//       payload: 'error',
-//     };
+  it("should handle SET_ORDER_MODAL_VISIBLE", () => {
+    const expectedAction = {
+      type: SET_ORDER_MODAL_VISIBLE,
+    }
+    expect(orderActions.setOrderModalVisibleAction()).toEqual(expectedAction);
+  });
 
-//     const state = {
-//       currentOrder: null,
-//       isCreating: true,
-//       error: null,
-//     };
-
-//     expect(reducer(state, action)).toEqual({
-//       currentOrder: null,
-//       isCreating: false,
-//       error: 'error',
-//     });
-//   });
-
-//   it('should handle SET_CURRENT_ORDER', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.SET_CURRENT_ORDER,
-//       payload: 666,
-//     };
-
-//     expect(reducer(undefined, action)).toEqual({
-//       currentOrder: 666,
-//       isCreating: false,
-//       error: null,
-//     });
-//   });
-
-//   it('should handle REMOVE_CURRENT_ORDER', () => {
-//     const action: TOrderActionTypes = {
-//       type: OrderActionTypes.REMOVE_CURRENT_ORDER,
-//     };
-
-//     const state = {
-//       currentOrder: 666,
-//       isCreating: false,
-//       error: null,
-//     };
-
-//     expect(reducer(state, action)).toEqual({
-//       currentOrder: null,
-//       isCreating: false,
-//       error: null,
-//     });
-//   });
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const aadssdallIngredientsReducer = (state = initialAllIngredientsState, action: TAllIngredientsTypes) => {
-//   switch (action.type) {
-//     case GET_ITEMS_SUCCESS: {
-//       return {
-//         ...state,
-//         ingredients: action.items,
-//         allIngredientsError: ''
-//       }
-//     }
-//     case GET_ITEMS_FAILED: {
-//       return {
-//         ...state,
-//         allIngredientsError: action.error
-//       }
-//     }
-//     case SET_BUNS: {
-//       return {
-//         ...state,
-//         buns: action.items
-//       }
-//     }
-//     case SET_SAUCES: {
-//       return {
-//         ...state,
-//         sauces: action.items
-//       }
-//     }
-//     case SET_MAIN_INGREDIENTS: {
-//       return {
-//         ...state,
-//         mainIngredients: action.items
-//       }
-//     }
-//     case INCREASE_COUNTER: {
-//       const newState = { ...state }
-//       const currentItem = state.ingredients.findIndex((item) => {
-//         return item._id === action.item._id
-//       })
-//       if (action.item.type === 'bun') {
-//         // выпиливание остальных булок
-//         newState!.buns!.map((bun) => {
-//           return bun.counter = 0
-//         });
-//         // 2, потому что булки всегда парные
-//         newState.ingredients[currentItem].counter += 2;
-//       } else {
-//         newState.ingredients[currentItem].counter += 1;
-//       }
-//       return {
-//         ...newState,
-//       }
-//     }
-//     case DECREASE_COUNTER: {
-//       const newState = { ...state }
-//       const currentItem = state.ingredients.findIndex((item) => {
-//         return item._id === action.item._id
-//       })
-//       if (action.item.type === 'bun') {
-//         //булки всегда парные
-//         newState.ingredients[currentItem].counter -= 2;
-//       } else {
-//         newState.ingredients[currentItem].counter -= 1;
-//       }
-//       return {
-//         ...newState,
-//       }
-//     }
-//     case SET_CURRENT_TAB: {
-//       return {
-//         ...state,
-//         currentTab: action.currentTab
-//       }
-//     }
-//     case CLEAR_COUNTERS: {
-//       const newState = { ...state }
-//       newState.ingredients.map((item) => { return item.counter = 0 })
-//       return {
-//         ...newState
-//       }
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// }
+  it("should handle SET_ORDER_MODAL_INVISIBLE", () => {
+    const expectedAction = {
+      type: SET_ORDER_MODAL_INVISIBLE,
+    }
+    expect(orderActions.setOrderModalInvisibleAction()).toEqual(expectedAction);
+  });
+});

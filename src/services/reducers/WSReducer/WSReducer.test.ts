@@ -1,3 +1,5 @@
+import * as actions from '../../actions/wsActions';
+import { TWSTypes } from '../../../utils/types/actions/WSTypes';
 import { wsReducer, initialWSState } from './WSReducer';
 import { TResponseData } from '../../../utils/types/types';
 import {
@@ -8,10 +10,6 @@ import {
   WS_GET_CURRENTFEEDID,
   SET_FEED_MODAL_VISIBILITY
 } from '../../../utils/constants';
-
-import { TWSTypes } from '../../../utils/types/actions/WSTypes';
-
-import * as actions from '../../actions/wsActions';
 
 const responseData: TResponseData = {
   "orders": [
