@@ -41,27 +41,27 @@ import {
   ISetCurrentIngredient
 } from '../../utils/types/actions/allIngredientsTypes';
 
-const getItemsSuccessAction = (data: TBaseIngredient[]): IGetAllItems => ({
+export const getItemsSuccessAction = (data: TBaseIngredient[]): IGetAllItems => ({
   type: GET_ITEMS_SUCCESS,
   items: data
 });
 
-const setMainIngredientsAction = (data: TBaseIngredient[]): ISetMainIngredients => ({
+export const setMainIngredientsAction = (data: TBaseIngredient[]): ISetMainIngredients => ({
   type: SET_MAIN_INGREDIENTS,
   items: data
 });
 
-const setBunsAction = (data: TBaseIngredient[]): ISetBuns => ({
+export const setBunsAction = (data: TBaseIngredient[]): ISetBuns => ({
   type: SET_BUNS,
   items: data
 });
 
-const setSaucesAction = (data: TBaseIngredient[]): ISetSauces => ({
+export const setSaucesAction = (data: TBaseIngredient[]): ISetSauces => ({
   type: SET_SAUCES,
   items: data
 })
 
-const getItemsFailedAction = (error: Promise<Error>): IGetItemsFailed => ({
+export const getItemsFailedAction = (error: Promise<Error>): IGetItemsFailed => ({
   type: GET_ITEMS_FAILED,
   error: error
 })

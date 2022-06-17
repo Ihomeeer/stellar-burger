@@ -69,125 +69,125 @@ import {
 } from '../../utils/constants';
 
 // регистрация
-const userRegistrationSuccessAction = (): IUserRegistrationSuccess => ({
+export const userRegistrationSuccessAction = (): IUserRegistrationSuccess => ({
   type: USER_REGISTRATION_SUCCESS,
   registerError: ""
 });
 
-const setRegistrationStateAction = (state: boolean): ISetRegistrationState => ({
+export const setRegistrationStateAction = (state: boolean): ISetRegistrationState => ({
   type: SET_REGISTRATION_STATE,
   register_success: state
 });
 
-const userRegistrationFailureAction = (error: Promise<Error>): IUserRegistrationFailure => ({
+export const userRegistrationFailureAction = (error: Promise<Error>): IUserRegistrationFailure => ({
   type: USER_REGISTRATION_FAILURE,
   registerError: error
 });
 
 // логин
-const setLoggingInAction = (state: boolean): ISetLoggingIn => ({
+export const setLoggingInAction = (state: boolean): ISetLoggingIn => ({
   type: SET_LOGGING_IN,
   loggingIn: state
 });
 
-const userLoginSuccessAction = (data: TUser): IUserLoginSuccess => ({
+export const userLoginSuccessAction = (data: TUser): IUserLoginSuccess => ({
   type: USER_LOGIN_SUCCESS,
   user: data,
   loginError: ""
 });
 
-const userLoginFailureAction = (error: Promise<Error>): IUserLoginFailure => ({
+export const userLoginFailureAction = (error: Promise<Error>): IUserLoginFailure => ({
   type: USER_LOGIN_FAILURE,
   loginError: error
 });
 
-const setLoginStateAction = (state: boolean): ISetLoginState => ({
+export const setLoginStateAction = (state: boolean): ISetLoginState => ({
   type: SET_LOGIN_STATE,
   login_success: state
 });
 
-const setUserLoggedInStateAction = (state: boolean): ISetUserLoggedInState => ({
+export const setUserLoggedInStateAction = (state: boolean): ISetUserLoggedInState => ({
   type: SET_USER_LOGGED_IN_STATE,
   isLoggedIn: state
 });
 
 // забывание пароля
-const forgotPasswordSuccessAction = (): IForgotPasswordSuccess => ({
+export const forgotPasswordSuccessAction = (): IForgotPasswordSuccess => ({
   type: FORGOT_PASSWORD_SUCCESS,
   error: ""
 });
 
-const setForgotPasswordStateAction = (state: boolean): IForgotPasswordState => ({
+export const setForgotPasswordStateAction = (state: boolean): IForgotPasswordState => ({
   type: SET_FORGOT_PASSWORD_STATE,
   forgot_password_success: state
 });
 
-const forgotPasswordFailureAction = (error: Promise<Error>): IForgotPasswordFailure => ({
+export const forgotPasswordFailureAction = (error: Promise<Error>): IForgotPasswordFailure => ({
   type: FORGOT_PASSWORD_FAILURE,
   error: error
 });
 
 // восстановление пароля
-const resetPasswordSuccessAction = (): IResetPasswordSuccess => ({
+export const resetPasswordSuccessAction = (): IResetPasswordSuccess => ({
   type: RESET_PASSWORD_SUCCESS,
   resetPassowrdError: ""
 });
 
-const resetPasswordFailureAction = (error: Promise<Error>): IResetPasswordFailure => ({
+export const resetPasswordFailureAction = (error: Promise<Error>): IResetPasswordFailure => ({
   type: RESET_PASSWORD_FAILURE,
   resetPassowrdError: error
 });
 
-const setResetPasswordStateAction = (state: boolean): IResetPasswordState => ({
+export const setResetPasswordStateAction = (state: boolean): IResetPasswordState => ({
   type: SET_RESET_PASSWORD_STATE,
   reset_password_success: state
 });
 
 
 // авторизация пользователя, работа с флагом LoggingIn, чтобы ProtectedRoute нормально все отрисовывал, дичь всякая, в общем
-const getUserSuccessAction = (): IGetUserSuccess => ({
+export const getUserSuccessAction = (): IGetUserSuccess => ({
   type: GET_USER_SUCCESS,
   authError: ""
 });
 
-const getUserFailureAction = (error: Promise<Error>): IGetUserFailure => ({
+export const getUserFailureAction = (error: Promise<Error>): IGetUserFailure => ({
   type: GET_USER_FAILURE,
   authError: error
 });
 
-const setUserStateAction = (data: TUser): ISetUserState => ({
+export const setUserStateAction = (data: TUser): ISetUserState => ({
   type: SET_USER_STATE,
   user: data
 });
 
 // изменение данных пользователя
-const updateUserSuccessAction = (): IUpdateUserSuccess => ({
+export const updateUserSuccessAction = (): IUpdateUserSuccess => ({
   type: UPDATE_USER_SUCCESS,
   updateError: ""
 });
 
-const updateUserFailureAction = (error: Promise<Error>): IUpdateUserFailure => ({
+export const updateUserFailureAction = (error: Promise<Error>): IUpdateUserFailure => ({
   type: UPDATE_USER_FAILURE,
   updateError: error
 });
 
 // логаут
-const sessionTerminationSuccessAction = (): ISessionTerminationSuccess => ({
+export const sessionTerminationSuccessAction = (): ISessionTerminationSuccess => ({
   type: SESSION_TERMINATION_SUCCESS,
   deleteUserError: ""
 });
 
-const deleteUserStateAction = (): IDeleteUserState => ({
+export const deleteUserStateAction = (): IDeleteUserState => ({
   type: DELETE_USER_STATE,
   user: {}
 });
 
-const setSessionTerminationStateAction = (state: boolean): ISetSessionTerminationState => ({
+export const setSessionTerminationStateAction = (state: boolean): ISetSessionTerminationState => ({
   type: SET_SESSION_TERMINATION_STATE,
   delete_user_success: state
 });
 
-const sessionTerminationFailureAction = (error: Promise<Error>): ISessionTerminationFailure => ({
+export const sessionTerminationFailureAction = (error: Promise<Error>): ISessionTerminationFailure => ({
   type: SESSION_TERMINATION_FAILURE,
   deleteUserError: error
 });

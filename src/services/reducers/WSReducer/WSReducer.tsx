@@ -1,5 +1,5 @@
-import { TWSState } from "../../utils/types/reducers/WSReducerTypes";
-import { TWSTypes } from "../../utils/types/actions/WSTypes";
+import { TWSState } from "../../../utils/types/reducers/WSReducerTypes";
+import { TWSTypes } from "../../../utils/types/actions/WSTypes";
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
@@ -7,9 +7,9 @@ import {
   WS_GET_MESSAGE,
   WS_GET_CURRENTFEEDID,
   SET_FEED_MODAL_VISIBILITY
-} from '../../utils/constants';
+} from '../../../utils/constants';
 
-const initialWSState: TWSState = {
+export const initialWSState: TWSState = {
   wsConnected: false,
   responseData: null,
   wsError: undefined,
@@ -49,7 +49,6 @@ export const wsReducer = (state: TWSState = initialWSState, action: TWSTypes) =>
         ...state,
         orderFeedModalVisibility: action.orderFeedModalVisibility,
         currentFeedId: null
-
       }
     default:
       return state;

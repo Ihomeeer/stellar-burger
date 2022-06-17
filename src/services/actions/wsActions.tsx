@@ -26,7 +26,6 @@ export const WSConnectionStartAction = (payload?: string): IWSConnectionStartAct
   }
 };
 
-
 export const WSConnectionSuccessAction = (): IWSConnectionSuccessAction => ({
   type: WS_CONNECTION_SUCCESS
 });
