@@ -12,6 +12,3 @@ https://user-images.githubusercontent.com/77727865/177036606-6f94e6ae-4745-4ae9-
 
 #### Оформление заказа. Большая задержка перед появлением модального окна с номером заказа сделана намеренно, чтобы заказ успел побыть "в работе"
 https://user-images.githubusercontent.com/77727865/177036645-35bb3eeb-7bda-42ed-ad7c-76653be97d65.mp4
-
-## Адрес:
-https://stellar-burger.nomoredomains.xyz/
